@@ -1,4 +1,4 @@
-package genetic_algorithm.utils;
+package g02.utils;
 
 public class Utils {
 

@@ -1,4 +1,4 @@
-package genetic_algorithm.individuals;
+package g02.individuals;
 
 public abstract class Individual {
 

@@ -1,6 +1,6 @@
-package genetic_algorithm.selections;
+package g02.Selections;
 
-import genetic_algorithm.individuals.Individual;
+import g02.individuals.Individual;
 
 /**
  * Abstract class to extend all types of selection

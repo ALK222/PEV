@@ -1,7 +1,7 @@
-package genetic_algorithm.selections;
+package g02.Selections;
 
 import java.util.Random;
-import genetic_algorithm.individuals.Individual;
+import g02.individuals.Individual;
 
 public class RouletteSelection extends Selection {
 
