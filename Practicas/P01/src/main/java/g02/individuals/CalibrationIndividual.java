@@ -3,13 +3,10 @@ package g02.individuals;
 import java.util.Arrays;
 import g02.utils.Utils;
 
-public class CalibrationIndividual extends Individuo<boolean> {
+public class CalibrationIndividual extends Individuo<Boolean> {
 
 
-
-  private int _chromosome[];
-
-  public CalibrationIndividual(int chromosome[]) {
+  public CalibrationIndividual(Boolean chromosome[]) {
     _chromosome = chromosome;
   }
 
@@ -22,6 +19,18 @@ public class CalibrationIndividual extends Individuo<boolean> {
 
     double res = 21.5 + x1 * Math.sin(4 * Math.PI * x1) + x2 * Math.sin(20 * Math.PI * x2);
     return res;
+  }
+
+  @Override
+  public Individuo<Boolean> mutar(Individuo<Boolean> individuo, double prob) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public Individuo<Boolean>[] cruzar(Individuo<Boolean> i1, Individuo<Boolean> i2, double prob) {
+    // TODO Auto-generated method stub
+    return null;
   }
 
 
