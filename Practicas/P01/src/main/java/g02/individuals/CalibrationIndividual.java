@@ -3,7 +3,7 @@ package g02.individuals;
 import java.util.Arrays;
 import g02.utils.Utils;
 
-public class CalibrationIndividual extends Individual {
+public class CalibrationIndividual extends Individuo<boolean> {
 
 
 

@@ -1,14 +1,14 @@
 package g02.Selections;
 
 import java.util.Random;
-import g02.individuals.Individual;
+import g02.individuals.Individuo;
 
 public class RouletteSelection extends Selection {
 
   // public RouletteSelection(int size, int)
   @Override
-  public Individual[] run() {
-    Individual newPob[] = new Individual[_pob.length];
+  public Individuo<?>[] run() {
+    Individuo<?> newPob[] = new Individuo<?>[_pob.length];
 
     double probs[] = new double[_pob.length];
 
@@ -43,7 +43,7 @@ public class RouletteSelection extends Selection {
       }
     }
 
-    return null;
+    return newPob;
   }
 
 }
