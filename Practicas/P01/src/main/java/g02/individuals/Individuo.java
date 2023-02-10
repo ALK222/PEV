@@ -1,5 +1,6 @@
 package g02.individuals;
 
+import java.util.Random;
 
 /**
  * Individuo.
@@ -13,8 +14,11 @@ public abstract class Individuo<T> {
   
   protected double max[];
   protected double min[];
+  protected double precision;
   protected int tamGenes[];
   protected int tamTotal;
+  
+  protected Random rand = new Random();
   
 
   /**
@@ -54,7 +58,7 @@ public abstract class Individuo<T> {
   public abstract Individuo<T>[] cruzar(Individuo<T> i1, Individuo<T> i2, double prob);
   
   
-  public int tamGen(double ValorError, double min, double max)
+  public int tamGen(double precision, double min, double max)
   {
     return (int) (Math.log10((max-min)/precision) + 1 / Math.log10(2));
   }
