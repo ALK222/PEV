@@ -2,7 +2,7 @@ package g02.individuals;
 
 public class IndividuoFuncion1 extends Individuo<Boolean> {
 
-  public IndividuoFuncion1() {
+  public IndividuoFuncion1(double precision) {
     this.tamGenes = new int[2];
     this.min = new double[2];
     this.max = new double[2];
@@ -10,9 +10,8 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
     this.min[1] = 4.100;
     this.max[0] = 12.100;
     this.max[1] = 5.800;
-    this.precision = 3;
-    this.tamGenes[0] = this.tamGen(this.precision, min[0], max[0]);
-    this.tamGenes[1] = this.tamGen(this.precision, min[1], max[1]);
+    this.tamGenes[0] = this.tamGen(precision, min[0], max[0]);
+    this.tamGenes[1] = this.tamGen(precision, min[1], max[1]);
     int tamTotal = tamGenes[0] + tamGenes[1];
     this._chromosome = new Boolean[tamTotal];
     for (int i = 0; i < tamTotal; i++) {
