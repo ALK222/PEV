@@ -11,15 +11,21 @@ public abstract class Individuo<T> {
 
   /** Cromosoma del individuo. */
   protected T _chromosome[];
-  
+
   protected double max[];
   protected double min[];
-  protected double precision;
   protected int tamGenes[];
   protected int tamTotal;
-  
+
   protected Random rand = new Random();
-  
+
+  /**
+   * Constructor vacio
+   */
+  public Individuo() {
+
+  }
+
 
   /**
    * Instancia un nuevo individuo.
@@ -36,8 +42,8 @@ public abstract class Individuo<T> {
    * @return Puntuación de fitness
    */
   public abstract double fitness();
-  
-  
+
+
   /**
    * Muta el cromosoma de un individuo dado.
    *
@@ -46,7 +52,7 @@ public abstract class Individuo<T> {
    * @return individuo mutado
    */
   public abstract Individuo<T> mutar(Individuo<T> individuo, double prob);
-  
+
   /**
    * Cruza dos individuos.
    *
@@ -56,10 +62,9 @@ public abstract class Individuo<T> {
    * @return Ambos individuos tras el cruce
    */
   public abstract Individuo<T>[] cruzar(Individuo<T> i1, Individuo<T> i2, double prob);
-  
-  
-  public int tamGen(double precision, double min, double max)
-  {
-    return (int) (Math.log10((max-min)/precision) + 1 / Math.log10(2));
-  }
- }
+
+
+  public int tamGen(double valorError, double min, double max) {
+    return (int) (Math.log10(((max - min) / valorError) + 1) / Math.log10(2));
+}
+}
