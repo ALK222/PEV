@@ -25,8 +25,8 @@ public class AlgoritmoGenetico {
 	  _tamTorneo = tamT;
 	  precision = prec;  
 	  
-	  _mejorGen = new double[_maxGeneraciones];
-	  _mediaGen = new double[_maxGeneraciones];
+	  _mejorGen = new double[_maxGeneraciones + 1];
+	  _mediaGen = new double[_maxGeneraciones + 1];
   }
 
 
@@ -42,6 +42,8 @@ public class AlgoritmoGenetico {
       // seleccion
       // Cruce
       // Mutacion
+    	
+    	evaluate(i+1);
     }
     
     return _elMejor;
@@ -56,7 +58,7 @@ public class AlgoritmoGenetico {
 		  double fit = _poblacion[i].fitness();
 		  if(fit > _mejorGen[iter]) {
 			  _mejorGen[iter] = fit;
-			  if(fit > _elMejor.fitness()) _elMejor = _poblacion[i];
+			  if(_elMejor == null || fit > _elMejor.fitness()) _elMejor = _poblacion[i];
 		  }
 		  auxMedia += fit;
 	  }
@@ -64,5 +66,11 @@ public class AlgoritmoGenetico {
 	  _mediaGen[iter] = auxMedia / _tamPoblacion;
 	  
   }
+  
+  // Getters para hacer las gráficas
+  
+  public double[] getMejores() { return _mejorGen; }
+  
+  public double[] getMedias() { return _mediaGen; }
 
 }
