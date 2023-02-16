@@ -42,27 +42,19 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
   @Override
   public Individuo<Boolean> mutar(Individuo<Boolean> individuo, double prob) {
     Random r = new Random();
-    
-    if(r.nextDouble() > prob)
-    {
-       int pos = r.nextInt() * this.tamTotal;
-       
-       _chromosome[pos] = !_chromosome[pos];
+
+    if (r.nextDouble() > prob) {
+      int pos = r.nextInt() * this.tamTotal;
+
+      _chromosome[pos] = !_chromosome[pos];
     }
-    
+
     return this;
   }
 
   @Override
-  public Individuo[] cruzarMonopunto(Individuo<Boolean> i1, Individuo<Boolean> i2, double prob, int punto) throws Exception {
-    
-    if(punto > this.tamTotal)
-    {
-      throw new Exception();
-    }
-    
-    
-    return null;
+  public Boolean[] getCromosoma() {
+    return _chromosome;
   }
 
   // Obtiene el fenotipo a partir del cromosoma

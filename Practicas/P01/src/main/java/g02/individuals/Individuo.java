@@ -52,19 +52,8 @@ public abstract class Individuo<T> {
    * @return individuo mutado
    */
   public abstract Individuo<T> mutar(Individuo<T> individuo, double prob);
-
-  /**
-   * Cruza dos individuos.
-   *
-   * @param i1 Individuo 1
-   * @param i2 Individuo 2
-   * @param prob Probabilidad de cruce
-   * @param punto Punto de cruce
-   * @return Ambos individuos tras el cruce
-   * @throws Exception 
-   */
-  public abstract Individuo<T>[] cruzarMonopunto(Individuo<T> i1, Individuo<T> i2, double prob, int punto) throws Exception;
   
+  public abstract T[] getCromosoma();
   public abstract double getFenotipo(int index);
 
   public abstract double getValor();
