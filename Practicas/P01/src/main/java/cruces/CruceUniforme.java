@@ -4,28 +4,21 @@ import java.util.ArrayList;
 import java.util.Random;
 import g02.individuals.Individuo;
 
-public class CruceMonopunto implements Cruces {
-
-  private int _punto;
-
-  public CruceMonopunto(int punto) {
-    _punto = punto;
-  }
+public class CruceUniforme implements Cruces {
 
   @Override
   public <T> ArrayList<Individuo<T>> cruzar(Individuo<T> i1, Individuo<T> i2,
       double prob) throws Exception {
-    if (_punto > i1.getCromosoma().length) {
-      throw new Exception();
-    }
 
     Random r = new Random();
 
     if (r.nextDouble() > prob) {
-      for (int i = _punto; i < i1.getCromosoma().length; i++) {
-        T aux = i1.getCromosoma()[i];
-        i1.getCromosoma()[i] = i2.getCromosoma()[i];
-        i2.getCromosoma()[i] = aux;
+      for (int i = 0; i < i1.getCromosoma().length; i++) {
+        if (r.nextDouble() > 0.5) {
+          T aux = i1.getCromosoma()[i];
+          i1.getCromosoma()[i] = i2.getCromosoma()[i];
+          i2.getCromosoma()[i] = aux;
+        }
       }
     }
 
@@ -36,7 +29,5 @@ public class CruceMonopunto implements Cruces {
 
     return res;
   }
-
-
 
 }

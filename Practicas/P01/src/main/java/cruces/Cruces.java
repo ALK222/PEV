@@ -15,7 +15,7 @@ public interface Cruces {
    * @return Ambos individuos tras el cruce
    * @throws Exception
    */
-  public <T> ArrayList<Individuo<T>> cruzar(Individuo<T> i1, Individuo<T> i2, int punto, double prob) throws Exception;
+  public <T> ArrayList<Individuo<T>> cruzar(Individuo<T> i1, Individuo<T> i2, double prob) throws Exception;
 
 
 }
