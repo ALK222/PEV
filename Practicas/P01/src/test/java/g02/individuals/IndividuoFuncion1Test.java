@@ -8,7 +8,7 @@ public class IndividuoFuncion1Test extends TestCase {
 
   protected void setUp() throws Exception {
     Boolean cromosomaTest[] = {false, true, true, false, true, false, true, true, true, true, false, true, true, false, true};
-    _testCase = new IndividuoFuncion1(cromosomaTest, 0001);
+    _testCase = new IndividuoFuncion1(cromosomaTest, 0.0001);
   }
 
   public void testMutarIndividuoOfBooleanDouble() {

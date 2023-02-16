@@ -59,11 +59,16 @@ public abstract class Individuo<T> {
    * @param i1 Individuo 1
    * @param i2 Individuo 2
    * @param prob Probabilidad de cruce
+   * @param punto Punto de cruce
    * @return Ambos individuos tras el cruce
+   * @throws Exception 
    */
-  public abstract Individuo<T>[] cruzar(Individuo<T> i1, Individuo<T> i2, double prob);
+  public abstract Individuo<T>[] cruzarMonopunto(Individuo<T> i1, Individuo<T> i2, double prob, int punto) throws Exception;
+  
+  public abstract double getFenotipo(int index);
 
-
+  public abstract double getValor();
+  
   public int tamGen(double valorError, double min, double max) {
     return (int) (Math.log10(((max - min) / valorError) + 1) / Math.log10(2));
 }

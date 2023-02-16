@@ -1,8 +1,10 @@
 package g02.individuals;
 
+import java.util.Random;
+
 public class IndividuoFuncion1 extends Individuo<Boolean> {
 
-  public IndividuoFuncion1() {
+  public IndividuoFuncion1(double precision) {
     this.tamGenes = new int[2];
     this.min = new double[2];
     this.max = new double[2];
@@ -10,9 +12,8 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
     this.min[1] = 4.100;
     this.max[0] = 12.100;
     this.max[1] = 5.800;
-    this.precision = 3;
-    this.tamGenes[0] = this.tamGen(this.precision, min[0], max[0]);
-    this.tamGenes[1] = this.tamGen(this.precision, min[1], max[1]);
+    this.tamGenes[0] = this.tamGen(precision, min[0], max[0]);
+    this.tamGenes[1] = this.tamGen(precision, min[1], max[1]);
     int tamTotal = tamGenes[0] + tamGenes[1];
     this._chromosome = new Boolean[tamTotal];
     for (int i = 0; i < tamTotal; i++) {
@@ -38,16 +39,35 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
     return this.getValor();
   }
 
+  @Override
   public Individuo<Boolean> mutar(Individuo<Boolean> individuo, double prob) {
-    return null;
+    Random r = new Random();
+    
+    if(r.nextDouble() > prob)
+    {
+       int pos = r.nextInt() * this.tamTotal;
+       
+       _chromosome[pos] = !_chromosome[pos];
+    }
+    
+    return this;
   }
 
-  public Individuo<Boolean>[] cruzar(Individuo<Boolean> i1, Individuo<Boolean> i2, double prob) {
+  @Override
+  public Individuo[] cruzarMonopunto(Individuo<Boolean> i1, Individuo<Boolean> i2, double prob, int punto) throws Exception {
+    
+    if(punto > this.tamTotal)
+    {
+      throw new Exception();
+    }
+    
+    
     return null;
   }
 
   // Obtiene el fenotipo a partir del cromosoma
   // Necesario para calcular el fitness
+  @Override
   public double getFenotipo(int index) {
     int start, end;
 
@@ -67,6 +87,7 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
   }
 
   // Calculo del fitness
+  @Override
   public double getValor() {
     double x1 = this.getFenotipo(0), x2 = this.getFenotipo(1);
     return (21.5 + x1 * Math.sin(4 * Math.PI * x1) + x2 * Math.sin(20 * Math.PI * x2));
