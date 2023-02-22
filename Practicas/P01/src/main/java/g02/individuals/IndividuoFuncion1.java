@@ -61,21 +61,29 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
   // Necesario para calcular el fitness
   @Override
   public double getFenotipo(int index) {
-    int start, end;
+	  int start, end;
 
-    if (index == 0)
-      start = 0;
-    else
-      start = this.tamGenes[index - 1];
-    end = this.tamGenes[index];
-
-    double res = 0;
-    for (int i = start; i < end; i++) {
-      if (this._chromosome[i])
-        res += Math.pow(2, i);
-    }
-    return this.min[index]
-        + (res * (this.max[index] - this.min[index]) / (Math.pow(2, this.tamGenes[index] - 1)));
+	    if (index == 0) {
+	    	start = 0;
+	    	end = this.tamGenes[index] - 1;
+	    }
+	    else {
+	    	start = this.tamGenes[index - 1];
+	    	end = this.tamGenes[index] + this.tamGenes[index -1] - 1;
+	    }
+	      
+	    
+	    double res = 0;
+	    int power = 0;
+	    for (int i = end; i >= start; i--) {
+	      if (this._chromosome[i])
+	        res += Math.pow(2, power);
+	      
+	      power++;
+	    }
+	    
+	    return this.min[index]
+	        + (res * (this.max[index] - this.min[index]) / (Math.pow(2, this.tamGenes[index])-1));
   }
 
   // Calculo del fitness
