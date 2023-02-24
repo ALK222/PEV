@@ -8,7 +8,7 @@ import g02.individuals.IndividuoFuncion1;
 
 public class AlgoritmoGenetico<T> {
   private int _tamPoblacion;
-  private Individuo[] _poblacion;
+  private ArrayList<Individuo<T>> _poblacion;
   private int _maxGeneraciones;
   private double _probCruce;
   private double _probMutacion;
@@ -24,7 +24,7 @@ public class AlgoritmoGenetico<T> {
   public AlgoritmoGenetico(int tam, int max, double probC, double probM, int tamT, double prec,
       Selection<T> selection,Cruces<T> cruce) {
     _tamPoblacion = tam;
-    _poblacion = new Individuo<?>[_tamPoblacion];
+    _poblacion = new ArrayList<Individuo<T>>();
     _maxGeneraciones = max;
     _probCruce = probC;
     _probMutacion = probM;
@@ -40,27 +40,35 @@ public class AlgoritmoGenetico<T> {
   }
 
 
-  public Individuo<T> run() {
+  public Individuo<T> run() throws Exception {
     for (int i = 0; i < _tamPoblacion; i++) {
-      _poblacion[i] = new IndividuoFuncion1(precision);
+      _poblacion.add((Individuo<T>) new IndividuoFuncion1(precision));
     }
+    _selection.setPob(_poblacion);
     // Evaluar Pob
     evaluate(0);
     for (int i = 0; i < _maxGeneraciones; ++i) {
+      System.out.println(i);
       // Seleccion
       ArrayList<Individuo<T>> seleccionados = _selection.run();
 
       // Cruce
       for (int j = 0; j < _tamPoblacion - 1; j += 2) {
         ArrayList<Individuo<T>> cruzados = _cruce.cruzar(seleccionados.get(i), seleccionados.get(i + 1), _probCruce);
+        seleccionados.remove(i);
+        seleccionados.remove(i+1);
+        seleccionados.addAll(cruzados);
       }
       // Mutacion
 
       for (int j = 0; j < _tamPoblacion; j += 2) {
-        _poblacion[j] = _poblacion[j].mutar(_poblacion[j], _probMutacion);
+        Individuo<T> i1= seleccionados.get(j);
+        seleccionados.remove(j);
+        seleccionados.add(i1.mutar(i1, _probMutacion));
       }
 
       evaluate(i + 1);
+      _selection.setPob(seleccionados);
     }
 
     return _elMejor;
@@ -72,11 +80,11 @@ public class AlgoritmoGenetico<T> {
     double auxMedia = 0;
 
     for (int i = 0; i < _tamPoblacion; i++) {
-      double fit = _poblacion[i].fitness();
+      double fit = _poblacion.get(i).fitness();
       if (fit > _mejorGen[iter]) {
         _mejorGen[iter] = fit;
         if (_elMejor == null || fit > _elMejor.fitness())
-          _elMejor = _poblacion[i];
+          _elMejor = _poblacion.get(i);
       }
       auxMedia += fit;
     }

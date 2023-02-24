@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import org.math.plot.Plot2DPanel;
 import g02.Selections.RouletteSelection;
 import g02.algoritmogenetico.AlgoritmoGenetico;
+import g02.cruces.CruceUniforme;
 import g02.individuals.Individuo;
 import g02.individuals.IndividuoFuncion1;
 
@@ -12,24 +13,18 @@ import g02.individuals.IndividuoFuncion1;
  *
  */
 public class App {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
 
-    IndividuoFuncion1 pob[] = new IndividuoFuncion1[100];
 
-    for (int i = 0; i < 100; i++) {
-      pob[i] = new IndividuoFuncion1(0.001);
+    RouletteSelection<Boolean> rs = new RouletteSelection<Boolean>(100, null);
+    
+    CruceUniforme<Boolean> c = new CruceUniforme<>();
+    AlgoritmoGenetico<Boolean> alg = new AlgoritmoGenetico<>(10, 90, 0.1, 0.1, 2, 0.001, rs, c);
+    try {
+      System.out.println(alg.run().fitness());
+    } catch (Exception e) {
+      e.printStackTrace();
     }
-
-    int gens = 100;
-
-    RouletteSelection rs = new RouletteSelection(50, pob);
-
-    for (int i = 0; i < gens; ++i) {
-      pob = rs.run();
-    }
-
-    AlgoritmoGenetico alg = new AlgoritmoGenetico(10, 2, 0.1, 0.1, 2, 0.001);
-    alg.run();
 
 
     double[] generaciones = {1, 2, 3};

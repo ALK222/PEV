@@ -8,15 +8,19 @@ import g02.individuals.Individuo;
  */
 public abstract class Selection<T> {
   
-  protected Individuo<T> _pob[];
+  protected ArrayList<Individuo<T>> _pob;
   protected int _seleccionar;
   
-  public Selection(int s, Individuo<T> pob[])
+  public Selection(int s, ArrayList<Individuo<T>> pob)
   {
     _seleccionar = s;
     _pob = pob;
   }
   
   public abstract ArrayList<Individuo<T>> run();
+  
+  public void setPob(ArrayList<Individuo<T>> pob) {
+    _pob = pob;
+  }
 
 }

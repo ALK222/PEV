@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import g02.individuals.Individuo;
 
-public class CruceMonopunto implements Cruces {
+public class CruceMonopunto<T> implements Cruces<T> {
 
   private int _punto;
 
@@ -13,7 +13,7 @@ public class CruceMonopunto implements Cruces {
   }
 
   @Override
-  public <T> ArrayList<Individuo<T>> cruzar(Individuo<T> i1, Individuo<T> i2,
+  public ArrayList<Individuo<T>> cruzar(Individuo<T> i1, Individuo<T> i2,
       double prob) throws Exception {
     if (_punto > i1.getCromosoma().length) {
       throw new Exception();

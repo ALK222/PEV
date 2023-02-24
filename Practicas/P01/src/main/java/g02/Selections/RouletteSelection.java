@@ -7,7 +7,7 @@ import g02.individuals.Individuo;
 public class RouletteSelection<T> extends Selection<T> {
 
  
-  public RouletteSelection(int s, Individuo<T>[] pob) {
+  public RouletteSelection(int s, ArrayList<Individuo<T>> pob) {
     super(s, pob);
   }
 
@@ -15,17 +15,17 @@ public class RouletteSelection<T> extends Selection<T> {
   public ArrayList<Individuo<T>> run() {
     ArrayList<Individuo<T>> newPob = new ArrayList<Individuo<T>>();
 
-    double probs[] = new double[_pob.length];
+    double probs[] = new double[_pob.size()];
 
     int fitnessTotal = 0;
 
-    for (int i = 0; i < _pob.length; ++i) { // Generamos el fitness de cada individuo
-      double aux = _pob[i].fitness();
+    for (int i = 0; i < _pob.size(); ++i) { // Generamos el fitness de cada individuo
+      double aux = _pob.get(i).fitness();
       fitnessTotal += aux;
       probs[i] = aux;
     }
 
-    for (int i = 0; i < _pob.length; ++i) {
+    for (int i = 0; i < _pob.size(); ++i) {
       probs[i] = probs[i] / fitnessTotal;
     }
 
@@ -37,12 +37,13 @@ public class RouletteSelection<T> extends Selection<T> {
 
       boolean encontrado = false;
       int i = 0;
-      while(!encontrado)
+      while(!encontrado && i < _pob.size())
       {
         if(probs[i] < randomValue)
         {
-          newPob.add(_pob[i]);
+          newPob.add(_pob.get(i));
           encontrado = true;
+          seleccionados++;
         }
         i++;
       }
