@@ -53,10 +53,10 @@ public class AlgoritmoGenetico<T> {
       ArrayList<Individuo<T>> seleccionados = _selection.run();
 
       // Cruce
-      for (int j = 0; j < _tamPoblacion - 1; j += 2) {
-        ArrayList<Individuo<T>> cruzados = _cruce.cruzar(seleccionados.get(i), seleccionados.get(i + 1), _probCruce);
-        seleccionados.remove(i);
-        seleccionados.remove(i+1);
+      for (int j = 0; j < seleccionados.size() - 2; j += 2) {
+        ArrayList<Individuo<T>> cruzados = _cruce.cruzar(seleccionados.get(j), seleccionados.get(j + 1), _probCruce);
+        seleccionados.remove(j);
+        seleccionados.remove(j+1);
         seleccionados.addAll(cruzados);
       }
       // Mutacion
