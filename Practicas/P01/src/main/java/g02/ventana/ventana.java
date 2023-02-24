@@ -9,7 +9,12 @@ import javax.swing.border.EmptyBorder;
 
 import org.math.plot.Plot2DPanel;
 
+import g02.Selections.RouletteSelection;
+import g02.Selections.Selection;
 import g02.algoritmogenetico.AlgoritmoGenetico;
+import g02.cruces.CruceMonopunto;
+import g02.cruces.CruceUniforme;
+import g02.cruces.Cruces;
 
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
@@ -173,11 +178,38 @@ public class ventana extends JFrame {
 				double probM = Double.parseDouble(pMutacion.getText());
 				double prec = Double.parseDouble(precision.getText());
 				
-				AlgoritmoGenetico alg = new AlgoritmoGenetico(tamPoblacion,nGeneraciones,probC,probM, 2, prec);
-		    	alg.run();
+				Selection<Boolean> mSel;
+			
+				switch(mSeleccion.getSelectedIndex()) {
+					default:
+						mSel = new RouletteSelection<Boolean>(tamPoblacion,null);
+						break;
+				}
+				
+				Cruces<Boolean> mCru;
+				
+				switch(mCruce.getSelectedIndex()) {
+					default:
+						mCru = new CruceMonopunto<Boolean>(0);
+						break;
+						
+					case 1:
+						mCru = new CruceUniforme<Boolean>();
+				}
+				
+				AlgoritmoGenetico alg = new AlgoritmoGenetico(tamPoblacion,nGeneraciones,probC,probM, 2, prec, mSel, mCru);
+				
+				try {
+				      System.out.println(alg.run().fitness());
+				    } catch (Exception ex) {
+				      ex.printStackTrace();
+				    }
 		    	
 		    	
-		    	double[] generaciones = { 1, 2, 3 };
+		    	double[] generaciones = new double[nGeneraciones];
+		    	for(int i = 0; i < nGeneraciones; i++) {
+		    		generaciones[i] = i;
+		    	}
 		        double[] fitness = alg.getMejores();
 		        double[] media = alg.getMedias();
 		        // create your PlotPanel (you can use it as a JPanel)
