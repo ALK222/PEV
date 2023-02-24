@@ -3,6 +3,7 @@ package g02;
 import javax.swing.JFrame;
 import org.math.plot.Plot2DPanel;
 import g02.Selections.RouletteSelection;
+import g02.Selections.StochasticSelection;
 import g02.algoritmogenetico.AlgoritmoGenetico;
 import g02.cruces.CruceUniforme;
 import g02.individuals.Individuo;
@@ -16,10 +17,10 @@ public class App {
   public static void main(String[] args) throws Exception {
 
 
-    RouletteSelection<Boolean> rs = new RouletteSelection<Boolean>(100, null);
+    StochasticSelection<Boolean> rs = new StochasticSelection<Boolean>(100, null);
     
     CruceUniforme<Boolean> c = new CruceUniforme<>();
-    AlgoritmoGenetico<Boolean> alg = new AlgoritmoGenetico<>(10, 90, 0.1, 0.1, 2, 0.001, rs, c);
+    AlgoritmoGenetico<Boolean> alg = new AlgoritmoGenetico<>(10, 20, 0.1, 0.1, 2, 0.001, rs, c);
     try {
       System.out.println(alg.run().fitness());
     } catch (Exception e) {
