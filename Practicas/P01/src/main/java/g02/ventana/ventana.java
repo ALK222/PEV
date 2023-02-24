@@ -20,6 +20,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import javax.swing.JLayeredPane;
+import javax.swing.JInternalFrame;
 
 public class ventana extends JFrame {
 
@@ -53,13 +56,14 @@ public class ventana extends JFrame {
 	 */
 	public ventana() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 681, 501);
+		setBounds(100, 100, 884, 725);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		numGeneraciones = new JTextField();
+		numGeneraciones.setText("2");
 		numGeneraciones.setBounds(131, 31, 86, 20);
 		contentPane.add(numGeneraciones);
 		numGeneraciones.setColumns(10);
@@ -69,6 +73,7 @@ public class ventana extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		tamPob = new JTextField();
+		tamPob.setText("10");
 		tamPob.setColumns(10);
 		tamPob.setBounds(131, 62, 86, 20);
 		contentPane.add(tamPob);
@@ -82,11 +87,13 @@ public class ventana extends JFrame {
 		contentPane.add(lblNumPasos);
 		
 		numPasos = new JTextField();
+		numPasos.setText("2");
 		numPasos.setColumns(10);
 		numPasos.setBounds(131, 93, 86, 20);
 		contentPane.add(numPasos);
 		
 		precision = new JTextField();
+		precision.setText("0.001");
 		precision.setColumns(10);
 		precision.setBounds(131, 121, 86, 20);
 		contentPane.add(precision);
@@ -96,6 +103,7 @@ public class ventana extends JFrame {
 		contentPane.add(lblProfMaxInicial);
 		
 		pMutacion = new JTextField();
+		pMutacion.setText("0.1");
 		pMutacion.setColumns(10);
 		pMutacion.setBounds(131, 152, 86, 20);
 		contentPane.add(pMutacion);
@@ -109,6 +117,7 @@ public class ventana extends JFrame {
 		contentPane.add(lblPCruce);
 		
 		pCruce = new JTextField();
+		pCruce.setText("0.1");
 		pCruce.setColumns(10);
 		pCruce.setBounds(131, 183, 86, 20);
 		contentPane.add(pCruce);
@@ -141,6 +150,7 @@ public class ventana extends JFrame {
 		contentPane.add(mMutacion);
 		
 		textField_6 = new JTextField();
+		textField_6.setText("0.1");
 		textField_6.setColumns(10);
 		textField_6.setBounds(131, 305, 86, 20);
 		contentPane.add(textField_6);
@@ -148,6 +158,11 @@ public class ventana extends JFrame {
 		JLabel lblElitismo = new JLabel("Elitismo");
 		lblElitismo.setBounds(10, 308, 111, 14);
 		contentPane.add(lblElitismo);
+		
+		JInternalFrame internalFrame = new JInternalFrame("Resultado");
+		internalFrame.setBounds(227, 31, 631, 624);
+		contentPane.add(internalFrame);
+		internalFrame.setVisible(true);
 		
 		JButton btnNewButton = new JButton("Iniciar");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -173,13 +188,14 @@ public class ventana extends JFrame {
 		        plot.addLinePlot("EVOLUCIÓN", generaciones, fitness);
 		        plot.addLinePlot("MEDIAS",generaciones, media);
 		        // put the PlotPanel in a JFrame like a JPanel
-		        JFrame frame = new JFrame("a plot panel");
-		        frame.setSize(600, 600);
-		        frame.setContentPane(plot);
-		        frame.setVisible(true);
+		        internalFrame.setContentPane(plot);
 			}
 		});
 		btnNewButton.setBounds(62, 336, 89, 23);
 		contentPane.add(btnNewButton);
+		
+		
+		
+		
 	}
 }
