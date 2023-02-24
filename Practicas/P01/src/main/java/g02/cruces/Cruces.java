@@ -1,9 +1,9 @@
-package cruces;
+package g02.cruces;
 
 import java.util.ArrayList;
 import g02.individuals.Individuo;
 
-public interface Cruces {
+public interface Cruces<T> {
 
   /**
    * Cruza dos individuos.
@@ -15,7 +15,7 @@ public interface Cruces {
    * @return Ambos individuos tras el cruce
    * @throws Exception
    */
-  public <T> ArrayList<Individuo<T>> cruzar(Individuo<T> i1, Individuo<T> i2, double prob) throws Exception;
+  public ArrayList<Individuo<T>> cruzar(Individuo<T> i1, Individuo<T> i2, double prob) throws Exception;
 
 
 }

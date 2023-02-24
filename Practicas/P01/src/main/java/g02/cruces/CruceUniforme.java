@@ -1,14 +1,14 @@
-package cruces;
+package g02.cruces;
 
 import java.util.ArrayList;
 import java.util.Random;
 import g02.individuals.Individuo;
 
-public class CruceUniforme implements Cruces {
+public class CruceUniforme<T> implements Cruces<T> {
 
   @Override
-  public <T> ArrayList<Individuo<T>> cruzar(Individuo<T> i1, Individuo<T> i2,
-      double prob) throws Exception {
+  public ArrayList<Individuo<T>> cruzar(Individuo<T> i1, Individuo<T> i2, double prob)
+      throws Exception {
 
     Random r = new Random();
 
@@ -29,5 +29,6 @@ public class CruceUniforme implements Cruces {
 
     return res;
   }
+
 
 }
