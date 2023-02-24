@@ -1,4 +1,4 @@
-package cruces;
+package g02.cruces;
 
 import java.util.ArrayList;
 import java.util.Random;

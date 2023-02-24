@@ -1,14 +1,19 @@
 package g02.Selections;
 
+import java.util.ArrayList;
 import java.util.Random;
 import g02.individuals.Individuo;
 
-public class RouletteSelection extends Selection {
+public class RouletteSelection<T> extends Selection<T> {
 
-  // public RouletteSelection(int size, int)
+ 
+  public RouletteSelection(int s, Individuo<T>[] pob) {
+    super(s, pob);
+  }
+
   @Override
-  public Individuo<?>[] run() {
-    Individuo<?> newPob[] = new Individuo<?>[_pob.length];
+  public ArrayList<Individuo<T>> run() {
+    ArrayList<Individuo<T>> newPob = new ArrayList<Individuo<T>>();
 
     double probs[] = new double[_pob.length];
 
@@ -36,7 +41,7 @@ public class RouletteSelection extends Selection {
       {
         if(probs[i] < randomValue)
         {
-          newPob[seleccionados] = _pob[i];
+          newPob.add(_pob[i]);
           encontrado = true;
         }
         i++;

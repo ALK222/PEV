@@ -1,15 +1,22 @@
 package g02.Selections;
 
+import java.util.ArrayList;
 import g02.individuals.Individuo;
 
 /**
  * Abstract class to extend all types of selection
  */
-public abstract class Selection {
+public abstract class Selection<T> {
   
-  Individuo _pob[];
-  int _seleccionar;
+  protected Individuo<T> _pob[];
+  protected int _seleccionar;
   
-  public abstract Individuo[] run();
+  public Selection(int s, Individuo<T> pob[])
+  {
+    _seleccionar = s;
+    _pob = pob;
+  }
+  
+  public abstract ArrayList<Individuo<T>> run();
 
 }
