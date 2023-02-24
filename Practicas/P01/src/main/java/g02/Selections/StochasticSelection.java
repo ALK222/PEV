@@ -45,7 +45,7 @@ public class StochasticSelection<T> extends Selection<T> {
       boolean encontrado = false;
       int i = 0;
       while (!encontrado && i < _pob.size()) {
-        if (probs[i] < startingValue) {
+        if (probs[i] > startingValue) {
           newPob.add(_pob.get(i));
           encontrado = true;
           seleccionados++;

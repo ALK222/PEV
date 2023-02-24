@@ -69,6 +69,7 @@ public class AlgoritmoGenetico<T> {
 
       evaluate(i + 1);
       _selection.setPob(seleccionados);
+      _poblacion = seleccionados;
     }
 
     return _elMejor;

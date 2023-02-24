@@ -11,6 +11,7 @@ import org.math.plot.Plot2DPanel;
 
 import g02.Selections.RouletteSelection;
 import g02.Selections.Selection;
+import g02.Selections.StochasticSelection;
 import g02.algoritmogenetico.AlgoritmoGenetico;
 import g02.cruces.CruceMonopunto;
 import g02.cruces.CruceUniforme;
