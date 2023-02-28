@@ -17,7 +17,7 @@ public class RouletteSelection<T> extends Selection<T> {
 
     double probs[] = new double[_pob.size()];
 
-    int fitnessTotal = 0;
+    double fitnessTotal = 0;
 
     for (int i = 0; i < _pob.size(); ++i) { // Generamos el fitness de cada individuo
       double aux = _pob.get(i).fitness();
@@ -26,7 +26,10 @@ public class RouletteSelection<T> extends Selection<T> {
     }
 
     for (int i = 0; i < _pob.size(); ++i) {
-      probs[i] = probs[i] / fitnessTotal;
+    	if(i==0)
+    		probs[i] = probs[i] / fitnessTotal;
+    	else
+    		probs[i] = probs[i-1] + (probs[i] / fitnessTotal);
     }
 
     int seleccionados = 0;
@@ -39,7 +42,7 @@ public class RouletteSelection<T> extends Selection<T> {
       int i = 0;
       while(!encontrado && i < _pob.size())
       {
-        if(probs[i] < randomValue)
+        if(probs[i] > randomValue)
         {
           newPob.add(_pob.get(i));
           encontrado = true;
