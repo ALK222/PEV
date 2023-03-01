@@ -12,6 +12,7 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
     this.min[1] = 4.100;
     this.max[0] = 12.100;
     this.max[1] = 5.800;
+    this.precision = precision;
     this.tamGenes[0] = this.tamGen(precision, min[0], max[0]);
     this.tamGenes[1] = this.tamGen(precision, min[1], max[1]);
     int tamTotal = tamGenes[0] + tamGenes[1];
@@ -30,9 +31,15 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
     this.min[1] = 4.100;
     this.max[0] = 12.100;
     this.max[1] = 5.800;
+    this.precision = precision;
     this.tamGenes[0] = this.tamGen(precision, min[0], max[0]);
     this.tamGenes[1] = this.tamGen(precision, min[1], max[1]);
-    _chromosome = chromosome;
+
+    int tamTotal = this.tamGenes[0] + this.tamGenes[1];
+    this._chromosome = new Boolean[tamTotal];
+    for (int i = 0; i < tamTotal; i++) {
+      this._chromosome[i] = chromosome[i];
+    }
   }
   
 
@@ -92,6 +99,11 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
   public double getValor() {
     double x1 = this.getFenotipo(0), x2 = this.getFenotipo(1);
     return (21.5 + x1 * Math.sin(4 * Math.PI * x1) + x2 * Math.sin(20 * Math.PI * x2));
+  }
+  
+  @Override
+  public Individuo<Boolean> copyIndividuo(){
+    return new IndividuoFuncion1(this._chromosome, this.precision);
   }
 
 }

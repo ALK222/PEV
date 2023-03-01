@@ -32,30 +32,30 @@ import javax.swing.JInternalFrame;
 
 public class ventana extends JFrame {
 
-	private JPanel contentPane;
-	private JTextField numGeneraciones;
-	private JTextField tamPob;
-	private JTextField numPasos;
-	private JTextField precision;
-	private JTextField pMutacion;
-	private JTextField pCruce;
-	private JTextField textField_6;
+  private JPanel contentPane;
+  private JTextField numGeneraciones;
+  private JTextField tamPob;
+  private JTextField numPasos;
+  private JTextField precision;
+  private JTextField pMutacion;
+  private JTextField pCruce;
+  private JTextField pElitismo;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ventana frame = new ventana();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+  /**
+   * Launch the application.
+   */
+  public static void main(String[] args) {
+    EventQueue.invokeLater(new Runnable() {
+      public void run() {
+        try {
+          ventana frame = new ventana();
+          frame.setVisible(true);
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
+    });
+  }
 
 	/**
 	 * Create the frame.

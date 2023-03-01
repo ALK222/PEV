@@ -16,6 +16,7 @@ public abstract class Individuo<T> {
   protected double min[];
   protected int tamGenes[];
   protected int tamTotal;
+  protected double precision;
 
   protected Random rand = new Random();
 
@@ -52,13 +53,16 @@ public abstract class Individuo<T> {
    * @return individuo mutado
    */
   public abstract Individuo<T> mutar(Individuo<T> individuo, double prob);
-  
+
   public abstract T[] getCromosoma();
+
   public abstract double getFenotipo(int index);
 
   public abstract double getValor();
-  
+
   public int tamGen(double valorError, double min, double max) {
     return (int) (Math.log10(((max - min) / valorError) + 1) / Math.log10(2));
-}
+  }
+  
+  public abstract Individuo<T> copyIndividuo();
 }

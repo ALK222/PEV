@@ -16,6 +16,7 @@ public class AlgoritmoGenetico<T> {
   private Individuo<T> _elMejor;
   private int _posMejor;
   private double precision;
+  private double _elitismo;
   private double[] _mejorGen;
   private double[] _mediaGen;
   private double[] _mejorSiempre;
@@ -23,7 +24,7 @@ public class AlgoritmoGenetico<T> {
   private Cruces<T> _cruce;
 
   public AlgoritmoGenetico(int tam, int max, double probC, double probM, int tamT, double prec,
-      Selection<T> selection,Cruces<T> cruce) {
+      Selection<T> selection, Cruces<T> cruce, double elitismo) {
     _tamPoblacion = tam;
     _poblacion = new ArrayList<Individuo<T>>();
     _maxGeneraciones = max;
@@ -31,13 +32,14 @@ public class AlgoritmoGenetico<T> {
     _probMutacion = probM;
     _tamTorneo = tamT;
     precision = prec;
+    _elitismo = elitismo;
 
     _mejorGen = new double[_maxGeneraciones + 1];
     _mediaGen = new double[_maxGeneraciones + 1];
     _mejorSiempre = new double[_maxGeneraciones + 1];
 
     _selection = selection;
-    
+
     _cruce = cruce;
   }
 
@@ -55,24 +57,54 @@ public class AlgoritmoGenetico<T> {
       // Seleccion
       ArrayList<Individuo<T>> seleccionados = _selection.run();
 
-      // Cruce
-      for (int j = 0; j < seleccionados.size() - 2; j += 2) {
-        ArrayList<Individuo<T>> cruzados = _cruce.cruzar(seleccionados.get(j), seleccionados.get(j + 1), _probCruce);
-        seleccionados.remove(j);
-        seleccionados.remove(j+1);
-        seleccionados.addAll(cruzados);
+      ArrayList<Individuo<T>> newPob = new ArrayList<>();
+
+      int directos = (int) Math.round(seleccionados.size() * _elitismo);
+
+
+      for (int j = 0; j < directos; ++j) {
+        double max = -1;
+        int borrar = -1;
+        for (int k = 0; k < seleccionados.size(); ++k) {
+          double currFitness = seleccionados.get(k).fitness();
+          if (currFitness > max) {
+            max = currFitness;
+            borrar = k;
+          }
+        }
+        newPob.add(seleccionados.get(borrar).copyIndividuo());
+        seleccionados.remove(borrar);
       }
+
+      ArrayList<Individuo<T>> cruzados = new ArrayList<>();
+      // Cruce
+      while(seleccionados.size() > 2) {
+
+        ArrayList<Individuo<T>> aux =
+            _cruce.cruzar(seleccionados.get(0), seleccionados.get(1), _probCruce);
+
+        cruzados.add(aux.get(0).copyIndividuo());
+        cruzados.add(aux.get(1).copyIndividuo());
+
+        seleccionados.remove(0);
+        seleccionados.remove(1);
+
+      }
+
+
+
+      cruzados.addAll(seleccionados); // Metemos el indidivuo que no se haya podido cruzar por
+                                      // imparidad
       // Mutacion
 
-      for (int j = 0; j < _tamPoblacion; j += 2) {
-        Individuo<T> i1= seleccionados.get(j);
-        seleccionados.remove(j);
-        seleccionados.add(i1.mutar(i1, _probMutacion));
+      for (int j = 0; j < cruzados.size(); j++) {
+        Individuo<T> i1 = cruzados.get(j);
+        newPob.add(i1.mutar(i1, _probMutacion).copyIndividuo());
       }
-
+      _selection.setPob(newPob);
+      _poblacion = newPob;
       evaluate(i + 1);
-      _selection.setPob(seleccionados);
-      _poblacion = seleccionados;
+
     }
 
     return _elMejor;

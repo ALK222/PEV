@@ -44,7 +44,8 @@ public class RouletteSelection<T> extends Selection<T> {
       {
         if(probs[i] > randomValue)
         {
-          newPob.add(_pob.get(i));
+          
+          newPob.add(_pob.get(i).copyIndividuo());
           encontrado = true;
           seleccionados++;
         }
