@@ -12,6 +12,7 @@ import org.math.plot.Plot2DPanel;
 import g02.Selections.RouletteSelection;
 import g02.Selections.Selection;
 import g02.Selections.StochasticSelection;
+import g02.Selections.TournamentDeterministicSelection;
 import g02.algoritmogenetico.AlgoritmoGenetico;
 import g02.cruces.CruceMonopunto;
 import g02.cruces.CruceUniforme;
@@ -186,6 +187,9 @@ public class ventana extends JFrame {
         switch (mSeleccion.getSelectedIndex()) {
           case 0:
             mSel = new RouletteSelection<Boolean>(tamPoblacion, null);
+            break;
+          case 1:
+            mSel = new TournamentDeterministicSelection<Boolean>(tamPoblacion, null);
             break;
           case 3:
             mSel = new StochasticSelection<Boolean>(tamPoblacion, null);
