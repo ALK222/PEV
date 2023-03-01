@@ -66,10 +66,21 @@ public class AlgoritmoGenetico<T> {
         int borrar = -1;
         for (int k = 0; k < seleccionados.size(); ++k) {
           double currFitness = seleccionados.get(k).fitness();
-          if (currFitness > max) {
+          boolean isMax = seleccionados.get(k).isMax();
+          if(isMax)
+          {
+            if (currFitness > max) {
             max = currFitness;
             borrar = k;
           }
+          }
+          else {
+            if (currFitness < max) {
+              max = currFitness;
+              borrar = k;
+            }
+          }
+          
         }
         newPob.add(seleccionados.get(borrar).copyIndividuo());
         seleccionados.remove(borrar);

@@ -3,6 +3,7 @@ package g02.individuals;
 import java.util.Random;
 
 public class IndividuoFuncion1 extends Individuo<Boolean> {
+  
 
   public IndividuoFuncion1(double precision) {
     this.tamGenes = new int[2];
@@ -105,5 +106,11 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
   public Individuo<Boolean> copyIndividuo(){
     return new IndividuoFuncion1(this._chromosome, this.precision);
   }
+
+  @Override
+  public boolean isMax() {
+    return true;
+  }
+
 
 }

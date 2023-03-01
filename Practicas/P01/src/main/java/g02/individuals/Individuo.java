@@ -71,4 +71,7 @@ public abstract class Individuo<T> {
     if(this.fitness() < i2.fitness()) return 1;
     return 0;
   }
+  
+  public abstract boolean isMax();
+  
 }
