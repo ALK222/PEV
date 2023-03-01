@@ -9,6 +9,7 @@ import g02.individuals.Individuo;
 public abstract class Selection<T> {
   
   protected ArrayList<Individuo<T>> _pob;
+  protected double[] probs;
   protected int _seleccionar;
   
   public Selection(int s, ArrayList<Individuo<T>> pob)

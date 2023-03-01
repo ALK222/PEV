@@ -5,6 +5,7 @@ import g02.Selections.Selection;
 import g02.cruces.Cruces;
 import g02.individuals.Individuo;
 import g02.individuals.IndividuoFuncion1;
+import g02.individuals.IndividuoFuncion2;
 
 public class AlgoritmoGenetico<T> {
   private int _tamPoblacion;
@@ -45,7 +46,7 @@ public class AlgoritmoGenetico<T> {
 
   public Individuo<T> run() throws Exception {
     for (int i = 0; i < _tamPoblacion; i++) {
-      _poblacion.add((Individuo<T>) new IndividuoFuncion1(precision));
+      _poblacion.add((Individuo<T>) new IndividuoFuncion2(precision,2));
     }
     _selection.setPob(_poblacion);
     // Evaluar Pob
