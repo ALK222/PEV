@@ -46,7 +46,7 @@ public class AlgoritmoGenetico<T> {
 
   public Individuo<T> run() throws Exception {
     for (int i = 0; i < _tamPoblacion; i++) {
-      _poblacion.add((Individuo<T>) new IndividuoFuncion2(precision,2));
+      _poblacion.add((Individuo<T>) new IndividuoFuncion1(precision));
     }
     _selection.setPob(_poblacion);
     // Evaluar Pob

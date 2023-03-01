@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import org.math.plot.Plot2DPanel;
-
+import g02.Selections.RestosSelection;
 import g02.Selections.RouletteSelection;
 import g02.Selections.Selection;
 import g02.Selections.StochasticSelection;
@@ -198,6 +198,9 @@ public class ventana extends JFrame {
             break;
           case 4:
             mSel = new TruncateSelection<>(tamPoblacion, null, 0.5);
+            break;
+          case 5:
+            mSel = new RestosSelection<>(5, null);
             break;
           default:
             mSel = new RouletteSelection<Boolean>(tamPoblacion, null);
