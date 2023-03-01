@@ -65,4 +65,10 @@ public abstract class Individuo<T> {
   }
   
   public abstract Individuo<T> copyIndividuo();
+  
+  public int compareTo(Individuo<T> i2) {
+    if(this.fitness() > i2.fitness()) return -1;
+    if(this.fitness() < i2.fitness()) return 1;
+    return 0;
+  }
 }

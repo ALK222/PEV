@@ -1,7 +1,6 @@
 package g02.Selections;
 
 import java.util.ArrayList;
-import java.util.Random;
 import g02.individuals.Individuo;
 
 public class TournamentDeterministicSelection<T> extends Selection<T> {

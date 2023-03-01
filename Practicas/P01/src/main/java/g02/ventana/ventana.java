@@ -1,6 +1,5 @@
 package g02.ventana;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -14,30 +13,28 @@ import g02.Selections.Selection;
 import g02.Selections.StochasticSelection;
 import g02.Selections.TournamentDeterministicSelection;
 import g02.Selections.TournamentProbabilisticSelection;
+import g02.Selections.TruncateSelection;
 import g02.algoritmogenetico.AlgoritmoGenetico;
 import g02.cruces.CruceMonopunto;
 import g02.cruces.CruceUniforme;
 import g02.cruces.Cruces;
 
 import javax.swing.JTextField;
-import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JMenuBar;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Color;
-import javax.swing.JLayeredPane;
 import javax.swing.JInternalFrame;
 
 public class ventana extends JFrame {
 
+  private static final long serialVersionUID = 1L;
   private JPanel contentPane;
   private JTextField numGeneraciones;
   private JTextField tamPob;
-  private JTextField numPasos;
+  private JTextField pProbTorneo;
   private JTextField precision;
   private JTextField pMutacion;
   private JTextField pCruce;
@@ -62,6 +59,7 @@ public class ventana extends JFrame {
   /**
    * Create the frame.
    */
+  @SuppressWarnings({"unchecked", "rawtypes"})
   public ventana() {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setBounds(100, 100, 884, 725);
@@ -90,15 +88,15 @@ public class ventana extends JFrame {
     lblNumGenes.setBounds(10, 65, 111, 14);
     contentPane.add(lblNumGenes);
 
-    JLabel lblNumPasos = new JLabel("Num. Pasos");
+    JLabel lblNumPasos = new JLabel("Prob Torneo");
     lblNumPasos.setBounds(10, 96, 111, 14);
     contentPane.add(lblNumPasos);
 
-    numPasos = new JTextField();
-    numPasos.setText("2");
-    numPasos.setColumns(10);
-    numPasos.setBounds(131, 93, 86, 20);
-    contentPane.add(numPasos);
+    pProbTorneo = new JTextField();
+    pProbTorneo.setText("2");
+    pProbTorneo.setColumns(10);
+    pProbTorneo.setBounds(131, 93, 86, 20);
+    contentPane.add(pProbTorneo);
 
     precision = new JTextField();
     precision.setText("0.001");
@@ -182,6 +180,7 @@ public class ventana extends JFrame {
         double probM = Double.parseDouble(pMutacion.getText());
         double prec = Double.parseDouble(precision.getText());
         double elitismo = Double.parseDouble(pElitismo.getText());
+        double probTorneo = Double.parseDouble(pProbTorneo.getText());
 
         Selection<Boolean> mSel;
 
@@ -193,10 +192,12 @@ public class ventana extends JFrame {
             mSel = new TournamentDeterministicSelection<Boolean>(tamPoblacion, null);
             break;
           case 2: 
-            // TODO add prob tag for tournament 2
-            mSel = new TournamentProbabilisticSelection<>(tamPoblacion, null, 0.5);
+            mSel = new TournamentProbabilisticSelection<>(tamPoblacion, null, probTorneo);
           case 3:
             mSel = new StochasticSelection<Boolean>(tamPoblacion, null);
+            break;
+          case 4:
+            mSel = new TruncateSelection<>(tamPoblacion, null, 0.5);
             break;
           default:
             mSel = new RouletteSelection<Boolean>(tamPoblacion, null);

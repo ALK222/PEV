@@ -14,7 +14,6 @@ public class AlgoritmoGenetico<T> {
   private double _probMutacion;
   private int _tamTorneo;
   private Individuo<T> _elMejor;
-  private int _posMejor;
   private double precision;
   private double _elitismo;
   private double[] _mejorGen;
