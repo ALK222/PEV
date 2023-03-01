@@ -11,7 +11,7 @@ public class StochasticSelection<T> extends Selection<T> {
   public StochasticSelection(int s, ArrayList<Individuo<T>> pob) {
     super(s, pob);
 
-    _sep = 1 / s;
+    _sep = (double) 1 / s;
   }
 
   @Override
@@ -19,22 +19,26 @@ public class StochasticSelection<T> extends Selection<T> {
     ArrayList<Individuo<T>> newPob = new ArrayList<>();
 
     double probs[] = new double[_pob.size()];
+    
+    double fitnessTotal = 0;
 
-    int fitnessTotal = 0;
 
     for (int i = 0; i < _pob.size(); ++i) { // Generamos el fitness de cada individuo
       double aux = _pob.get(i).fitness();
       fitnessTotal += aux;
       probs[i] = aux;
     }
-
+    
     probs[0] = probs[0] / fitnessTotal;
     for (int i = 1; i < _pob.size(); ++i) {
       probs[i] = (probs[i] / fitnessTotal) + probs[i - 1];
     }
 
+
+
     Random rand = new Random();
-    double startingValue = rand.nextDouble() - _sep;
+    double startingValue = _sep * rand.nextDouble();
+    startingValue -= _sep; // correccion para primera iteracion del bucle
 
     int seleccionados = 0;
 
@@ -44,8 +48,10 @@ public class StochasticSelection<T> extends Selection<T> {
 
       boolean encontrado = false;
       int i = 0;
+      double probAcumulada = 0;
       while (!encontrado && i < _pob.size()) {
-        if (probs[i] > startingValue) {
+        probAcumulada += probs[i];
+        if (probAcumulada > startingValue) {
           newPob.add(_pob.get(i));
           encontrado = true;
           seleccionados++;
