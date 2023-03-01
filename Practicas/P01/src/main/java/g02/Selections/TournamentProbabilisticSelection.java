@@ -1,13 +1,15 @@
 package g02.Selections;
 
 import java.util.ArrayList;
-import java.util.Random;
 import g02.individuals.Individuo;
 
-public class TournamentDeterministicSelection<T> extends Selection<T> {
+public class TournamentProbabilisticSelection<T> extends Selection<T> {
 
-  public TournamentDeterministicSelection(int s, ArrayList<Individuo<T>> pob) {
+  double _prob;
+
+  public TournamentProbabilisticSelection(int s, ArrayList<Individuo<T>> pob, double prob) {
     super(s, pob);
+    _prob = prob;
   }
 
   @Override
@@ -22,16 +24,23 @@ public class TournamentDeterministicSelection<T> extends Selection<T> {
       int pos2 = (int) Math.random() * _pob.size();
       Individuo<T> i2 = _pob.get(pos2);
       _pob.remove(pos2);
-      
+
+      double prob = Math.random();
+
       Individuo<T> aux;
-      aux = i1.fitness() > i2.fitness() ? i1.copyIndividuo() : i2.copyIndividuo();
+
+      if (prob < _prob) {
+        aux = i1.fitness() > i2.fitness() ? i1.copyIndividuo() : i2.copyIndividuo();
+      } else {
+        aux = i1.fitness() > i2.fitness() ? i2.copyIndividuo() : i1.copyIndividuo();
+      }
+
       
       seleccionados.add(aux.copyIndividuo());
       seleccionados.add(aux.copyIndividuo());
-      
 
     }
-    
+
     seleccionados.addAll(_pob);
     return seleccionados;
   }

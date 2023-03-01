@@ -13,6 +13,7 @@ import g02.Selections.RouletteSelection;
 import g02.Selections.Selection;
 import g02.Selections.StochasticSelection;
 import g02.Selections.TournamentDeterministicSelection;
+import g02.Selections.TournamentProbabilisticSelection;
 import g02.algoritmogenetico.AlgoritmoGenetico;
 import g02.cruces.CruceMonopunto;
 import g02.cruces.CruceUniforme;
@@ -191,6 +192,9 @@ public class ventana extends JFrame {
           case 1:
             mSel = new TournamentDeterministicSelection<Boolean>(tamPoblacion, null);
             break;
+          case 2: 
+            // TODO add prob tag for tournament 2
+            mSel = new TournamentProbabilisticSelection<>(tamPoblacion, null, 0.5);
           case 3:
             mSel = new StochasticSelection<Boolean>(tamPoblacion, null);
             break;
