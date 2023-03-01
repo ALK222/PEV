@@ -6,7 +6,6 @@ import g02.individuals.Individuo;
 
 public class RouletteSelection<T> extends Selection<T> {
 	
-	double fitnessTotal;
 
  
   public RouletteSelection(int s, ArrayList<Individuo<T>> pob) {
@@ -19,26 +18,33 @@ public class RouletteSelection<T> extends Selection<T> {
 
     probs = new double[_pob.size()];
 
-    this.fitnessTotal = 0;
-    double auxMax = -600;
+    fitnessTotal = 0;
+    double auxMax = -Double.MAX_VALUE;
+    double auxMin = Double.MAX_VALUE;
 
     for (int i = 0; i < _pob.size(); ++i) { // Generamos el fitness de cada individuo
       double aux = _pob.get(i).fitness();
       if(aux > auxMax)
     	  auxMax = aux;
+      else if(aux < auxMin)
+    	  auxMin = aux;
 
       probs[i] = aux;
     }
     
-    this.corrigeMinimizar(auxMax);
+    if(_pob.get(0).isMax())
+    	this.corrigeMaximizar(auxMin);
+    else
+    	this.corrigeMinimizar(auxMax);
+    
     
     
 
     for (int i = 0; i < _pob.size(); ++i) {
     	if(i==0)
-    		probs[i] = probs[i] / this.fitnessTotal;
+    		probs[i] = probs[i] / fitnessTotal;
     	else
-    		probs[i] = probs[i-1] + (probs[i] / this.fitnessTotal);
+    		probs[i] = probs[i-1] + (probs[i] / fitnessTotal);
     }
 
     int seleccionados = 0;
@@ -63,13 +69,6 @@ public class RouletteSelection<T> extends Selection<T> {
     }
 
     return newPob;
-  }
-  
-  public void corrigeMinimizar(double max) {
-	  for(int i = 0; i < probs.length; i++) {
-		  probs[i] = (1.05 * max) - probs[i];
-		  this.fitnessTotal += probs[i];
-	  }
   }
 
 }

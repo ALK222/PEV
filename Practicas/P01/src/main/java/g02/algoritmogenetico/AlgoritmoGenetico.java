@@ -22,6 +22,7 @@ public class AlgoritmoGenetico<T> {
   private double[] _mejorSiempre;
   private Selection<T> _selection;
   private Cruces<T> _cruce;
+  private boolean isMax;
 
   public AlgoritmoGenetico(int tam, int max, double probC, double probM, int tamT, double prec,
       Selection<T> selection, Cruces<T> cruce, double elitismo) {
@@ -49,6 +50,8 @@ public class AlgoritmoGenetico<T> {
       _poblacion.add((Individuo<T>) new IndividuoFuncion1(precision));
     }
     _selection.setPob(_poblacion);
+    
+    isMax = _poblacion.get(0).isMax();
     // Evaluar Pob
     evaluate(0);
     
@@ -63,11 +66,12 @@ public class AlgoritmoGenetico<T> {
 
 
       for (int j = 0; j < directos; ++j) {
-        double max = -1;
+        double max = -Double.MAX_VALUE;
+        double min = Double.MAX_VALUE;
         int borrar = -1;
         for (int k = 0; k < seleccionados.size(); ++k) {
           double currFitness = seleccionados.get(k).fitness();
-          boolean isMax = seleccionados.get(k).isMax();
+          
           if(isMax)
           {
             if (currFitness > max) {
@@ -76,8 +80,8 @@ public class AlgoritmoGenetico<T> {
           }
           }
           else {
-            if (currFitness < max) {
-              max = currFitness;
+            if (currFitness < min) {
+              min = currFitness;
               borrar = k;
             }
           }
@@ -129,16 +133,27 @@ public class AlgoritmoGenetico<T> {
     for (int i = 0; i < _tamPoblacion; i++) {
     	if(auxMejor==null)
     		auxMejor = _poblacion.get(i);
-    	else if (_poblacion.get(i).fitness() > auxMejor.fitness()) {
-    		auxMejor = _poblacion.get(i);
+    	else if(isMax) {
+    		if (_poblacion.get(i).fitness() > auxMejor.fitness()) {
+    			auxMejor = _poblacion.get(i);
+    		}
+    	}
+    	else if(!isMax) {
+    		if (_poblacion.get(i).fitness() < auxMejor.fitness()) {
+    			auxMejor = _poblacion.get(i);
+    		}
     	}
     	auxMedia += _poblacion.get(i).fitness();
     }
     
 
-    if(_elMejor == null || auxMejor.fitness() > _elMejor.fitness()) {
+    if(_elMejor == null) {
     	_elMejor = auxMejor;
     }
+    else if(isMax && auxMejor.fitness() > _elMejor.fitness())
+    	_elMejor = auxMejor;
+    else if (!isMax && auxMejor.fitness() < _elMejor.fitness())
+    	_elMejor = auxMejor;
     	
     
     _mejorGen[iter] = auxMejor.fitness();
