@@ -18,6 +18,7 @@ public class AlgoritmoGenetico<T> {
   private double precision;
   private double[] _mejorGen;
   private double[] _mediaGen;
+  private double[] _mejorSiempre;
   private Selection<T> _selection;
   private Cruces<T> _cruce;
 
@@ -33,6 +34,7 @@ public class AlgoritmoGenetico<T> {
 
     _mejorGen = new double[_maxGeneraciones + 1];
     _mediaGen = new double[_maxGeneraciones + 1];
+    _mejorSiempre = new double[_maxGeneraciones + 1];
 
     _selection = selection;
     
@@ -47,6 +49,7 @@ public class AlgoritmoGenetico<T> {
     _selection.setPob(_poblacion);
     // Evaluar Pob
     evaluate(0);
+    
     for (int i = 0; i < _maxGeneraciones; ++i) {
       System.out.println(i);
       // Seleccion
@@ -77,19 +80,26 @@ public class AlgoritmoGenetico<T> {
 
 
   private void evaluate(int iter) {
-    _mejorGen[iter] = -1;
     double auxMedia = 0;
+    Individuo<T> auxMejor = null;
 
     for (int i = 0; i < _tamPoblacion; i++) {
-      double fit = _poblacion.get(i).fitness();
-      if (fit > _mejorGen[iter]) {
-        _mejorGen[iter] = fit;
-        if (_elMejor == null || fit > _elMejor.fitness())
-          _elMejor = _poblacion.get(i);
-      }
-      auxMedia += fit;
+    	if(auxMejor==null)
+    		auxMejor = _poblacion.get(i);
+    	else if (_poblacion.get(i).fitness() > auxMejor.fitness()) {
+    		auxMejor = _poblacion.get(i);
+    	}
+    	auxMedia += _poblacion.get(i).fitness();
     }
+    
 
+    if(_elMejor == null || auxMejor.fitness() > _elMejor.fitness()) {
+    	_elMejor = auxMejor;
+    }
+    	
+    
+    _mejorGen[iter] = auxMejor.fitness();
+    _mejorSiempre[iter] = _elMejor.fitness();
     _mediaGen[iter] = auxMedia / _tamPoblacion;
 
   }
@@ -102,6 +112,10 @@ public class AlgoritmoGenetico<T> {
 
   public double[] getMedias() {
     return _mediaGen;
+  }
+  
+  public double[] getMejorSiempre() {
+	  return _mejorSiempre;
   }
 
 }

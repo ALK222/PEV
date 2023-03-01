@@ -34,6 +34,7 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
     this.tamGenes[1] = this.tamGen(precision, min[1], max[1]);
     _chromosome = chromosome;
   }
+  
 
   public double fitness() {
     return this.getValor();
@@ -43,7 +44,7 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
   public Individuo<Boolean> mutar(Individuo<Boolean> individuo, double prob) {
     Random r = new Random();
 
-    if (r.nextDouble() > prob) {
+    if (r.nextDouble() < prob) {
       int pos = r.nextInt() * this.tamTotal;
 
       _chromosome[pos] = !_chromosome[pos];

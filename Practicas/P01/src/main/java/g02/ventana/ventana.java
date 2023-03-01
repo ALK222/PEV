@@ -191,7 +191,7 @@ public class ventana extends JFrame {
 				
 				switch(mCruce.getSelectedIndex()) {
 					default:
-						mCru = new CruceMonopunto<Boolean>(0);
+						mCru = new CruceMonopunto<Boolean>();
 						break;
 						
 					case 1:
@@ -213,6 +213,7 @@ public class ventana extends JFrame {
 		    	}
 		        double[] fitness = alg.getMejores();
 		        double[] media = alg.getMedias();
+		        double[] best = alg.getMejorSiempre();
 		        // create your PlotPanel (you can use it as a JPanel)
 		        Plot2DPanel plot = new Plot2DPanel();
 		        // define the legend position
@@ -220,6 +221,7 @@ public class ventana extends JFrame {
 		        // add a line plot to the PlotPanel
 		        plot.addLinePlot("EVOLUCIÓN", generaciones, fitness);
 		        plot.addLinePlot("MEDIAS",generaciones, media);
+		        plot.addLinePlot("MEJOR ABSOLUTO",generaciones, best);
 		        // put the PlotPanel in a JFrame like a JPanel
 		        internalFrame.setContentPane(plot);
 			}
