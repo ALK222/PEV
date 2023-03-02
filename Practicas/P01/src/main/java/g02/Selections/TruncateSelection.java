@@ -1,7 +1,6 @@
 package g02.Selections;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import g02.individuals.Individuo;
 
 public class TruncateSelection<T> extends Selection<T> {

@@ -116,9 +116,6 @@ public class IndividuoFuncion2 extends Individuo<Boolean> {
     return new IndividuoFuncion2(this._chromosome, this.precision, this.dimension);
   }
   
-  public boolean isMax() {
-	  return false;
-  }
 
   @Override
   public boolean isMax() {
