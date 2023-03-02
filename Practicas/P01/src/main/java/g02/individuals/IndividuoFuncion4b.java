@@ -2,26 +2,30 @@ package g02.individuals;
 
 public class IndividuoFuncion4b extends Individuo<Double> {
 
-  public IndividuoFuncion4b(double precision) {
-    this.tamGenes = new int[2];
-    this.min = new double[2];
-    this.max = new double[2];
-    this.min[0] = -3.000;
-    this.min[1] = 4.100;
-    this.max[0] = 12.100;
-    this.max[1] = 5.800;
+  public IndividuoFuncion4b(double precision, int dim) {
     this.precision = precision;
-    this.tamGenes[0] = this.tamGen(precision, min[0], max[0]);
-    this.tamGenes[1] = this.tamGen(precision, min[1], max[1]);
-    int tamTotal = tamGenes[0] + tamGenes[1];
-
-
+    this.tamTotal = dim;
+    
+    this._chromosome = new Double[this.tamTotal];
+    for (int i = 0; i < this.tamTotal; i++) {
+      this._chromosome[i] = this.rand.nextDouble() * Math.PI;
+    }
   }
+  
+  public IndividuoFuncion4b(Double[] chromosome, double precision, int dim) {
+	    this.precision = precision;
+	    this.tamTotal = dim;
+	    
+	    this._chromosome = new Double[this.tamTotal];
+	    for (int i = 0; i < tamTotal; i++) {
+	        this._chromosome[i] = chromosome[i];
+	      }
+	  }
 
   @Override
   public double fitness() {
     // TODO Auto-generated method stub
-    return 0;
+    return getValor();
   }
 
   @Override
@@ -32,8 +36,7 @@ public class IndividuoFuncion4b extends Individuo<Double> {
 
   @Override
   public Double[] getCromosoma() {
-    // TODO Auto-generated method stub
-    return null;
+	  return this._chromosome;
   }
 
   @Override
@@ -45,18 +48,22 @@ public class IndividuoFuncion4b extends Individuo<Double> {
   @Override
   public double getValor() {
     // TODO Auto-generated method stub
-    return 0;
+	  double sum = 0;
+	  int M = 10;
+
+	    for (int i = 0; i < this.tamTotal; ++i) {
+	      sum += Math.sin(this._chromosome[i]) * Math.pow(Math.sin(i * Math.pow(this._chromosome[i], 2) / Math.PI), 2 * M);
+	    }
+    return -sum;
   }
 
   @Override
   public Individuo<Double> copyIndividuo() {
-    // TODO Auto-generated method stub
-    return null;
+	  return new IndividuoFuncion4b(this._chromosome, this.precision, this.tamTotal);
   }
 
   @Override
   public boolean isMax() {
-    // TODO Auto-generated method stub
     return false;
   }
 

@@ -64,7 +64,7 @@ public class AlgoritmoGenetico<T> {
     		_poblacion.add((Individuo<T>) new IndividuoFuncion4a(precision, dim));
     		break;
     	case 4:
-    		_poblacion.add((Individuo<T>) new IndividuoFuncion4b(precision));
+    		_poblacion.add((Individuo<T>) new IndividuoFuncion4b(precision, dim));
     		break;
     	default:
     		_poblacion.add((Individuo<T>) new IndividuoFuncion1(precision));
