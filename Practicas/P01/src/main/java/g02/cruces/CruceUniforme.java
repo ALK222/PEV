@@ -12,7 +12,7 @@ public class CruceUniforme<T> implements Cruces<T> {
 
     Random r = new Random();
 
-    if (r.nextDouble() > prob) {
+    if (r.nextDouble() < prob) {
       for (int i = 0; i < i1.getCromosoma().length; i++) {
         if (r.nextDouble() > 0.5) {
           T aux = i1.getCromosoma()[i];

@@ -1,5 +1,7 @@
 package g02.individuals;
 
+import java.util.Random;
+
 public class IndividuoFuncion4b extends Individuo<Double> {
 
   public IndividuoFuncion4b(double precision, int dim) {
@@ -30,8 +32,14 @@ public class IndividuoFuncion4b extends Individuo<Double> {
 
   @Override
   public Individuo<Double> mutar(Individuo<Double> individuo, double prob) {
-    // TODO Auto-generated method stub
-    return null;
+	  Random r = new Random();
+
+	    if (r.nextDouble() < prob) {
+	      int pos = r.nextInt() * this.tamTotal;
+
+	      _chromosome[pos] = r.nextDouble() * Math.PI;
+	    }
+    return this;
   }
 
   @Override
