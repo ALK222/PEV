@@ -39,6 +39,7 @@ public class ventana extends JFrame {
   private JTextField pMutacion;
   private JTextField pCruce;
   private JTextField pElitismo;
+  private JTextField nDims;
 
   /**
    * Launch the application.
@@ -70,106 +71,121 @@ public class ventana extends JFrame {
 
     numGeneraciones = new JTextField();
     numGeneraciones.setText("2");
-    numGeneraciones.setBounds(131, 31, 86, 20);
+    numGeneraciones.setBounds(131, 51, 86, 20);
     contentPane.add(numGeneraciones);
     numGeneraciones.setColumns(10);
 
     JLabel lblNewLabel = new JLabel("Num. Generaciones");
-    lblNewLabel.setBounds(10, 34, 111, 14);
+    lblNewLabel.setBounds(10, 54, 111, 14);
     contentPane.add(lblNewLabel);
 
     tamPob = new JTextField();
     tamPob.setText("10");
     tamPob.setColumns(10);
-    tamPob.setBounds(131, 62, 86, 20);
+    tamPob.setBounds(131, 82, 86, 20);
     contentPane.add(tamPob);
 
     JLabel lblNumGenes = new JLabel("Tam. Población");
-    lblNumGenes.setBounds(10, 65, 111, 14);
+    lblNumGenes.setBounds(10, 85, 111, 14);
     contentPane.add(lblNumGenes);
 
     JLabel lblNumPasos = new JLabel("Prob Torneo");
-    lblNumPasos.setBounds(10, 96, 111, 14);
+    lblNumPasos.setBounds(10, 116, 111, 14);
     contentPane.add(lblNumPasos);
 
     pProbTorneo = new JTextField();
     pProbTorneo.setText("2");
     pProbTorneo.setColumns(10);
-    pProbTorneo.setBounds(131, 93, 86, 20);
+    pProbTorneo.setBounds(131, 113, 86, 20);
     contentPane.add(pProbTorneo);
 
     precision = new JTextField();
     precision.setText("0.001");
     precision.setColumns(10);
-    precision.setBounds(131, 121, 86, 20);
+    precision.setBounds(131, 141, 86, 20);
     contentPane.add(precision);
 
     JLabel lblProfMaxInicial = new JLabel("Precision");
-    lblProfMaxInicial.setBounds(10, 124, 111, 14);
+    lblProfMaxInicial.setBounds(10, 144, 111, 14);
     contentPane.add(lblProfMaxInicial);
 
     pMutacion = new JTextField();
     pMutacion.setText("0.1");
     pMutacion.setColumns(10);
-    pMutacion.setBounds(131, 152, 86, 20);
+    pMutacion.setBounds(131, 172, 86, 20);
     contentPane.add(pMutacion);
 
     JLabel lblPMutacion = new JLabel("P. Mutacion");
-    lblPMutacion.setBounds(10, 155, 111, 14);
+    lblPMutacion.setBounds(10, 175, 111, 14);
     contentPane.add(lblPMutacion);
 
     JLabel lblPCruce = new JLabel("P. Cruce");
-    lblPCruce.setBounds(10, 186, 111, 14);
+    lblPCruce.setBounds(10, 206, 111, 14);
     contentPane.add(lblPCruce);
 
     pCruce = new JTextField();
     pCruce.setText("0.1");
     pCruce.setColumns(10);
-    pCruce.setBounds(131, 183, 86, 20);
+    pCruce.setBounds(131, 203, 86, 20);
     contentPane.add(pCruce);
 
     JComboBox mSeleccion = new JComboBox();
     mSeleccion.setModel(new DefaultComboBoxModel(
         new String[] {"ruleta", "torneo 1", "torneo 2", "estocástico", "truncamiento", "restos"}));
-    mSeleccion.setBounds(131, 214, 86, 22);
+    mSeleccion.setBounds(131, 234, 86, 22);
     contentPane.add(mSeleccion);
 
     JLabel lblMSeleccion = new JLabel("M. Seleccion");
-    lblMSeleccion.setBounds(10, 218, 111, 14);
+    lblMSeleccion.setBounds(10, 238, 111, 14);
     contentPane.add(lblMSeleccion);
 
     JLabel lblMCruce = new JLabel("M. Cruce");
-    lblMCruce.setBounds(10, 251, 111, 14);
+    lblMCruce.setBounds(10, 271, 111, 14);
     contentPane.add(lblMCruce);
 
     JComboBox mCruce = new JComboBox();
     mCruce.setModel(new DefaultComboBoxModel(new String[] {"monopunto", "uniforme"}));
-    mCruce.setBounds(131, 247, 86, 22);
+    mCruce.setBounds(131, 267, 86, 22);
     contentPane.add(mCruce);
 
     JLabel lblMMutacion = new JLabel("M. Mutacion");
-    lblMMutacion.setBounds(10, 280, 111, 14);
+    lblMMutacion.setBounds(10, 300, 111, 14);
     contentPane.add(lblMMutacion);
 
     JComboBox mMutacion = new JComboBox();
     mMutacion.setModel(new DefaultComboBoxModel(new String[] {"básica"}));
-    mMutacion.setBounds(131, 276, 86, 22);
+    mMutacion.setBounds(131, 296, 86, 22);
     contentPane.add(mMutacion);
 
     pElitismo = new JTextField();
     pElitismo.setText("0.1");
     pElitismo.setColumns(10);
-    pElitismo.setBounds(131, 305, 86, 20);
+    pElitismo.setBounds(131, 325, 86, 20);
     contentPane.add(pElitismo);
 
     JLabel lblElitismo = new JLabel("Elitismo");
-    lblElitismo.setBounds(10, 308, 111, 14);
+    lblElitismo.setBounds(10, 328, 111, 14);
     contentPane.add(lblElitismo);
 
     JInternalFrame internalFrame = new JInternalFrame("Resultado");
-    internalFrame.setBounds(227, 31, 631, 624);
+    internalFrame.setBounds(227, 51, 631, 624);
     contentPane.add(internalFrame);
     internalFrame.setVisible(true);
+    
+    JComboBox individuox = new JComboBox();
+    individuox.setModel(new DefaultComboBoxModel(new String[] {"Individuo 1", "Individuo 2", "Individuo 3", "Individuo 4a", "Individuo 4b"}));
+    individuox.setBounds(250, 11, 353, 22);
+    contentPane.add(individuox);
+    
+    nDims = new JTextField();
+    nDims.setText("2");
+    nDims.setColumns(10);
+    nDims.setBounds(131, 353, 86, 20);
+    contentPane.add(nDims);
+    
+    JLabel lblDimensiones = new JLabel("Dimensiones");
+    lblDimensiones.setBounds(10, 356, 111, 14);
+    contentPane.add(lblDimensiones);
 
     JButton btnNewButton = new JButton("Iniciar");
     btnNewButton.addActionListener(new ActionListener() {
@@ -181,6 +197,9 @@ public class ventana extends JFrame {
         double prec = Double.parseDouble(precision.getText());
         double elitismo = Double.parseDouble(pElitismo.getText());
         double probTorneo = Double.parseDouble(pProbTorneo.getText());
+        int dimensiones = Integer.parseInt(nDims.getText());
+        
+        int individuo = individuox.getSelectedIndex();
 
         Selection<Boolean> mSel;
 
@@ -222,7 +241,7 @@ public class ventana extends JFrame {
             new AlgoritmoGenetico(tamPoblacion, nGeneraciones, probC, probM, 2, prec, mSel, mCru, elitismo);
 
         try {
-          System.out.println(alg.run().fitness());
+          System.out.println(alg.run(individuo, dimensiones).fitness());
         } catch (Exception ex) {
           ex.printStackTrace();
         }
@@ -247,8 +266,12 @@ public class ventana extends JFrame {
         internalFrame.setContentPane(plot);
       }
     });
-    btnNewButton.setBounds(62, 336, 89, 23);
+    btnNewButton.setBounds(61, 389, 89, 23);
     contentPane.add(btnNewButton);
+    
+    
+    
+    
 
 
 

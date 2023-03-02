@@ -6,6 +6,9 @@ import g02.cruces.Cruces;
 import g02.individuals.Individuo;
 import g02.individuals.IndividuoFuncion1;
 import g02.individuals.IndividuoFuncion2;
+import g02.individuals.IndividuoFuncion3;
+import g02.individuals.IndividuoFuncion4a;
+import g02.individuals.IndividuoFuncion4b;
 
 public class AlgoritmoGenetico<T> {
   private int _tamPoblacion;
@@ -45,9 +48,29 @@ public class AlgoritmoGenetico<T> {
   }
 
 
-  public Individuo<T> run() throws Exception {
+  public Individuo<T> run(int ind, int dim) throws Exception {
     for (int i = 0; i < _tamPoblacion; i++) {
-      _poblacion.add((Individuo<T>) new IndividuoFuncion1(precision));
+    	switch(ind) {
+    	case 0:
+    		_poblacion.add((Individuo<T>) new IndividuoFuncion1(precision));
+    		break;
+    	case 1:
+    		_poblacion.add((Individuo<T>) new IndividuoFuncion2(precision, dim));
+    		break;
+    	case 2:
+    		_poblacion.add((Individuo<T>) new IndividuoFuncion3(precision));
+    		break;
+    	case 3:
+    		_poblacion.add((Individuo<T>) new IndividuoFuncion4a(precision, dim));
+    		break;
+    	case 4:
+    		_poblacion.add((Individuo<T>) new IndividuoFuncion4b(precision));
+    		break;
+    	default:
+    		_poblacion.add((Individuo<T>) new IndividuoFuncion1(precision));
+    		break;
+    	}
+      
     }
     _selection.setPob(_poblacion);
     
