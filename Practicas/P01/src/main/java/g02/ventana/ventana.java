@@ -70,7 +70,7 @@ public class ventana extends JFrame {
     contentPane.setLayout(null);
 
     numGeneraciones = new JTextField();
-    numGeneraciones.setText("2");
+    numGeneraciones.setText("100");
     numGeneraciones.setBounds(131, 51, 86, 20);
     contentPane.add(numGeneraciones);
     numGeneraciones.setColumns(10);
@@ -80,7 +80,7 @@ public class ventana extends JFrame {
     contentPane.add(lblNewLabel);
 
     tamPob = new JTextField();
-    tamPob.setText("10");
+    tamPob.setText("100");
     tamPob.setColumns(10);
     tamPob.setBounds(131, 82, 86, 20);
     contentPane.add(tamPob);
@@ -110,7 +110,7 @@ public class ventana extends JFrame {
     contentPane.add(lblProfMaxInicial);
 
     pMutacion = new JTextField();
-    pMutacion.setText("0.1");
+    pMutacion.setText("0.05");
     pMutacion.setColumns(10);
     pMutacion.setBounds(131, 172, 86, 20);
     contentPane.add(pMutacion);
@@ -124,7 +124,7 @@ public class ventana extends JFrame {
     contentPane.add(lblPCruce);
 
     pCruce = new JTextField();
-    pCruce.setText("0.1");
+    pCruce.setText("0.6");
     pCruce.setColumns(10);
     pCruce.setBounds(131, 203, 86, 20);
     contentPane.add(pCruce);
