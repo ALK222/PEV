@@ -1,21 +1,35 @@
 package g02.individuals;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class IndividuoFuncion4a extends Individuo<Boolean> {
 
-  public IndividuoFuncion4a(double precision) {
-    this.tamGenes = new int[2];
-    this.min = new double[2];
-    this.max = new double[2];
-    this.min[0] = -3.000;
-    this.min[1] = 4.100;
-    this.max[0] = 12.100;
-    this.max[1] = 5.800;
+  private int _dimension;
+
+  public IndividuoFuncion4a(double precision, int dimensiones) {
+    this.tamGenes = new int[dimensiones];
+    this.min = new double[dimensiones];
+    this.max = new double[dimensiones];
+
+    for (int i = 0; i < dimensiones; ++i) {
+      min[i] = 0;
+      max[i] = Math.PI;
+    }
+    this._dimension = dimensiones;
     this.precision = precision;
-    this.tamGenes[0] = this.tamGen(precision, min[0], max[0]);
-    this.tamGenes[1] = this.tamGen(precision, min[1], max[1]);
-    int tamTotal = tamGenes[0] + tamGenes[1];
+
+    for (int i = 0; i < _dimension; ++i) {
+      this.tamGenes[i] = this.tamGen(precision, min[i], max[i]);
+    }
+
+    int tamTotal = 0;
+
+    for (int i = 0; i < _dimension; ++i) {
+      tamTotal += tamGenes[i];
+    }
+
+
     this._chromosome = new Boolean[tamTotal];
     for (int i = 0; i < tamTotal; i++) {
       this._chromosome[i] = this.rand.nextBoolean();
@@ -23,10 +37,37 @@ public class IndividuoFuncion4a extends Individuo<Boolean> {
 
   }
 
+  public IndividuoFuncion4a(Boolean chromosome[], double precision, int dimensiones) {
+    this.tamGenes = new int[dimensiones];
+    this.min = new double[dimensiones];
+    this.max = new double[dimensiones];
+
+    for (int i = 0; i < dimensiones; ++i) {
+      min[i] = 0;
+      max[i] = Math.PI;
+    }
+    this._dimension = dimensiones;
+    this.precision = precision;
+
+    for (int i = 0; i < _dimension; ++i) {
+      this.tamGenes[i] = this.tamGen(precision, min[i], max[i]);
+    }
+
+    int tamTotal = 0;
+
+    for (int i = 0; i < _dimension; ++i) {
+      tamTotal += tamGenes[i];
+    }
+    this._chromosome = new Boolean[tamTotal];
+    for (int i = 0; i < tamTotal; i++) {
+      this._chromosome[i] = chromosome[i];
+    }
+
+  }
+
   @Override
   public double fitness() {
-    // TODO Auto-generated method stub
-    return 0;
+    return this.getValor();
   }
 
   @Override
@@ -75,13 +116,22 @@ public class IndividuoFuncion4a extends Individuo<Boolean> {
 
   @Override
   public double getValor() {
-    // TODO Auto-generated method stub
-    return 0;
+    double sum = 0;
+
+    int M = 10;
+
+    for (int i = 0; i < _dimension; ++i) {
+      double x = this.getFenotipo(i);
+      sum += Math.sin(x) * Math.pow(Math.sin(i * Math.pow(x, 2) / Math.PI), 2 * M);
+    }
+
+
+    return -sum;
   }
 
   @Override
   public Individuo<Boolean> copyIndividuo() {
-    return new Individuo4a(this._chromosome, this.precision);
+    return new IndividuoFuncion4a(this._chromosome, this.precision, this._dimension);
   }
 
   @Override
