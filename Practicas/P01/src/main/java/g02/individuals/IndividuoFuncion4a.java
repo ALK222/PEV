@@ -1,6 +1,5 @@
 package g02.individuals;
 
-import java.util.Arrays;
 import java.util.Random;
 
 public class IndividuoFuncion4a extends Individuo<Boolean> {

@@ -26,7 +26,6 @@ public class IndividuoFuncion4b extends Individuo<Double> {
 
   @Override
   public double fitness() {
-    // TODO Auto-generated method stub
     return getValor();
   }
 
@@ -49,13 +48,11 @@ public class IndividuoFuncion4b extends Individuo<Double> {
 
   @Override
   public double getFenotipo(int index) {
-    // TODO Auto-generated method stub
-    return 0;
+    return _chromosome[index];
   }
 
   @Override
   public double getValor() {
-    // TODO Auto-generated method stub
 	  double sum = 0;
 	  int M = 10;
 

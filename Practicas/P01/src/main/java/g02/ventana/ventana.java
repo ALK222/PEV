@@ -15,12 +15,14 @@ import g02.Selections.TournamentDeterministicSelection;
 import g02.Selections.TournamentProbabilisticSelection;
 import g02.Selections.TruncateSelection;
 import g02.algoritmogenetico.AlgoritmoGenetico;
+import g02.cruces.CruceAritmetico;
 import g02.cruces.CruceMonopunto;
 import g02.cruces.CruceUniforme;
 import g02.cruces.Cruces;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -144,7 +146,7 @@ public class ventana extends JFrame {
     contentPane.add(lblMCruce);
 
     JComboBox mCruce = new JComboBox();
-    mCruce.setModel(new DefaultComboBoxModel(new String[] {"monopunto", "uniforme"}));
+    mCruce.setModel(new DefaultComboBoxModel(new String[] {"monopunto", "uniforme", "aritmético", "BLX-alpha"}));
     mCruce.setBounds(131, 267, 86, 22);
     contentPane.add(mCruce);
 
@@ -171,18 +173,19 @@ public class ventana extends JFrame {
     internalFrame.setBounds(227, 51, 631, 624);
     contentPane.add(internalFrame);
     internalFrame.setVisible(true);
-    
+
     JComboBox individuox = new JComboBox();
-    individuox.setModel(new DefaultComboBoxModel(new String[] {"Individuo 1", "Individuo 2", "Individuo 3", "Individuo 4a", "Individuo 4b"}));
+    individuox.setModel(new DefaultComboBoxModel(new String[] {"Individuo 1", "Individuo 2",
+        "Individuo 3", "Individuo 4a", "Individuo 4b"}));
     individuox.setBounds(250, 11, 353, 22);
     contentPane.add(individuox);
-    
+
     nDims = new JTextField();
     nDims.setText("2");
     nDims.setColumns(10);
     nDims.setBounds(131, 353, 86, 20);
     contentPane.add(nDims);
-    
+
     JLabel lblDimensiones = new JLabel("Dimensiones");
     lblDimensiones.setBounds(10, 356, 111, 14);
     contentPane.add(lblDimensiones);
@@ -198,53 +201,109 @@ public class ventana extends JFrame {
         double elitismo = Double.parseDouble(pElitismo.getText());
         double probTorneo = Double.parseDouble(pProbTorneo.getText());
         int dimensiones = Integer.parseInt(nDims.getText());
-        
+
         int individuo = individuox.getSelectedIndex();
-
-        Selection<Boolean> mSel;
-
-        switch (mSeleccion.getSelectedIndex()) {
-          case 0:
-            mSel = new RouletteSelection<Boolean>(tamPoblacion, null);
-            break;
-          case 1:
-            mSel = new TournamentDeterministicSelection<Boolean>(tamPoblacion, null);
-            break;
-          case 2: 
-            mSel = new TournamentProbabilisticSelection<>(tamPoblacion, null, probTorneo);
-          case 3:
-            mSel = new StochasticSelection<Boolean>(tamPoblacion, null);
-            break;
-          case 4:
-            mSel = new TruncateSelection<>(tamPoblacion, null, 0.5);
-            break;
-          case 5:
-            mSel = new RestosSelection<>(5, null);
-            break;
-          default:
-            mSel = new RouletteSelection<Boolean>(tamPoblacion, null);
-            break;
+        
+        
+        if(individuo != 5 && (mCruce.getSelectedIndex() == 2 || mCruce.getSelectedIndex() == 3)) {
+          JOptionPane.showMessageDialog(new JFrame(), "Cruce aritmético y BLX-alpha solo disponible en Individuo 4B", "Dialog",
+              JOptionPane.ERROR_MESSAGE);
         }
 
-        Cruces<Boolean> mCru;
+         Selection<?> mSel;
+         Cruces<?> mCru;
+         
+         AlgoritmoGenetico<?> alg;
 
-        switch (mCruce.getSelectedIndex()) {
-          default:
-            mCru = new CruceMonopunto<Boolean>();
-            break;
+        if (individuo == 5) {
+          switch (mSeleccion.getSelectedIndex()) {
+            case 0:
+              mSel = new RouletteSelection<Double>(tamPoblacion, null);
+              break;
+            case 1:
+              mSel = new TournamentDeterministicSelection<Double>(tamPoblacion, null);
+              break;
+            case 2:
+              mSel = new TournamentProbabilisticSelection<Double>(tamPoblacion, null, probTorneo);
+            case 3:
+              mSel = new StochasticSelection<Double>(tamPoblacion, null);
+              break;
+            case 4:
+              mSel = new TruncateSelection<Double>(tamPoblacion, null, 0.5);
+              break;
+            case 5:
+              mSel = new RestosSelection<Double>(5, null);
+              break;
+            default:
+              mSel = new RouletteSelection<Double>(tamPoblacion, null);
+              break;
+          }
 
-          case 1:
-            mCru = new CruceUniforme<Boolean>();
+
+
+          switch (mCruce.getSelectedIndex()) {
+            default:
+              mCru = new CruceMonopunto<Double>();
+              break;
+            case 1:
+              mCru = new CruceUniforme<Double>();
+            case 2:
+              mCru = new CruceAritmetico();
+          }
+          alg = new AlgoritmoGenetico(tamPoblacion, nGeneraciones, probC,
+              probM, prec, mSel, mCru, elitismo);
+          try {
+            System.out.println(alg.run(individuo, dimensiones).fitness());
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
+
+        } else { // Individuos 1-4A
+          switch (mSeleccion.getSelectedIndex()) {
+            case 0:
+              mSel = new RouletteSelection<Boolean>(tamPoblacion, null);
+              break;
+            case 1:
+              mSel = new TournamentDeterministicSelection<Boolean>(tamPoblacion, null);
+              break;
+            case 2:
+              mSel = new TournamentProbabilisticSelection<Boolean>(tamPoblacion, null, probTorneo);
+            case 3:
+              mSel = new StochasticSelection<Boolean>(tamPoblacion, null);
+              break;
+            case 4:
+              mSel = new TruncateSelection<Boolean>(tamPoblacion, null, 0.5);
+              break;
+            case 5:
+              mSel = new RestosSelection<Boolean>(5, null);
+              break;
+            default:
+              mSel = new RouletteSelection<Boolean>(tamPoblacion, null);
+              break;
+          }
+
+
+
+          switch (mCruce.getSelectedIndex()) {
+            default:
+              mCru = new CruceMonopunto<Boolean>();
+              break;
+
+            case 1:
+              mCru = new CruceUniforme<Boolean>();
+          }
+          alg = new AlgoritmoGenetico(tamPoblacion, nGeneraciones, probC,
+              probM, prec, mSel, mCru, elitismo);
+          try {
+            System.out.println(alg.run(individuo, dimensiones).fitness());
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
+          
         }
 
-        AlgoritmoGenetico alg =
-            new AlgoritmoGenetico(tamPoblacion, nGeneraciones, probC, probM, 2, prec, mSel, mCru, elitismo);
 
-        try {
-          System.out.println(alg.run(individuo, dimensiones).fitness());
-        } catch (Exception ex) {
-          ex.printStackTrace();
-        }
+
 
 
         double[] generaciones = new double[nGeneraciones];
@@ -268,12 +327,9 @@ public class ventana extends JFrame {
     });
     btnNewButton.setBounds(61, 389, 89, 23);
     contentPane.add(btnNewButton);
-    
-    
-    
-    
 
 
 
   }
+  
 }

@@ -16,7 +16,6 @@ public class AlgoritmoGenetico<T> {
   private int _maxGeneraciones;
   private double _probCruce;
   private double _probMutacion;
-  private int _tamTorneo;
   private Individuo<T> _elMejor;
   private double precision;
   private double _elitismo;
@@ -27,14 +26,13 @@ public class AlgoritmoGenetico<T> {
   private Cruces<T> _cruce;
   private boolean isMax;
 
-  public AlgoritmoGenetico(int tam, int max, double probC, double probM, int tamT, double prec,
+  public AlgoritmoGenetico(int tam, int max, double probC, double probM, double prec,
       Selection<T> selection, Cruces<T> cruce, double elitismo) {
     _tamPoblacion = tam;
     _poblacion = new ArrayList<Individuo<T>>();
     _maxGeneraciones = max;
     _probCruce = probC;
     _probMutacion = probM;
-    _tamTorneo = tamT;
     precision = prec;
     _elitismo = elitismo;
 
@@ -48,6 +46,7 @@ public class AlgoritmoGenetico<T> {
   }
 
 
+  @SuppressWarnings("unchecked")
   public Individuo<T> run(int ind, int dim) throws Exception {
     for (int i = 0; i < _tamPoblacion; i++) {
     	switch(ind) {
