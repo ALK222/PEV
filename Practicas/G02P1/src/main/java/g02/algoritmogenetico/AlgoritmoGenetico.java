@@ -79,20 +79,17 @@ public class AlgoritmoGenetico<T> {
     
     for (int i = 0; i < _maxGeneraciones; ++i) {
       System.out.println(i);
-      // Seleccion
-      ArrayList<Individuo<T>> seleccionados = _selection.run();
-
+      
+      int directos = (int) Math.round(_poblacion.size() * _elitismo);
       ArrayList<Individuo<T>> newPob = new ArrayList<>();
-
-      int directos = (int) Math.round(seleccionados.size() * _elitismo);
 
 
       for (int j = 0; j < directos; ++j) {
         double max = -Double.MAX_VALUE;
         double min = Double.MAX_VALUE;
         int borrar = -1;
-        for (int k = 0; k < seleccionados.size(); ++k) {
-          double currFitness = seleccionados.get(k).fitness();
+        for (int k = 0; k < _poblacion.size(); ++k) {
+          double currFitness = _poblacion.get(k).fitness();
           
           if(isMax)
           {
@@ -109,9 +106,17 @@ public class AlgoritmoGenetico<T> {
           }
           
         }
-        newPob.add(seleccionados.get(borrar).copyIndividuo());
-        seleccionados.remove(borrar);
+        newPob.add(_poblacion.get(borrar).copyIndividuo());
+        _poblacion.remove(borrar);
       }
+      
+      
+      // Seleccion
+      ArrayList<Individuo<T>> seleccionados = _selection.run();
+
+      
+
+      
 
       ArrayList<Individuo<T>> cruzados = new ArrayList<>();
       // Cruce
