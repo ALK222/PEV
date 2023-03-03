@@ -98,7 +98,7 @@ public class ventana extends JFrame {
     contentPane.add(lblNumPasos);
 
     pProbTorneo = new JTextField();
-    pProbTorneo.setText("2");
+    pProbTorneo.setText("0.5");
     pProbTorneo.setColumns(10);
     pProbTorneo.setBounds(131, 113, 86, 20);
     contentPane.add(pProbTorneo);
