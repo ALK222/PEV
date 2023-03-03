@@ -19,6 +19,7 @@ import g02.cruces.CruceAritmetico;
 import g02.cruces.CruceMonopunto;
 import g02.cruces.CruceUniforme;
 import g02.cruces.Cruces;
+import g02.individuals.Individuo;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -29,6 +30,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JInternalFrame;
+import javax.swing.JTextPane;
 
 public class ventana extends JFrame {
 
@@ -190,6 +192,10 @@ public class ventana extends JFrame {
     JLabel lblDimensiones = new JLabel("Dimensiones");
     lblDimensiones.setBounds(10, 356, 111, 14);
     contentPane.add(lblDimensiones);
+    
+    JTextPane resultsPane = new JTextPane();
+    resultsPane.setBounds(10, 451, 207, 73);
+    contentPane.add(resultsPane);
 
     JButton btnNewButton = new JButton("Iniciar");
     btnNewButton.addActionListener(new ActionListener() {
@@ -251,10 +257,13 @@ public class ventana extends JFrame {
               case 2:
                 mCru = new CruceAritmetico();
             }
+            Individuo<Double> mejor;
             alg = new AlgoritmoGenetico(tamPoblacion, nGeneraciones, probC, probM, prec, mSel, mCru,
                 elitismo);
             try {
-              System.out.println(alg.run(individuo, dimensiones).fitness());
+            	mejor = (Individuo<Double>) alg.run(individuo, dimensiones);
+              System.out.println(mejor.fitness());
+              resultsPane.setText(mejor.toString());
             } catch (Exception ex) {
               ex.printStackTrace();
             }
@@ -294,15 +303,22 @@ public class ventana extends JFrame {
               case 1:
                 mCru = new CruceUniforme<Boolean>();
             }
+            Individuo<Boolean> mejor;
             alg = new AlgoritmoGenetico(tamPoblacion, nGeneraciones, probC, probM, prec, mSel, mCru,
                 elitismo);
             try {
-              System.out.println(alg.run(individuo, dimensiones).fitness());
+            	mejor = (Individuo<Boolean>) alg.run(individuo, dimensiones);
+              System.out.println(mejor.fitness());
+              resultsPane.setText(mejor.toString());
             } catch (Exception ex) {
               ex.printStackTrace();
             }
 
           }
+          
+          
+          
+          
           double[] generaciones = new double[nGeneraciones];
           for (int i = 0; i < nGeneraciones; i++) {
             generaciones[i] = i;
@@ -330,9 +346,14 @@ public class ventana extends JFrame {
     });
     btnNewButton.setBounds(61, 389, 89, 23);
     contentPane.add(btnNewButton);
+    
+    JLabel lblResultados = new JLabel("Resultados");
+    lblResultados.setBounds(10, 426, 111, 14);
+    contentPane.add(lblResultados);
+    
+    
 
 
 
   }
-
 }
