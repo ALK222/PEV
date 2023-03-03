@@ -58,7 +58,7 @@ public class IndividuoFuncion4b extends Individuo<Double> {
 	  int M = 10;
 
 	    for (int i = 0; i < this.tamTotal; ++i) {
-	      sum += Math.sin(this._chromosome[i]) * Math.pow(Math.sin(i * Math.pow(this._chromosome[i], 2) / Math.PI), 2 * M);
+	      sum += Math.sin(this._chromosome[i]) * Math.pow(Math.sin((i + 1) * Math.pow(this._chromosome[i], 2) / Math.PI), 2 * M);
 	    }
     return -sum;
   }

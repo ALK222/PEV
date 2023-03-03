@@ -81,7 +81,7 @@ public class IndividuoFuncion2 extends Individuo<Boolean> {
       start = 0;
       end = this.tamGenes[index] - 1;
     } else {
-      start = this.tamGenes[index - 1];
+      start = this.tamGenes[index - 1] * index;
       end = this.tamGenes[index] + this.tamGenes[index - 1] - 1;
     }
 

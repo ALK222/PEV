@@ -23,7 +23,7 @@ public class IndividuoFuncion4a extends Individuo<Boolean> {
       this.tamGenes[i] = this.tamGen(precision, min[i], max[i]);
     }
 
-    int tamTotal = 0;
+    tamTotal = 0;
 
     for (int i = 0; i < _dimension; ++i) {
       tamTotal += tamGenes[i];
@@ -97,8 +97,8 @@ public class IndividuoFuncion4a extends Individuo<Boolean> {
       start = 0;
       end = this.tamGenes[index] - 1;
     } else {
-      start = this.tamGenes[index - 1];
-      end = this.tamGenes[index] + this.tamGenes[index - 1] - 1;
+      start = this.tamGenes[index - 1] * index;
+      end = start + this.tamGenes[index] - 1;
     }
 
 
@@ -121,11 +121,10 @@ public class IndividuoFuncion4a extends Individuo<Boolean> {
 
     int M = 10;
 
-    for (int i = 0; i < _dimension; ++i) {
+    for (int i = 0; i < _dimension; i++) {
       double x = this.getFenotipo(i);
-      sum += Math.sin(x) * Math.pow(Math.sin(i * Math.pow(x, 2) / Math.PI), 2 * M);
+      sum += Math.sin(x) * Math.pow(Math.sin((i + 1) * Math.pow(x, 2) / Math.PI), 2 * M);
     }
-
 
     return -sum;
   }

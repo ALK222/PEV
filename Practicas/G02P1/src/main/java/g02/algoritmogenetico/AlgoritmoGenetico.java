@@ -78,7 +78,7 @@ public class AlgoritmoGenetico<T> {
     evaluate(0);
     
     for (int i = 0; i < _maxGeneraciones; ++i) {
-      System.out.println(i);
+      //System.out.println(i);
       
       int directos = (int) Math.round(_poblacion.size() * _elitismo);
       ArrayList<Individuo<T>> newPob = new ArrayList<>();
@@ -167,6 +167,7 @@ public class AlgoritmoGenetico<T> {
     	}
     	else if(!isMax) {
     		if (_poblacion.get(i).fitness() < auxMejor.fitness()) {
+    			
     			auxMejor = _poblacion.get(i);
     		}
     	}
