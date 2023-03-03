@@ -1,0 +1,149 @@
+{
+    "spellright.language": [
+        "Spanish",
+        "es-ES-3-0."
+    ],
+    "spellright.documentTypes": [
+        "markdown",
+        "plaintext",
+        "tex",
+        "latex",
+        "rsweave"
+    ],
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "xelatex, makeglossaries, xelatex (2x)",
+            "tools": [
+                "xelatex",
+                "makeglossaries",
+                "xelatex",
+                "xelatex"
+            ]
+        },
+        {
+            "name": "xelatex",
+            "tools": [
+                "xelatex"
+            ]
+        },
+        {
+            "name": "xelatex, makeglossaries, bibtex, xelatex (2x)",
+            "tools": [
+                "xelatex",
+                "makeglossaries",
+                "bibtex",
+                "xelatex",
+                "xelatex"
+            ]
+        }
+    ],
+    "latex-workshop.latex.tools": [
+        {
+            "name": "xelatex",
+            "command": "xelatex",
+            "args": [
+                "-file-line-error",
+                "-interaction=nonstopmode",
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "pdflatex",
+            "command": "pdflatex",
+            "args": [
+                "-f",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "bibtex",
+            "command": "bibtex",
+            "args": [
+                "%DOCFILE%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "makeglossaries",
+            "command": "makeglossaries",
+            "args": [
+                "%DOCFILE%"
+            ]
+        }
+    ],
+    "spellright.parserByClass": {
+        "rsweave": {
+            "parser": "latex"
+        }
+    },
+    "cSpell.language": "es,es-ES",
+    "cSpell.words": [
+        "abogades",
+        "Algunes",
+        "alocuciones",
+        "Analytica",
+        "Arms",
+        "autogestionadas",
+        "Autónome",
+        "bias",
+        "BOSCO",
+        "Cambrige",
+        "ciberacoso",
+        "Commons",
+        "cookies",
+        "Cookies",
+        "copyleft",
+        "Copyleft",
+        "crackear",
+        "cracker",
+        "crackers",
+        "cracking",
+        "Creative",
+        "cualificade",
+        "décuplo",
+        "deontológicos",
+        "desencriptar",
+        "éticamente",
+        "expertes",
+        "explicabilidad",
+        "Explicabilidad",
+        "Eyal",
+        "firmware",
+        "generis",
+        "hack",
+        "hacker",
+        "hackers",
+        "Hooked",
+        "Ingeniere",
+        "insuficientemente",
+        "interoperabilidad",
+        "interprofesionales",
+        "Jargon",
+        "Joseph",
+        "Kizza",
+        "microcódigo",
+        "Migga",
+        "monetización",
+        "monitorearnos",
+        "patentable",
+        "peers",
+        "Pyme",
+        "quater",
+        "Regulation",
+        "restringirnos",
+        "RGPD",
+        "sintientes",
+        "Standford",
+        "Telegram",
+        "telemático",
+        "telemáticos",
+        "usuaries",
+        "videogramas",
+        "Wassenaar",
+        "XIII"
+    ],
+    "files.watcherExclude": {
+        "**/target": true
+    }
+}
