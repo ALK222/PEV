@@ -35,8 +35,8 @@ public class CruceMonopunto<T> implements Cruces<T> {
 
     ArrayList<Individuo<T>> res = new ArrayList<Individuo<T>>();
 
-    res.add(i1);
-    res.add(i2);
+    res.add(i1.copyIndividuo());
+    res.add(i2.copyIndividuo());
 
     return res;
   }

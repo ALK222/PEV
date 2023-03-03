@@ -6,10 +6,12 @@ import g02.individuals.Individuo;
 public class TournamentProbabilisticSelection<T> extends Selection<T> {
 
   double _prob;
+  boolean _isMax;
 
-  public TournamentProbabilisticSelection(int s, ArrayList<Individuo<T>> pob, double prob) {
+  public TournamentProbabilisticSelection(int s, ArrayList<Individuo<T>> pob, double prob, boolean isMax) {
     super(s, pob);
     _prob = prob;
+    _isMax = isMax;
   }
 
   @Override
@@ -29,7 +31,7 @@ public class TournamentProbabilisticSelection<T> extends Selection<T> {
 
       Individuo<T> aux;
 
-      if (prob < _prob) {
+      if ((prob < _prob && _isMax) || (prob> _prob && !_isMax)) {
         aux = i1.fitness() > i2.fitness() ? i1.copyIndividuo() : i2.copyIndividuo();
       } else {
         aux = i1.fitness() > i2.fitness() ? i2.copyIndividuo() : i1.copyIndividuo();

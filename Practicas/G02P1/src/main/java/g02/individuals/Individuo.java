@@ -17,6 +17,7 @@ public abstract class Individuo<T> {
   protected int tamGenes[];
   protected int tamTotal;
   protected double precision;
+  protected int numFenotipos;
 
   protected Random rand = new Random();
 
@@ -77,9 +78,10 @@ public abstract class Individuo<T> {
   public String toString() {
     String aux = "Cromosoma: ";
     
-    for(int i = 0; i < _chromosome.length; ++i) {
+    for(int i = 0; i < numFenotipos; i++) {
       aux += this.getFenotipo(i) + " ";
     }
+    aux += "\n";
     
     aux += "fitness: " + this.fitness();
     

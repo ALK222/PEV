@@ -6,6 +6,7 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
   
 
   public IndividuoFuncion1(double precision) {
+    this.numFenotipos = 2;
     this.tamGenes = new int[2];
     this.min = new double[2];
     this.max = new double[2];
@@ -25,6 +26,7 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
   }
 
   public IndividuoFuncion1(Boolean chromosome[], double precision) {
+    this.numFenotipos = 2;
     this.tamGenes = new int[2];
     this.min = new double[2];
     this.max = new double[2];

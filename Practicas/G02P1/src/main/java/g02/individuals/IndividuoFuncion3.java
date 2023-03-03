@@ -7,6 +7,7 @@ public class IndividuoFuncion3 extends Individuo<Boolean> {
   private static int DIMENSION = 2;
 
   public IndividuoFuncion3(double precision) {
+    this.numFenotipos = DIMENSION;
     this.tamGenes = new int[DIMENSION];
     this.min = new double[DIMENSION];
     this.max = new double[DIMENSION];
@@ -24,6 +25,7 @@ public class IndividuoFuncion3 extends Individuo<Boolean> {
   }
 
   public IndividuoFuncion3(Boolean cromosoma[], double precision) {
+    this.numFenotipos = DIMENSION;
     this.tamGenes = new int[DIMENSION];
     this.min = new double[DIMENSION];
     this.max = new double[DIMENSION];

@@ -192,7 +192,7 @@ public class ventana extends JFrame {
     JLabel lblDimensiones = new JLabel("Dimensiones");
     lblDimensiones.setBounds(10, 356, 111, 14);
     contentPane.add(lblDimensiones);
-    
+
     JTextPane resultsPane = new JTextPane();
     resultsPane.setBounds(10, 451, 207, 73);
     contentPane.add(resultsPane);
@@ -217,6 +217,10 @@ public class ventana extends JFrame {
               "Cruce aritmético y BLX-alpha solo disponible en Individuo 4B", "Dialog",
               JOptionPane.ERROR_MESSAGE);
         } else {
+          boolean isMax = false;
+          if (individuo == 0) {
+            isMax = true;
+          }
           Selection<?> mSel;
           Cruces<?> mCru;
 
@@ -228,10 +232,11 @@ public class ventana extends JFrame {
                 mSel = new RouletteSelection<Double>(tamPoblacion, null);
                 break;
               case 1:
-                mSel = new TournamentDeterministicSelection<Double>(tamPoblacion, null);
+                mSel = new TournamentDeterministicSelection<Double>(tamPoblacion, null, isMax);
                 break;
               case 2:
-                mSel = new TournamentProbabilisticSelection<Double>(tamPoblacion, null, probTorneo);
+                mSel = new TournamentProbabilisticSelection<Double>(tamPoblacion, null, probTorneo,
+                    isMax);
               case 3:
                 mSel = new StochasticSelection<Double>(tamPoblacion, null);
                 break;
@@ -261,7 +266,7 @@ public class ventana extends JFrame {
             alg = new AlgoritmoGenetico(tamPoblacion, nGeneraciones, probC, probM, prec, mSel, mCru,
                 elitismo);
             try {
-            	mejor = (Individuo<Double>) alg.run(individuo, dimensiones);
+              mejor = (Individuo<Double>) alg.run(individuo, dimensiones);
               System.out.println(mejor.fitness());
               resultsPane.setText(mejor.toString());
             } catch (Exception ex) {
@@ -274,11 +279,11 @@ public class ventana extends JFrame {
                 mSel = new RouletteSelection<Boolean>(tamPoblacion, null);
                 break;
               case 1:
-                mSel = new TournamentDeterministicSelection<Boolean>(tamPoblacion, null);
+                mSel = new TournamentDeterministicSelection<Boolean>(tamPoblacion, null, isMax);
                 break;
               case 2:
-                mSel =
-                    new TournamentProbabilisticSelection<Boolean>(tamPoblacion, null, probTorneo);
+                mSel = new TournamentProbabilisticSelection<Boolean>(tamPoblacion, null, probTorneo,
+                    isMax);
               case 3:
                 mSel = new StochasticSelection<Boolean>(tamPoblacion, null);
                 break;
@@ -307,7 +312,7 @@ public class ventana extends JFrame {
             alg = new AlgoritmoGenetico(tamPoblacion, nGeneraciones, probC, probM, prec, mSel, mCru,
                 elitismo);
             try {
-            	mejor = (Individuo<Boolean>) alg.run(individuo, dimensiones);
+              mejor = (Individuo<Boolean>) alg.run(individuo, dimensiones);
               System.out.println(mejor.fitness());
               resultsPane.setText(mejor.toString());
             } catch (Exception ex) {
@@ -315,10 +320,9 @@ public class ventana extends JFrame {
             }
 
           }
-          
-          
-          
-          
+
+
+
           double[] generaciones = new double[nGeneraciones];
           for (int i = 0; i < nGeneraciones; i++) {
             generaciones[i] = i;
@@ -326,32 +330,29 @@ public class ventana extends JFrame {
           double[] fitness = alg.getMejores();
           double[] media = alg.getMedias();
           double[] best = alg.getMejorSiempre();
-          
-         // create your PlotPanel (you can use it as a JPanel)
-        Plot2DPanel plot = new Plot2DPanel();
-        // define the legend position
-        plot.addLegend("SOUTH");
-        // add a line plot to the PlotPanel
-        plot.addLinePlot("MEJOR ABSOLUTO", generaciones, best);
-        plot.addLinePlot("EVOLUCIÓN", generaciones, fitness);
-        plot.addLinePlot("MEDIAS", generaciones, media);
-        // put the PlotPanel in a JFrame like a JPanel
-        internalFrame.setContentPane(plot);
-      }
+
+          // create your PlotPanel (you can use it as a JPanel)
+          Plot2DPanel plot = new Plot2DPanel();
+          // define the legend position
+          plot.addLegend("SOUTH");
+          // add a line plot to the PlotPanel
+          plot.addLinePlot("MEJOR ABSOLUTO", generaciones, best);
+          plot.addLinePlot("EVOLUCIÓN", generaciones, fitness);
+          plot.addLinePlot("MEDIAS", generaciones, media);
+          // put the PlotPanel in a JFrame like a JPanel
+          internalFrame.setContentPane(plot);
         }
+      }
 
 
 
-        
     });
     btnNewButton.setBounds(61, 389, 89, 23);
     contentPane.add(btnNewButton);
-    
+
     JLabel lblResultados = new JLabel("Resultados");
     lblResultados.setBounds(10, 426, 111, 14);
     contentPane.add(lblResultados);
-    
-    
 
 
 

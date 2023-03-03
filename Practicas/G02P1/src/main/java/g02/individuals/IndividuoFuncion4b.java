@@ -7,6 +7,7 @@ public class IndividuoFuncion4b extends Individuo<Double> {
   public IndividuoFuncion4b(double precision, int dim) {
     this.precision = precision;
     this.tamTotal = dim;
+    this.numFenotipos = dim;
     
     this._chromosome = new Double[this.tamTotal];
     for (int i = 0; i < this.tamTotal; i++) {

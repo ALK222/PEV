@@ -5,8 +5,11 @@ import g02.individuals.Individuo;
 
 public class TournamentDeterministicSelection<T> extends Selection<T> {
 
-  public TournamentDeterministicSelection(int s, ArrayList<Individuo<T>> pob) {
+  private boolean _isMax;
+
+  public TournamentDeterministicSelection(int s, ArrayList<Individuo<T>> pob, boolean isMax) {
     super(s, pob);
+    _isMax = isMax;
   }
 
   @Override
@@ -23,7 +26,12 @@ public class TournamentDeterministicSelection<T> extends Selection<T> {
       _pob.remove(pos2);
       
       Individuo<T> aux;
-      aux = i1.fitness() > i2.fitness() ? i1.copyIndividuo() : i2.copyIndividuo();
+      if (_isMax) {
+        aux = i1.fitness() > i2.fitness() ? i1.copyIndividuo() : i2.copyIndividuo();
+      } else {
+        aux = i1.fitness() < i2.fitness() ? i1.copyIndividuo() : i2.copyIndividuo();
+      }
+      
       
       seleccionados.add(aux.copyIndividuo());
       seleccionados.add(aux.copyIndividuo());
