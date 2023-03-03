@@ -74,4 +74,16 @@ public abstract class Individuo<T> {
   
   public abstract boolean isMax();
   
+  public String toString() {
+    String aux = "Cromosoma: ";
+    
+    for(int i = 0; i < _chromosome.length; ++i) {
+      aux += this.getFenotipo(i) + " ";
+    }
+    
+    aux += "fitness: " + this.fitness();
+    
+    return aux;
+  }
+  
 }
