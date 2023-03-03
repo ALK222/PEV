@@ -316,9 +316,9 @@ public class ventana extends JFrame {
         // define the legend position
         plot.addLegend("SOUTH");
         // add a line plot to the PlotPanel
+        plot.addLinePlot("MEJOR ABSOLUTO", generaciones, best);
         plot.addLinePlot("EVOLUCIÓN", generaciones, fitness);
         plot.addLinePlot("MEDIAS", generaciones, media);
-        plot.addLinePlot("MEJOR ABSOLUTO", generaciones, best);
         // put the PlotPanel in a JFrame like a JPanel
         internalFrame.setContentPane(plot);
       }
