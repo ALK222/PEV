@@ -34,7 +34,7 @@ public class IndividuoFuncion4b extends Individuo<Double> {
 	  Random r = new Random();
 
 	    if (r.nextDouble() < prob) {
-	      int pos = r.nextInt() * this.tamTotal;
+	      int pos = (int) (r.nextDouble() * this.tamTotal);
 
 	      _chromosome[pos] = r.nextDouble() * Math.PI;
 	    }
