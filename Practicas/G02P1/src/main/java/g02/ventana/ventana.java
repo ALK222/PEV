@@ -1,12 +1,23 @@
 package g02.ventana;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 
 import org.math.plot.Plot2DPanel;
+
 import g02.Selections.RestosSelection;
 import g02.Selections.RouletteSelection;
 import g02.Selections.Selection;
@@ -20,17 +31,6 @@ import g02.cruces.CruceMonopunto;
 import g02.cruces.CruceUniforme;
 import g02.cruces.Cruces;
 import g02.individuals.Individuo;
-
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JInternalFrame;
-import javax.swing.JTextPane;
 
 public class ventana extends JFrame {
 
@@ -237,6 +237,7 @@ public class ventana extends JFrame {
               case 2:
                 mSel = new TournamentProbabilisticSelection<Double>(tamPoblacion, null, probTorneo,
                     isMax);
+                break;
               case 3:
                 mSel = new StochasticSelection<Double>(tamPoblacion, null);
                 break;
@@ -284,6 +285,7 @@ public class ventana extends JFrame {
               case 2:
                 mSel = new TournamentProbabilisticSelection<Boolean>(tamPoblacion, null, probTorneo,
                     isMax);
+                break;
               case 3:
                 mSel = new StochasticSelection<Boolean>(tamPoblacion, null);
                 break;

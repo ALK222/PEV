@@ -30,9 +30,9 @@ public class IndividuoFuncion4a extends Individuo<Boolean> {
     }
 
 
-    this._chromosome = new Boolean[tamTotal];
+    this.chromosome = new Boolean[tamTotal];
     for (int i = 0; i < tamTotal; i++) {
-      this._chromosome[i] = this.rand.nextBoolean();
+      this.chromosome[i] = this.rand.nextBoolean();
     }
 
   }
@@ -59,9 +59,9 @@ public class IndividuoFuncion4a extends Individuo<Boolean> {
     for (int i = 0; i < _dimension; ++i) {
       tamTotal += tamGenes[i];
     }
-    this._chromosome = new Boolean[tamTotal];
+    this.chromosome = new Boolean[tamTotal];
     for (int i = 0; i < tamTotal; i++) {
-      this._chromosome[i] = chromosome[i];
+      this.chromosome[i] = chromosome[i];
     }
 
   }
@@ -78,7 +78,7 @@ public class IndividuoFuncion4a extends Individuo<Boolean> {
     if (r.nextDouble() < prob) {
       int pos = r.nextInt() * this.tamTotal;
 
-      _chromosome[pos] = !_chromosome[pos];
+      chromosome[pos] = !chromosome[pos];
     }
 
     return this;
@@ -86,7 +86,7 @@ public class IndividuoFuncion4a extends Individuo<Boolean> {
 
   @Override
   public Boolean[] getCromosoma() {
-    return this._chromosome;
+    return this.chromosome;
   }
 
   @Override
@@ -105,7 +105,7 @@ public class IndividuoFuncion4a extends Individuo<Boolean> {
     double res = 0;
     int power = 0;
     for (int i = end; i >= start; i--) {
-      if (this._chromosome[i])
+      if (this.chromosome[i])
         res += Math.pow(2, power);
 
       power++;
@@ -131,7 +131,7 @@ public class IndividuoFuncion4a extends Individuo<Boolean> {
 
   @Override
   public Individuo<Boolean> copyIndividuo() {
-    return new IndividuoFuncion4a(this._chromosome, this.precision, this._dimension);
+    return new IndividuoFuncion4a(this.chromosome, this.precision, this._dimension);
   }
 
   @Override

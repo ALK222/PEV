@@ -9,9 +9,9 @@ public class IndividuoFuncion4b extends Individuo<Double> {
     this.tamTotal = dim;
     this.numFenotipos = dim;
     
-    this._chromosome = new Double[this.tamTotal];
+    this.chromosome = new Double[this.tamTotal];
     for (int i = 0; i < this.tamTotal; i++) {
-      this._chromosome[i] = this.rand.nextDouble() * Math.PI;
+      this.chromosome[i] = this.rand.nextDouble() * Math.PI;
     }
   }
   
@@ -19,9 +19,9 @@ public class IndividuoFuncion4b extends Individuo<Double> {
 	    this.precision = precision;
 	    this.tamTotal = dim;
 	    
-	    this._chromosome = new Double[this.tamTotal];
+	    this.chromosome = new Double[this.tamTotal];
 	    for (int i = 0; i < tamTotal; i++) {
-	        this._chromosome[i] = chromosome[i];
+	        this.chromosome[i] = chromosome[i];
 	      }
 	  }
 
@@ -37,19 +37,19 @@ public class IndividuoFuncion4b extends Individuo<Double> {
 	    if (r.nextDouble() < prob) {
 	      int pos = (int) (r.nextDouble() * this.tamTotal);
 
-	      _chromosome[pos] = r.nextDouble() * Math.PI;
+	      chromosome[pos] = r.nextDouble() * Math.PI;
 	    }
     return this;
   }
 
   @Override
   public Double[] getCromosoma() {
-	  return this._chromosome;
+	  return this.chromosome;
   }
 
   @Override
   public double getFenotipo(int index) {
-    return _chromosome[index];
+    return chromosome[index];
   }
 
   @Override
@@ -58,14 +58,14 @@ public class IndividuoFuncion4b extends Individuo<Double> {
 	  int M = 10;
 
 	    for (int i = 0; i < this.tamTotal; ++i) {
-	      sum += Math.sin(this._chromosome[i]) * Math.pow(Math.sin((i + 1) * Math.pow(this._chromosome[i], 2) / Math.PI), 2 * M);
+	      sum += Math.sin(this.chromosome[i]) * Math.pow(Math.sin((i + 1) * Math.pow(this.chromosome[i], 2) / Math.PI), 2 * M);
 	    }
     return -sum;
   }
 
   @Override
   public Individuo<Double> copyIndividuo() {
-	  return new IndividuoFuncion4b(this._chromosome, this.precision, this.tamTotal);
+	  return new IndividuoFuncion4b(this.chromosome, this.precision, this.tamTotal);
   }
 
   @Override

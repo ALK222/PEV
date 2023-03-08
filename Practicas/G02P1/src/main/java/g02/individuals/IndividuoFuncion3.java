@@ -17,9 +17,9 @@ public class IndividuoFuncion3 extends Individuo<Boolean> {
     this.tamGenes[0] = this.tamGen(precision, min[0], max[0]);
     this.tamGenes[1] = this.tamGen(precision, min[1], max[1]);
     int tamTotal = tamGenes[0] + tamGenes[1];
-    this._chromosome = new Boolean[tamTotal];
+    this.chromosome = new Boolean[tamTotal];
     for (int i = 0; i < tamTotal; i++) {
-      this._chromosome[i] = this.rand.nextBoolean();
+      this.chromosome[i] = this.rand.nextBoolean();
     }
 
   }
@@ -35,9 +35,9 @@ public class IndividuoFuncion3 extends Individuo<Boolean> {
     this.tamGenes[0] = this.tamGen(precision, min[0], max[0]);
     this.tamGenes[1] = this.tamGen(precision, min[1], max[1]);
     int tamTotal = tamGenes[0] + tamGenes[1];
-    this._chromosome = new Boolean[tamTotal];
+    this.chromosome = new Boolean[tamTotal];
     for (int i = 0; i < tamTotal; i++) {
-      this._chromosome[i] = cromosoma[i];
+      this.chromosome[i] = cromosoma[i];
     }
 
   }
@@ -55,7 +55,7 @@ public class IndividuoFuncion3 extends Individuo<Boolean> {
     if (r.nextDouble() < prob) {
       int pos = r.nextInt() * this.tamTotal;
 
-      _chromosome[pos] = !_chromosome[pos];
+      chromosome[pos] = !chromosome[pos];
     }
 
     return this;
@@ -63,7 +63,7 @@ public class IndividuoFuncion3 extends Individuo<Boolean> {
 
   @Override
   public Boolean[] getCromosoma() {
-    return this._chromosome;
+    return this.chromosome;
   }
 
   @Override
@@ -82,7 +82,7 @@ public class IndividuoFuncion3 extends Individuo<Boolean> {
     double res = 0;
     int power = 0;
     for (int i = end; i >= start; i--) {
-      if (this._chromosome[i])
+      if (this.chromosome[i])
         res += Math.pow(2, power);
 
       power++;
@@ -108,7 +108,7 @@ public class IndividuoFuncion3 extends Individuo<Boolean> {
   @Override
   public Individuo<Boolean> copyIndividuo() {
 
-    return new IndividuoFuncion3(_chromosome, precision);
+    return new IndividuoFuncion3(chromosome, precision);
   }
 
   @Override
