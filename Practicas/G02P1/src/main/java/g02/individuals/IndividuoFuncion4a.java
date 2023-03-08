@@ -33,15 +33,15 @@ public class IndividuoFuncion4a extends Individuo<Boolean> {
       this.tamGenes[i] = this.tamGen(precision, min[i], max[i]);
     }
 
-    tamTotal = 0;
+    this.tamTotal = 0;
 
     for (int i = 0; i < dimension; ++i) {
-      tamTotal += tamGenes[i];
+    	this.tamTotal += tamGenes[i];
     }
 
 
-    this.chromosome = new Boolean[tamTotal];
-    for (int i = 0; i < tamTotal; i++) {
+    this.chromosome = new Boolean[this.tamTotal];
+    for (int i = 0; i < this.tamTotal; i++) {
       this.chromosome[i] = this.rand.nextBoolean();
     }
 
@@ -105,7 +105,7 @@ public class IndividuoFuncion4a extends Individuo<Boolean> {
     Random r = new Random();
 
     if (r.nextDouble() < prob) {
-      int pos = r.nextInt() * this.tamTotal;
+    	int pos = r.nextInt(this.tamTotal - 1);
 
       chromosome[pos] = !chromosome[pos];
     }
