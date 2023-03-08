@@ -14,8 +14,13 @@ public class TruncateSelection<T> extends Selection<T> {
 
   @Override
   public ArrayList<Individuo<T>> run() {
-
-    _pob.sort((o1, o2) -> (o1.compareTo(o2)));
+	if(_pob.get(0).isMax()) {
+		_pob.sort((o1, o2) -> (o1.compareTo(o2)));
+	}
+	else {
+		_pob.sort((o2, o1) -> (o1.compareTo(o2)));
+	}
+    
     ArrayList<Individuo<T>> seleccionados = new ArrayList<>();
 
     int numSeleccionados = (int) Math.round(_truncRate * _pob.size());
