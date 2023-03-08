@@ -2,10 +2,19 @@ package g02.individuals;
 
 import java.util.Random;
 
+/**
+ * Individuo para la funcion 3.
+ */
 public class IndividuoFuncion3 extends Individuo<Boolean> {
 
+  /** The dimension. */
   private static int DIMENSION = 2;
 
+  /**
+   * Instantiates a new individuo funcion 3.
+   *
+   * @param precision precision de la codificacion
+   */
   public IndividuoFuncion3(double precision) {
     this.numFenotipos = DIMENSION;
     this.tamGenes = new int[DIMENSION];
@@ -24,7 +33,13 @@ public class IndividuoFuncion3 extends Individuo<Boolean> {
 
   }
 
-  public IndividuoFuncion3(Boolean cromosoma[], double precision) {
+  /**
+   * Instantiates a new individuo funcion 3.
+   *
+   * @param cromosoma cromosoma dado
+   * @param precision precision de la codificacion
+   */
+  public IndividuoFuncion3(Boolean[] cromosoma, double precision) {
     this.numFenotipos = DIMENSION;
     this.tamGenes = new int[DIMENSION];
     this.min = new double[DIMENSION];
@@ -42,12 +57,24 @@ public class IndividuoFuncion3 extends Individuo<Boolean> {
 
   }
 
+  /**
+   * Fitness.
+   *
+   * @return fitness
+   */
   @Override
   public double fitness() {
 
     return this.getValor();
   }
 
+  /**
+   * Mutar.
+   *
+   * @param individuo individuo a mutar
+   * @param prob probabilidad de mutacion
+   * @return individuo mutado
+   */
   @Override
   public Individuo<Boolean> mutar(Individuo<Boolean> individuo, double prob) {
     Random r = new Random();
@@ -61,14 +88,26 @@ public class IndividuoFuncion3 extends Individuo<Boolean> {
     return this;
   }
 
+  /**
+   * Gets the chromosome.
+   *
+   * @return the cromosoma
+   */
   @Override
   public Boolean[] getCromosoma() {
     return this.chromosome;
   }
 
+  /**
+   * Gets the fenotype.
+   *
+   * @param index indice del fenotipo
+   * @return el fenotipo
+   */
   @Override
   public double getFenotipo(int index) {
-    int start, end;
+    int start;
+    int end;
 
     if (index == 0) {
       start = 0;
@@ -82,8 +121,9 @@ public class IndividuoFuncion3 extends Individuo<Boolean> {
     double res = 0;
     int power = 0;
     for (int i = end; i >= start; i--) {
-      if (this.chromosome[i])
+      if (this.chromosome[i]) {
         res += Math.pow(2, power);
+      }
 
       power++;
     }
@@ -92,6 +132,11 @@ public class IndividuoFuncion3 extends Individuo<Boolean> {
         + (res * (this.max[index] - this.min[index]) / (Math.pow(2, this.tamGenes[index]) - 1));
   }
 
+  /**
+   * Gets the valor.
+   *
+   * @return valor del individuo en la funcion
+   */
   @Override
   public double getValor() {
 
@@ -105,12 +150,22 @@ public class IndividuoFuncion3 extends Individuo<Boolean> {
     return 0.5 * sum;
   }
 
+  /**
+   * Copy individuo.
+   *
+   * @return nuevo individuo con el mismo cromosoma y precision
+   */
   @Override
   public Individuo<Boolean> copyIndividuo() {
 
     return new IndividuoFuncion3(chromosome, precision);
   }
 
+  /**
+   * Comprueba si es una funcion de maximizar o minimizar.
+   *
+   * @return false
+   */
   @Override
   public boolean isMax() {
     return false;
