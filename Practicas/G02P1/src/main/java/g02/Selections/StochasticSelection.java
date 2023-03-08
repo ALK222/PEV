@@ -69,7 +69,7 @@ public class StochasticSelection<T> extends Selection<T> {
       while (!encontrado && i < pob.size()) {
         probAcumulada += probs[i];
         if (probAcumulada > startingValue) {
-          newPob.add(pob.get(i));
+          newPob.add(pob.get(i).copyIndividuo());
           encontrado = true;
           seleccionados++;
         }
