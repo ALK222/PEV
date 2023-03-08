@@ -23,16 +23,16 @@ public class IndividuoFuncion2 extends Individuo<Boolean> {
     this.min = new double[this.dimension];
     this.max = new double[this.dimension];
     this.precision = precision;
-    int tamTotal = 0;
+    this.tamTotal = 0;
     for (int i = 0; i < this.dimension; i++) {
       this.min[i] = -600.000;
       this.max[i] = 600.000;
       this.tamGenes[i] = this.tamGen(precision, min[i], max[i]);
-      tamTotal += tamGenes[i];
+      this.tamTotal += tamGenes[i];
     }
 
-    this.chromosome = new Boolean[tamTotal];
-    for (int i = 0; i < tamTotal; i++) {
+    this.chromosome = new Boolean[this.tamTotal];
+    for (int i = 0; i < this.tamTotal; i++) {
       this.chromosome[i] = this.rand.nextBoolean();
     }
 
@@ -52,15 +52,15 @@ public class IndividuoFuncion2 extends Individuo<Boolean> {
     this.min = new double[this.dimension];
     this.max = new double[this.dimension];
     this.precision = precision;
-    int tamTotal = 0;
+    this.tamTotal = 0;
     for (int i = 0; i < this.dimension; i++) {
       this.min[i] = -600.000;
       this.max[i] = 600.000;
       this.tamGenes[i] = this.tamGen(precision, min[i], max[i]);
-      tamTotal += tamGenes[i];
+      this.tamTotal += tamGenes[i];
     }
-    this.chromosome = new Boolean[tamTotal];
-    for (int i = 0; i < tamTotal; i++) {
+    this.chromosome = new Boolean[this.tamTotal];
+    for (int i = 0; i < this.tamTotal; i++) {
       this.chromosome[i] = chromosome[i];
     }
   }
@@ -87,7 +87,7 @@ public class IndividuoFuncion2 extends Individuo<Boolean> {
     Random r = new Random();
 
     if (r.nextDouble() < prob) {
-      int pos = r.nextInt() * this.tamTotal;
+    	int pos = r.nextInt(this.tamTotal - 1);
 
       chromosome[pos] = !chromosome[pos];
     }
