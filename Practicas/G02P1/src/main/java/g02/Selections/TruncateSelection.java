@@ -33,11 +33,11 @@ public class TruncateSelection<T> extends Selection<T> {
    */
   @Override
   public ArrayList<Individuo<T>> run() {
-	if(_pob.get(0).isMax()) {
-		_pob.sort((o1, o2) -> (o1.compareTo(o2)));
+	if(this.pob.get(0).isMax()) {
+		this.pob.sort((o1, o2) -> (o1.compareTo(o2)));
 	}
 	else {
-		_pob.sort((o2, o1) -> (o1.compareTo(o2)));
+		this.pob.sort((o2, o1) -> (o1.compareTo(o2)));
 	}
     
     ArrayList<Individuo<T>> seleccionados = new ArrayList<>();
