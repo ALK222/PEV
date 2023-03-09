@@ -159,6 +159,7 @@ public class AlgoritmoGenetico<T> {
       ArrayList<Individuo<T>> cruzados = new ArrayList<>();
       // Cruce
       while (seleccionados.size() > 2) {
+        
 
         ArrayList<Individuo<T>> aux =
             cruce.cruzar(seleccionados.get(0), seleccionados.get(1), probCruce);
@@ -172,7 +173,9 @@ public class AlgoritmoGenetico<T> {
       }
 
       // Metemos el indidivuo que no se haya podido cruzar por imparidad
-      cruzados.addAll(seleccionados);
+      for(int j = 0; j < seleccionados.size(); ++j) {
+        cruzados.add(seleccionados.get(j).copyIndividuo());
+      }
 
       // Mutacion
       for (int j = 0; j < cruzados.size(); j++) {
