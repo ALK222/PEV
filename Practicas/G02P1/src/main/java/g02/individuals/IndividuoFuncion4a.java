@@ -1,6 +1,7 @@
 package g02.individuals;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Individuo de la funcion 4 codificado en binario.
@@ -102,13 +103,12 @@ public class IndividuoFuncion4a extends Individuo<Boolean> {
    */
   @Override
   public Individuo<Boolean> mutar(Individuo<Boolean> individuo, double prob) {
-    Random r = new Random();
+	  for(int i = 0; i < this.tamTotal; i++) {
+		  if (ThreadLocalRandom.current().nextDouble() < prob) {
 
-    if (r.nextDouble() < prob) {
-    	int pos = r.nextInt(this.tamTotal - 1);
-
-      chromosome[pos] = !chromosome[pos];
-    }
+		      chromosome[i] = !chromosome[i];
+		  }
+	  }
 
     return this;
   }

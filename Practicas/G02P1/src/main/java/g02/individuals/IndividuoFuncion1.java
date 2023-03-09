@@ -1,6 +1,7 @@
 package g02.individuals;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Individuo de calibrado.
@@ -28,7 +29,7 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
     this.tamTotal = tamGenes[0] + tamGenes[1];
     this.chromosome = new Boolean[tamTotal];
     for (int i = 0; i < tamTotal; i++) {
-      this.chromosome[i] = this.rand.nextBoolean();
+      this.chromosome[i] = ThreadLocalRandom.current().nextBoolean();
     }
 
   }
@@ -78,12 +79,11 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
    */
   @Override
   public Individuo<Boolean> mutar(Individuo<Boolean> individuo, double prob) {
-    Random r = new Random();
+	  for(int i = 0; i < this.tamTotal; i++) {
+		  if (ThreadLocalRandom.current().nextDouble() < prob) {
 
-    if (r.nextDouble() < prob) {
-      int pos = r.nextInt(this.tamTotal - 1);
-
-      chromosome[pos] = !chromosome[pos];
+		      chromosome[i] = !chromosome[i];
+	  }
     }
 
     return this;
