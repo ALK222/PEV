@@ -139,28 +139,15 @@ public class AlgoritmoGenetico<T> {
       ArrayList<Individuo<T>> newPob = new ArrayList<>();
 
 
+      if (isMax) {
+        this.poblacion.sort((o1, o2) -> (o1.compareTo(o2)));
+      } else {
+        this.poblacion.sort((o1, o2) -> (o2.compareTo(o1)));
+      }
+
       for (int j = 0; j < directos; ++j) {
-        double max = -Double.MAX_VALUE;
-        double min = Double.MAX_VALUE;
-        int borrar = -1;
-        for (int k = 0; k < poblacion.size(); ++k) {
-          double currFitness = poblacion.get(k).fitness();
-
-          if (isMax) {
-            if (currFitness > max) {
-              max = currFitness;
-              borrar = k;
-            }
-          } else {
-            if (currFitness < min) {
-              min = currFitness;
-              borrar = k;
-            }
-          }
-
-        }
-        newPob.add(poblacion.get(borrar).copyIndividuo());
-        poblacion.remove(borrar);
+        newPob.add(this.poblacion.get(j).copyIndividuo());
+        this.poblacion.remove(j);
       }
 
 
@@ -198,7 +185,7 @@ public class AlgoritmoGenetico<T> {
 
     }
 
-    return elMejor;
+    return elMejor.copyIndividuo();
   }
 
 
@@ -216,12 +203,12 @@ public class AlgoritmoGenetico<T> {
         auxMejor = poblacion.get(i);
       } else if (isMax) {
         if (poblacion.get(i).fitness() > auxMejor.fitness()) {
-          auxMejor = poblacion.get(i);
+          auxMejor = poblacion.get(i).copyIndividuo();
         }
       } else if (!isMax) {
         if (poblacion.get(i).fitness() < auxMejor.fitness()) {
 
-          auxMejor = poblacion.get(i);
+          auxMejor = poblacion.get(i).copyIndividuo();
         }
       }
       auxMedia += poblacion.get(i).fitness();

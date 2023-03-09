@@ -24,7 +24,7 @@ public class CruceUniforme<T> implements Cruces<T> {
   public ArrayList<Individuo<T>> cruzar(Individuo<T> i1, Individuo<T> i2, double prob)
       throws Exception {
 
-    Random r = new Random();
+    Random r = new Random(System.currentTimeMillis());
 
     if (r.nextDouble() < prob) {
       for (int i = 0; i < i1.getCromosoma().length; i++) {

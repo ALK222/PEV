@@ -27,7 +27,7 @@ public class CruceMonopunto<T> implements Cruces<T> {
   public ArrayList<Individuo<T>> cruzar(Individuo<T> i1, Individuo<T> i2, double prob)
       throws Exception {
 
-    Random r = new Random();
+    Random r = new Random(System.currentTimeMillis());
 
     punto = r.nextInt(i1.getCromosoma().length - 1) + 1;
 

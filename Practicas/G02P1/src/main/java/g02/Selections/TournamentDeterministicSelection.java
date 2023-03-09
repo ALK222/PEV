@@ -52,8 +52,8 @@ public class TournamentDeterministicSelection<T> extends Selection<T> {
       }
 
 
-      seleccionados.add(aux.copyIndividuo());
-      seleccionados.add(aux.copyIndividuo());
+      seleccionados.add(aux);
+      seleccionados.add(aux);
 
 
     }
