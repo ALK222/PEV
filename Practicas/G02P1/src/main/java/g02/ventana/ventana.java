@@ -28,6 +28,9 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 import org.math.plot.Plot2DPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 
 public class ventana extends JFrame {
 
@@ -189,10 +192,16 @@ public class ventana extends JFrame {
     JLabel lblDimensiones = new JLabel("Dimensiones");
     lblDimensiones.setBounds(10, 356, 111, 14);
     contentPane.add(lblDimensiones);
-
-    JTextPane resultsPane = new JTextPane();
-    resultsPane.setBounds(10, 451, 207, 73);
-    contentPane.add(resultsPane);
+    
+    
+    
+    JTextPane resultsPanel = new JTextPane();
+    resultsPanel.setBounds(10, 453, 207, 118);
+    contentPane.add(resultsPanel);
+    
+    JScrollPane scrollPane = new JScrollPane(resultsPanel);
+    scrollPane.setBounds(10, 453, 207, 118);
+    contentPane.add(scrollPane);
 
     JButton btnNewButton = new JButton("Iniciar");
     btnNewButton.addActionListener(new ActionListener() {
@@ -267,7 +276,7 @@ public class ventana extends JFrame {
             try {
               mejor = (Individuo<Double>) alg.run(individuo, dimensiones);
               System.out.println(mejor.fitness());
-              resultsPane.setText(mejor.toString());
+              resultsPanel.setText(mejor.toString());
             } catch (Exception ex) {
               ex.printStackTrace();
             }
@@ -314,7 +323,7 @@ public class ventana extends JFrame {
             try {
               mejor = (Individuo<Boolean>) alg.run(individuo, dimensiones);
               System.out.println(mejor.fitness());
-              resultsPane.setText(mejor.toString());
+              resultsPanel.setText(mejor.toString());
             } catch (Exception ex) {
               ex.printStackTrace();
             }
@@ -353,8 +362,6 @@ public class ventana extends JFrame {
     JLabel lblResultados = new JLabel("Resultados");
     lblResultados.setBounds(10, 426, 111, 14);
     contentPane.add(lblResultados);
-
-
-
+    
   }
 }
