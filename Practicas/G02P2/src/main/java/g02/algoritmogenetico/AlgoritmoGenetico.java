@@ -147,7 +147,7 @@ public class AlgoritmoGenetico<T> {
 
       for (int j = 0; j < directos; ++j) {
         newPob.add(this.poblacion.get(j).copyIndividuo());
-        // this.poblacion.remove(j);
+        this.poblacion.remove(j);
       }
 
 
