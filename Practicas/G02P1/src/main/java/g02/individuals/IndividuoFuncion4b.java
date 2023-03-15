@@ -34,6 +34,7 @@ public class IndividuoFuncion4b extends Individuo<Double> {
   public IndividuoFuncion4b(Double[] chromosome, double precision, int dim) {
     this.precision = precision;
     this.tamTotal = dim;
+    this.numFenotipos = dim;
 
     this.chromosome = new Double[this.tamTotal];
     for (int i = 0; i < tamTotal; i++) {
@@ -88,7 +89,7 @@ public class IndividuoFuncion4b extends Individuo<Double> {
    */
   @Override
   public double getFenotipo(int index) {
-    return chromosome[index];
+    return (double)chromosome[index];
   }
 
   /**
