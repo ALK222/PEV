@@ -8,6 +8,8 @@ import g02.individuals.IndividuoFuncion2;
 import g02.individuals.IndividuoFuncion3;
 import g02.individuals.IndividuoFuncion4a;
 import g02.individuals.IndividuoFuncion4b;
+import g02.individuals.IndividuoPractica2;
+
 import java.util.ArrayList;
 
 
@@ -106,7 +108,7 @@ public class AlgoritmoGenetico<T> {
     for (int i = 0; i < tamPoblacion; i++) {
       switch (ind) {
         case 0:
-          poblacion.add((Individuo<T>) new IndividuoFuncion1(precision));
+          poblacion.add((Individuo<T>) new IndividuoPractica2(precision));
           break;
         case 1:
           poblacion.add((Individuo<T>) new IndividuoFuncion2(precision, dim));

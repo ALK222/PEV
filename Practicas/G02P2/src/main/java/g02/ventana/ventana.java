@@ -175,8 +175,7 @@ public class ventana extends JFrame {
     internalFrame.setVisible(true);
 
     JComboBox individuox = new JComboBox();
-    individuox.setModel(new DefaultComboBoxModel(new String[] {"Individuo 1", "Individuo 2",
-        "Individuo 3", "Individuo 4a", "Individuo 4b"}));
+    individuox.setModel(new DefaultComboBoxModel(new String[] {"Individuo Practica 2"}));
     individuox.setBounds(250, 11, 353, 22);
     contentPane.add(individuox);
 
@@ -216,7 +215,7 @@ public class ventana extends JFrame {
         } else {
           boolean isMax = false;
           if (individuo == 0) {
-            isMax = true;
+            isMax = false;
           }
           Selection<?> mSel;
           Cruces<?> mCru;
