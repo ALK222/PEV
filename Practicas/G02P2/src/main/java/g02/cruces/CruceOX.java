@@ -5,30 +5,28 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 import g02.individuals.Individuo;
 
-public class CruceOX<T> implements Cruces<T> {
+public class CruceOX implements Cruces<Integer> {
 
   @Override
-  public ArrayList<Individuo<T>> cruzar(Individuo<T> i1, Individuo<T> i2, double prob)
+  public ArrayList<Individuo<Integer>> cruzar(Individuo<Integer> i1, Individuo<Integer> i2, double prob)
       throws Exception {
-    ArrayList<Individuo<T>> cruzados = new ArrayList<Individuo<T>>();
+    ArrayList<Individuo<Integer>> cruzados = new ArrayList<Individuo<Integer>>();
 
     if (ThreadLocalRandom.current().nextDouble() > prob) {
-      int punto1 = ThreadLocalRandom.current().nextInt(0, i1.getCromosoma().length);
-      int punto2 = ThreadLocalRandom.current().nextInt(0, i2.getCromosoma().length);
+      int punto1 = ThreadLocalRandom.current().nextInt(1, i1.getCromosoma().length);
+      int punto2 = ThreadLocalRandom.current().nextInt(1, i2.getCromosoma().length);
 
       int ini = Math.min(punto1, punto2);
       int fin = Math.max(punto1, punto2);
 
-      @SuppressWarnings("unchecked")
-      T[] cromosoma1 =
-          (T[]) Array.newInstance(i1.getCromosoma().getClass().getComponentType(), i1.getCromosoma().length);
-      @SuppressWarnings("unchecked")
-      T[] cromosoma2 =
-          (T[]) Array.newInstance(i1.getCromosoma().getClass().getComponentType(), i1.getCromosoma().length);
+      
+      Integer[] cromosoma1 = new Integer[i1.getCromosoma().length];
+      
+      Integer[] cromosoma2 = new Integer[i1.getCromosoma().length];
 
       for (int i = ini; i <= fin; ++i) {
-        cromosoma1[i] = i1.getCromosoma()[i];
-        cromosoma2[i] = i2.getCromosoma()[i];
+        cromosoma1[i] = Integer.valueOf(i1.getCromosoma()[i]);
+        cromosoma2[i] = Integer.valueOf(i2.getCromosoma()[i]);
       }
 
       boolean vueltaCompleta = false;
@@ -49,10 +47,10 @@ public class CruceOX<T> implements Cruces<T> {
           }
         }
         if (!encontrado1) {
-          cromosoma1[i] = i2.getCromosoma()[i];
+          cromosoma1[i] = Integer.valueOf(i2.getCromosoma()[i]);
         }
         if (!encontrado2) {
-          cromosoma2[i] = i1.getCromosoma()[i];
+          cromosoma2[i] = Integer.valueOf(i1.getCromosoma()[i]);
         }
         
         ++i;
@@ -63,12 +61,6 @@ public class CruceOX<T> implements Cruces<T> {
         }
       }
 
-
-
-      if (ini == 0) {
-        i1.getCromosoma()[i1.getCromosoma().length - 1] = i1.getCromosoma()[0];
-        i2.getCromosoma()[i2.getCromosoma().length - 1] = i2.getCromosoma()[0];
-      }
     }
 
     cruzados.add(i1.copyIndividuo());

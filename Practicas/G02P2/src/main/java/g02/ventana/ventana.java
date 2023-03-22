@@ -264,7 +264,7 @@ public class ventana extends JFrame {
                 mCru = new CruceBLXAlpha();
                 break;
               case 4:
-                mCru = new CruceOX<Integer>();
+                mCru = new CruceOX();
                 break;
               default:
                 mCru = new CruceMonopunto<Double>();
@@ -315,7 +315,7 @@ public class ventana extends JFrame {
                 mCru = new CruceUniforme<Boolean>();
                 break;
               case 4:
-                mCru = new CruceOX<Integer>();
+                mCru = new CruceOX();
                 break;
               default:
                 mCru = new CruceMonopunto<Boolean>();
