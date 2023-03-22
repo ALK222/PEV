@@ -184,6 +184,19 @@ public class IndividuoPractica2 extends Individuo<Integer> {
   public void corregir() {
     this.chromosome[this.numFenotipos - 1] = this.chromosome[0];
   }
+  
+  @Override
+  public String toString() {
+    String aux = "Cromosoma: ";
+    
+    String ciudades[] = {"Albacete", "Alicante", "Almeria", "Avila", "Badajoz", "Barcelona", "Bilbao", "Burgos", "Caceres", "Cadiz", "Castellon", "Ciudad Real", "Cordoba", "A Coruña", "Cuenca", "Gerona", "Granada", "Guadalajara", "Huelva", "Huesca", "Jaen", "Leon", "Lerida", "Logroño", "Lugo", "Madrid", "Malaga", "Murcia"};
+    
+    for(Integer i : chromosome) {
+      aux += " " + ciudades[i] + " ";
+    }
+    
+    return aux;
+  }
 
 
 }
