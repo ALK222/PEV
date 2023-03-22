@@ -11,7 +11,7 @@ public class CrucePMX<T> implements Cruces<T> {
       throws Exception {
     ArrayList<Individuo<T>> cruzados = new ArrayList<Individuo<T>>();
     
-    if(ThreadLocalRandom.current().nextDouble() > prob)
+    if(ThreadLocalRandom.current().nextDouble() < prob)
     {
       int punto1 = ThreadLocalRandom.current().nextInt(0, i1.getCromosoma().length);
       int punto2 = ThreadLocalRandom.current().nextInt(0, i2.getCromosoma().length);

@@ -12,6 +12,7 @@ import g02.cruces.CruceAritmetico;
 import g02.cruces.CruceBLXAlpha;
 import g02.cruces.CruceMonopunto;
 import g02.cruces.CruceOX;
+import g02.cruces.CrucePMX;
 import g02.cruces.CruceUniforme;
 import g02.cruces.Cruces;
 import g02.individuals.Individuo;
@@ -26,6 +27,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
@@ -148,7 +150,7 @@ public class ventana extends JFrame {
 
     JComboBox mCruce = new JComboBox();
     mCruce.setModel(new DefaultComboBoxModel(
-        new String[] {"monopunto", "uniforme", "aritmético", "BLX-alpha", "OX"}));
+        new String[] {"monopunto", "uniforme", "aritmético", "BLX-alpha", "OX", "PMX"}));
     mCruce.setBounds(131, 267, 86, 22);
     contentPane.add(mCruce);
 
@@ -192,8 +194,12 @@ public class ventana extends JFrame {
     contentPane.add(lblDimensiones);
 
     JTextPane resultsPane = new JTextPane();
-    resultsPane.setBounds(10, 451, 207, 73);
+    resultsPane.setBounds(10, 453, 207, 118);
     contentPane.add(resultsPane);
+    
+    JScrollPane scrollPane = new JScrollPane(resultsPane);
+    scrollPane.setBounds(10, 453, 207, 118);
+    contentPane.add(scrollPane);
 
     JButton btnNewButton = new JButton("Iniciar");
     btnNewButton.addActionListener(new ActionListener() {
@@ -266,6 +272,9 @@ public class ventana extends JFrame {
               case 4:
                 mCru = new CruceOX();
                 break;
+              case 5:
+                  mCru = new CrucePMX();
+                  break;
               default:
                 mCru = new CruceMonopunto<Double>();
                 break;

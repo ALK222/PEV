@@ -53,15 +53,14 @@ public class IndividuoPractica2 extends Individuo<Integer> {
    */
   public IndividuoPractica2(double precision) {
     this.precision = precision;
-    this.tamTotal = _DIST.length;
-    this.numFenotipos = _DIST.length;
+    this.tamTotal = _DIST.length - 1;
+    this.numFenotipos = _DIST.length - 1;
 
     this.chromosome = new Integer[this.tamTotal];
     ArrayList<Integer> ciudades = new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
         10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 26, 27));
     Collections.shuffle(ciudades);
-    this.chromosome[0] = 25;
-    for (int i = 1; i < this.tamTotal - 1; i++) {
+    for (int i = 0; i < this.tamTotal; i++) {
       this.chromosome[i] = ciudades.get(i);
     }
 
@@ -75,14 +74,13 @@ public class IndividuoPractica2 extends Individuo<Integer> {
    */
   public IndividuoPractica2(Integer[] _chromosome, double precision) {
     this.precision = precision;
-    this.tamTotal = _DIST.length;
-    this.numFenotipos = _DIST.length;
+    this.tamTotal = _DIST.length - 1;
+    this.numFenotipos = _DIST.length - 1;
 
     this.chromosome = new Integer[tamTotal];
-    for (int i = 0; i < tamTotal - 1; i++) {
+    for (int i = 0; i < tamTotal; i++) {
       this.chromosome[i] = Integer.valueOf(_chromosome[i]);
     }
-    this.chromosome[tamTotal - 1] = Integer.valueOf(_chromosome[0]);
   }
 
 
@@ -148,6 +146,13 @@ public class IndividuoPractica2 extends Individuo<Integer> {
   @Override
   public double getValor() {
     double aux = 0;
+    
+    // Incluimos a Madrid para el cálculo del fitness
+    if(25 <= this.getFenotipo(0))
+    	aux += _DIST[(int)this.getFenotipo(0)][25];
+    else
+    	aux += _DIST[25][(int)this.getFenotipo(0)];
+    
     for (int i = 0; i < this.tamTotal - 2; i++) {
       int ciu1 = (int) this.getFenotipo(i);
       int ciu2 = (int) this.getFenotipo(i + 1);
@@ -157,6 +162,13 @@ public class IndividuoPractica2 extends Individuo<Integer> {
         aux += _DIST[ciu1][ciu2];
 
     }
+    
+    // Madrid por último
+    if(25 <= this.getFenotipo(this.tamTotal - 1))
+    	aux += _DIST[(int)this.getFenotipo(this.tamTotal - 1)][25];
+    else
+    	aux += _DIST[25][(int)this.getFenotipo(this.tamTotal - 1)];
+    
     return aux;
   }
 
@@ -191,9 +203,15 @@ public class IndividuoPractica2 extends Individuo<Integer> {
     
     String ciudades[] = {"Albacete", "Alicante", "Almeria", "Avila", "Badajoz", "Barcelona", "Bilbao", "Burgos", "Caceres", "Cadiz", "Castellon", "Ciudad Real", "Cordoba", "A Coruña", "Cuenca", "Gerona", "Granada", "Guadalajara", "Huelva", "Huesca", "Jaen", "Leon", "Lerida", "Logroño", "Lugo", "Madrid", "Malaga", "Murcia"};
     
+    aux += "Madrid";
+    
     for(Integer i : chromosome) {
       aux += " " + ciudades[i] + " ";
     }
+    aux += "Madrid\n";
+    
+
+    aux += "Fitness: " + this.fitness();
     
     return aux;
   }
