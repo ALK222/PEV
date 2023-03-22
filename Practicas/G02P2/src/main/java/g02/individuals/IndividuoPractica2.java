@@ -140,10 +140,10 @@ public class IndividuoPractica2 extends Individuo<Integer> {
   @Override
   public double getValor() {
 	double aux = 0;
-    for(int i = 0; i < this.tamTotal - 1; i++) {
+    for(int i = 0; i < this.tamTotal - 2; i++) {
     	int ciu1 = (int)this.getFenotipo(i);
     	int ciu2 = (int)this.getFenotipo(i+1);
-    	if(ciu1 < ciu2)
+    	if(ciu1 <= ciu2)
     		aux += _DIST[ciu2][ciu1];
     	else
     		aux += _DIST[ciu1][ciu2];
@@ -170,6 +170,11 @@ public class IndividuoPractica2 extends Individuo<Integer> {
   @Override
   public boolean isMax() {
     return false;
+  }
+  
+  @Override
+  public void corregir() {
+    this.chromosome[this.numFenotipos -1] = this.chromosome[0];
   }
 
 

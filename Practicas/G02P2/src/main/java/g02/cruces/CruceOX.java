@@ -21,10 +21,10 @@ public class CruceOX<T> implements Cruces<T> {
 
       @SuppressWarnings("unchecked")
       T[] cromosoma1 =
-          (T[]) Array.newInstance(i1.getCromosoma().getClass(), i1.getCromosoma().length);
+          (T[]) Array.newInstance(i1.getCromosoma().getClass().getComponentType(), i1.getCromosoma().length);
       @SuppressWarnings("unchecked")
       T[] cromosoma2 =
-          (T[]) Array.newInstance(i1.getCromosoma().getClass(), i1.getCromosoma().length);
+          (T[]) Array.newInstance(i1.getCromosoma().getClass().getComponentType(), i1.getCromosoma().length);
 
       for (int i = ini; i <= fin; ++i) {
         cromosoma1[i] = i1.getCromosoma()[i];
@@ -39,12 +39,12 @@ public class CruceOX<T> implements Cruces<T> {
         boolean encontrado1 = false;
         boolean encontrado2 = false;
         for (int j = 0; j < i2.getCromosoma().length; ++j) {
-          if (i2.getCromosoma()[i] == cromosoma1[i]) {
+          if (i2.getCromosoma()[i].equals(cromosoma1[i])) {
             encontrado1 = true;
           }
         }
         for (int j = 0; j < i1.getCromosoma().length; ++j) {
-          if (i1.getCromosoma()[i] == cromosoma2[i]) {
+          if (i1.getCromosoma()[i].equals(cromosoma2[i])) {
             encontrado2 = true;
           }
         }

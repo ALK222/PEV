@@ -9,7 +9,9 @@ import g02.Selections.TournamentProbabilisticSelection;
 import g02.Selections.TruncateSelection;
 import g02.algoritmogenetico.AlgoritmoGenetico;
 import g02.cruces.CruceAritmetico;
+import g02.cruces.CruceBLXAlpha;
 import g02.cruces.CruceMonopunto;
+import g02.cruces.CruceOX;
 import g02.cruces.CruceUniforme;
 import g02.cruces.Cruces;
 import g02.individuals.Individuo;
@@ -146,7 +148,7 @@ public class ventana extends JFrame {
 
     JComboBox mCruce = new JComboBox();
     mCruce.setModel(new DefaultComboBoxModel(
-        new String[] {"monopunto", "uniforme", "aritmético", "BLX-alpha"}));
+        new String[] {"monopunto", "uniforme", "aritmético", "BLX-alpha", "OX"}));
     mCruce.setBounds(131, 267, 86, 22);
     contentPane.add(mCruce);
 
@@ -251,14 +253,22 @@ public class ventana extends JFrame {
 
 
             switch (mCruce.getSelectedIndex()) {
-              default:
-                mCru = new CruceMonopunto<Double>();
-                break;
+
               case 1:
                 mCru = new CruceUniforme<Double>();
                 break;
               case 2:
                 mCru = new CruceAritmetico();
+                break;
+              case 3:
+                mCru = new CruceBLXAlpha();
+                break;
+              case 4:
+                mCru = new CruceOX<Integer>();
+                break;
+              default:
+                mCru = new CruceMonopunto<Double>();
+                break;
             }
             Individuo<Double> mejor;
             alg = new AlgoritmoGenetico(tamPoblacion, nGeneraciones, probC, probM, prec, mSel, mCru,
@@ -300,12 +310,16 @@ public class ventana extends JFrame {
 
 
             switch (mCruce.getSelectedIndex()) {
-              default:
-                mCru = new CruceMonopunto<Boolean>();
-                break;
 
               case 1:
                 mCru = new CruceUniforme<Boolean>();
+                break;
+              case 4:
+                mCru = new CruceOX<Integer>();
+                break;
+              default:
+                mCru = new CruceMonopunto<Boolean>();
+                break;
             }
             Individuo<Boolean> mejor;
             alg = new AlgoritmoGenetico(tamPoblacion, nGeneraciones, probC, probM, prec, mSel, mCru,

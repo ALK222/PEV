@@ -151,5 +151,9 @@ public abstract class Individuo<T> {
 
     return aux;
   }
+  
+  public void corregir() {
+    return;
+  }
 
 }

@@ -165,7 +165,8 @@ public class AlgoritmoGenetico<T> {
 
         ArrayList<Individuo<T>> aux =
             cruce.cruzar(seleccionados.get(0), seleccionados.get(1), probCruce);
-
+        aux.get(0).corregir();
+        aux.get(1).corregir();
         cruzados.add(aux.get(0).copyIndividuo());
         cruzados.add(aux.get(1).copyIndividuo());
 
@@ -182,7 +183,9 @@ public class AlgoritmoGenetico<T> {
       // Mutacion
       for (int j = 0; j < cruzados.size(); j++) {
         Individuo<T> i1 = cruzados.get(j);
-        newPob.add(i1.mutar(i1, probMutacion).copyIndividuo());
+        i1 = i1.mutar(i1, probMutacion);
+        i1.corregir();
+        newPob.add(i1.copyIndividuo());
       }
       selection.setPob(newPob);
       poblacion = newPob;
