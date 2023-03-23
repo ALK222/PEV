@@ -273,8 +273,8 @@ public class ventana extends JFrame {
                 mCru = new CruceOX();
                 break;
               case 5:
-                  mCru = new CrucePMX();
-                  break;
+                mCru = new CrucePMX();
+                break;
               default:
                 mCru = new CruceMonopunto<Double>();
                 break;
@@ -325,6 +325,9 @@ public class ventana extends JFrame {
                 break;
               case 4:
                 mCru = new CruceOX();
+                break;
+              case 5:
+                mCru = new CrucePMX();
                 break;
               default:
                 mCru = new CruceMonopunto<Boolean>();
