@@ -10,6 +10,7 @@ import g02.Selections.TruncateSelection;
 import g02.algoritmogenetico.AlgoritmoGenetico;
 import g02.cruces.CruceAritmetico;
 import g02.cruces.CruceBLXAlpha;
+import g02.cruces.CruceCX;
 import g02.cruces.CruceMonopunto;
 import g02.cruces.CruceOX;
 import g02.cruces.CrucePMX;
@@ -150,7 +151,7 @@ public class ventana extends JFrame {
 
     JComboBox mCruce = new JComboBox();
     mCruce.setModel(new DefaultComboBoxModel(
-        new String[] {"monopunto", "uniforme", "aritmético", "BLX-alpha", "OX", "PMX"}));
+        new String[] {"monopunto", "uniforme", "aritmético", "BLX-alpha", "OX", "PMX", "CX"}));
     mCruce.setBounds(131, 267, 86, 22);
     contentPane.add(mCruce);
 
@@ -329,6 +330,9 @@ public class ventana extends JFrame {
               case 5:
                 mCru = new CrucePMX();
                 break;
+              case 6:
+                  mCru = new CruceCX();
+                  break;
               default:
                 mCru = new CruceMonopunto<Boolean>();
                 break;

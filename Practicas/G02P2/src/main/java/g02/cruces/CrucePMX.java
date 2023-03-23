@@ -46,6 +46,11 @@ public class CrucePMX implements Cruces<Integer> {
             }
         }
         
+        for(int j = 0; j < cromosoma1.length; ++j) {
+      	  i1.getCromosoma()[j] = cromosoma1[j];
+      	  i2.getCromosoma()[j] = cromosoma2[j];
+        }
+        
     }
     
     cruzados.add(i1.copyIndividuo());
