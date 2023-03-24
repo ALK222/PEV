@@ -115,9 +115,45 @@ public class IndividuoPractica2 extends Individuo<Integer> {
         case 2:
         	this.mutaInversion(individuo);
         	break;
+        case 3:
+        	this.mutaHeuristica(individuo);
+        	break;
         }
       }
     return this;
+  }
+  
+  private Individuo<Integer> mutaHeuristica(Individuo<Integer> individuo){
+	  ArrayList<Integer> puntos = new ArrayList<Integer>();
+	  ArrayList<Integer> elementos = new ArrayList<Integer>();
+	  int[] indexes = new int[nDesplazamientos];
+	  
+	  for(int i = 0; i < nDesplazamientos; ++i) {
+		  indexes[i] = 0;
+		  int aux = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length);
+		  while(puntos.contains(aux)) {
+			  aux = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length);
+		  }
+		  puntos.add(aux);
+		  elementos.add(individuo.getCromosoma()[puntos.get(i)]);
+	  }
+	  
+	  ArrayList<ArrayList<Integer>> permutaciones = new ArrayList<ArrayList<Integer>>();
+	  permutaciones.add(elementos);
+	  int i = 0;
+	  while(i < nDesplazamientos) {
+		  if(indexes[i] < i) {
+			  Collections.swap(elementos, i % 2 == 0 ?  0: indexes[i], i);
+			  permutaciones.add(elementos);
+			  ++indexes[i];
+			  i = 0;
+		  }
+		  else {
+			  indexes[i] = 0;
+			  ++i;
+		  }
+	  }
+	  return this;
   }
   
   private Individuo<Integer> mutaInversion(Individuo<Integer> individuo){
