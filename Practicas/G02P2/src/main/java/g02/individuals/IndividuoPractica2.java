@@ -112,9 +112,41 @@ public class IndividuoPractica2 extends Individuo<Integer> {
         case 1:
         	this.mutaInsercion(individuo);
         	break;
+        case 2:
+        	this.mutaInversion(individuo);
+        	break;
         }
       }
     return this;
+  }
+  
+  private Individuo<Integer> mutaInversion(Individuo<Integer> individuo){
+	  int punto1 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length);
+      int punto2 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length);
+      
+      while(punto2 == punto1)
+    	  punto2 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length);
+      
+
+      int ini = Math.min(punto1, punto2);
+      int fin = Math.max(punto1, punto2);
+      
+      Integer[] aux = new Integer[fin-ini];
+      int itAux = 0;
+      
+      for(int i = fin; i > ini; --i) {
+    	  aux[itAux] = individuo.getCromosoma()[i];
+    	  ++itAux;
+      }
+      
+      itAux = 0;
+      for(int i = ini + 1; i <= fin; ++i) {
+    	  individuo.getCromosoma()[i] = aux[itAux];
+    	  ++itAux;
+      }
+      
+	  
+	  return this;
   }
   
   private Individuo<Integer> mutaInsercion(Individuo<Integer> individuo){
