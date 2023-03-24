@@ -139,12 +139,12 @@ public class IndividuoPractica2 extends Individuo<Integer> {
 	  }
 	  
 	  ArrayList<ArrayList<Integer>> permutaciones = new ArrayList<ArrayList<Integer>>();
-	  permutaciones.add(elementos);
+	  permutaciones.add(new ArrayList<Integer>(elementos));
 	  int i = 0;
 	  while(i < nDesplazamientos) {
 		  if(indexes[i] < i) {
 			  Collections.swap(elementos, i % 2 == 0 ?  0: indexes[i], i);
-			  permutaciones.add(elementos);
+			  permutaciones.add(new ArrayList<Integer>(elementos));
 			  ++indexes[i];
 			  i = 0;
 		  }
@@ -153,6 +153,24 @@ public class IndividuoPractica2 extends Individuo<Integer> {
 			  ++i;
 		  }
 	  }
+	  
+	  int bestP = 0;
+	  double bestFit = Double.MAX_VALUE;
+	  
+	  for(int j = 0; j < permutaciones.size(); ++j) {
+		  for(int x = 0; x < permutaciones.get(j).size(); ++x) {
+			  individuo.getCromosoma()[puntos.get(x)] = permutaciones.get(j).get(x);
+		  }
+		  if(individuo.fitness() < bestFit) {
+			  bestFit = individuo.fitness();
+			  bestP = j;
+		  }
+	  }
+	  
+	  for(int x = 0; x < permutaciones.get(bestP).size(); ++x) {
+		  individuo.getCromosoma()[puntos.get(x)] = permutaciones.get(bestP).get(x);
+	  }
+	  
 	  return this;
   }
   
