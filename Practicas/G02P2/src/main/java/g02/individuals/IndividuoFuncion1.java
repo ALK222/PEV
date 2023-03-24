@@ -78,7 +78,7 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
    * @return individuo mutado
    */
   @Override
-  public Individuo<Boolean> mutar(Individuo<Boolean> individuo, double prob) {
+  public Individuo<Boolean> mutar(Individuo<Boolean> individuo, double prob, int mut) {
 	  for(int i = 0; i < this.tamTotal; i++) {
 		  if (ThreadLocalRandom.current().nextDouble() < prob) {
 

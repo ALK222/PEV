@@ -302,7 +302,7 @@ public class ventana extends JFrame {
           }
           Selection<?> mSel;
           Cruces<?> mCru;
-
+          int mutacion = mMutacion.getSelectedIndex();
           AlgoritmoGenetico<?> alg;
 
 //          if (individuo == 5) {
@@ -415,7 +415,7 @@ public class ventana extends JFrame {
               }
             	Individuo<Boolean> mejor;
                 alg = new AlgoritmoGenetico(tamPoblacionMin, nGeneraciones, probCMin, probMMin, prec, mSel, mCru,
-                    elitismo);
+                    elitismo, mutacion);
                 try {
                   mejor = (Individuo<Boolean>) alg.run(individuo, dimensiones);
                   System.out.println(mejor.fitness());
@@ -494,7 +494,7 @@ public class ventana extends JFrame {
                         	
                         	Individuo<Boolean> mejor;
                             alg = new AlgoritmoGenetico(tams[t], nGeneraciones, cruces[c], mutaciones[m], prec, mSel, mCru,
-                                elitismo);
+                                elitismo, mutacion);
                             try {
                               mejor = (Individuo<Boolean>) alg.run(individuo, dimensiones);
                               System.out.println(mejor.fitness());

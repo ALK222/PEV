@@ -68,7 +68,7 @@ public abstract class Individuo<T> {
    * @param prob probabilidad de mutar
    * @return individuo mutado
    */
-  public abstract Individuo<T> mutar(Individuo<T> individuo, double prob);
+  public abstract Individuo<T> mutar(Individuo<T> individuo, double prob, int mut);
 
   /**
    * Gets the cromosoma.

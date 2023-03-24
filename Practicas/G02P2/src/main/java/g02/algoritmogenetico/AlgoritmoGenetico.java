@@ -62,6 +62,8 @@ public class AlgoritmoGenetico<T> {
 
   /** The is max. */
   private boolean isMax;
+  
+  private int mutacion;
 
   /**
    * Instantiates a new algoritmo genetico.
@@ -76,7 +78,7 @@ public class AlgoritmoGenetico<T> {
    * @param elitismo porcentaje de elitismo
    */
   public AlgoritmoGenetico(int tam, int max, double probC, double probM, double prec,
-      Selection<T> selection, Cruces<T> cruce, double elitismo) {
+      Selection<T> selection, Cruces<T> cruce, double elitismo, int mut) {
     tamPoblacion = tam;
     poblacion = new ArrayList<Individuo<T>>();
     maxGeneraciones = max;
@@ -84,6 +86,7 @@ public class AlgoritmoGenetico<T> {
     probMutacion = probM;
     precision = prec;
     this.elitismo = elitismo;
+    mutacion = mut;
 
     mejorGen = new double[maxGeneraciones + 1];
     mediaGen = new double[maxGeneraciones + 1];
@@ -183,7 +186,7 @@ public class AlgoritmoGenetico<T> {
       // Mutacion
       for (int j = 0; j < cruzados.size(); j++) {
         Individuo<T> i1 = cruzados.get(j);
-        i1 = i1.mutar(i1, probMutacion);
+        i1 = i1.mutar(i1, probMutacion, mutacion);
         //i1.corregir();
         newPob.add(i1.copyIndividuo());
       }

@@ -59,7 +59,7 @@ public class IndividuoFuncion4b extends Individuo<Double> {
    * @return individuo mutado
    */
   @Override
-  public Individuo<Double> mutar(Individuo<Double> individuo, double prob) {
+  public Individuo<Double> mutar(Individuo<Double> individuo, double prob, int mut) {
     Random r = new Random();
 
     if (r.nextDouble() < prob) {

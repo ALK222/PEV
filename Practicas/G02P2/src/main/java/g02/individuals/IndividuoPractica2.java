@@ -24,7 +24,7 @@ public class IndividuoPractica2 extends Individuo<Integer> {
       {142, 313, 511, 282, 555, 562, 562, 404, 451, 708, 305, 244, 445, 776},
       {640, 615, 909, 817, 1122, 100, 720, 683, 1018, 1384, 384, 911, 1008, 1218, 662},
       {363, 353, 166, 534, 438, 868, 829, 671, 485, 335, 584, 278, 166, 1043, 479, 968},
-      {309, 480, 621, 173, 459, 563, 396, 238, 355, 721, 396, 248, 458, 667, 486, 663, 492},
+      {309, 480, 621, 173, 459, 563, 396, 238, 355, 721, 396, 248, 458, 667, 136, 663, 492},
       {506, 703, 516, 552, 251, 1140, 939, 781, 323, 219, 856, 433, 232, 1006, 677, 1240, 350, 690},
       {495, 570, 830, 490, 798, 274, 322, 359, 694, 1060, 355, 587, 797, 905, 406, 374, 831, 339,
           1029},
@@ -101,19 +101,31 @@ public class IndividuoPractica2 extends Individuo<Integer> {
    * @return individuo mutado
    */
   @Override
-  public Individuo<Integer> mutar(Individuo<Integer> individuo, double prob) {
-    for (int i = 0; i < this.tamTotal; i++) {
+  public Individuo<Integer> mutar(Individuo<Integer> individuo, double prob, int mut) {
       if (ThreadLocalRandom.current().nextDouble() < prob) {
-        int punto1 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length - 1);
-        int punto2 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length - 1);
-        
-        Integer aux = Integer.valueOf(individuo.getCromosoma()[punto1]);
-        individuo.getCromosoma()[punto1] = Integer.valueOf(individuo.getCromosoma()[punto2]);
-        individuo.getCromosoma()[punto2] = Integer.valueOf(aux);
+        switch(mut) {
+        case 0:
+        	this.mutaIntercambio(individuo);
+        	break;
+        }
       }
-    }
-
     return this;
+  }
+  
+  private Individuo<Integer> mutaInsercion(Individuo<Integer> individuo){
+	  
+	  return this;
+  }
+  
+  private Individuo<Integer> mutaIntercambio(Individuo<Integer> individuo){
+	  int punto1 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length - 1);
+      int punto2 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length - 1);
+      
+      Integer aux = Integer.valueOf(individuo.getCromosoma()[punto1]);
+      individuo.getCromosoma()[punto1] = Integer.valueOf(individuo.getCromosoma()[punto2]);
+      individuo.getCromosoma()[punto2] = Integer.valueOf(aux);
+	  
+  return this;
   }
 
   /**
