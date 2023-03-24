@@ -44,6 +44,8 @@ public class IndividuoPractica2 extends Individuo<Integer> {
           313, 941, 209, 877, 1009, 880, 1055, 544},
       {150, 75, 219, 516, 675, 590, 796, 638, 654, 613, 306, 357, 444, 1010, 292, 690, 278, 459,
           628, 611, 340, 734, 583, 694, 912, 401, 407}};
+  
+  private int nDesplazamientos = 3;
 
 
   /**
@@ -107,12 +109,24 @@ public class IndividuoPractica2 extends Individuo<Integer> {
         case 0:
         	this.mutaIntercambio(individuo);
         	break;
+        case 1:
+        	this.mutaInsercion(individuo);
+        	break;
         }
       }
     return this;
   }
   
   private Individuo<Integer> mutaInsercion(Individuo<Integer> individuo){
+	  for(int i = 0; i < nDesplazamientos; ++i) {
+		  int punto1 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length - 1);
+		  int punto2 = ThreadLocalRandom.current().nextInt(0, punto1);
+		  Integer aux = Integer.valueOf(individuo.getCromosoma()[punto1]);
+		  for(int j = punto1; j > punto2; --j) {
+			  individuo.getCromosoma()[j] = individuo.getCromosoma()[j - 1]; 
+		  }
+		  individuo.getCromosoma()[punto2] = Integer.valueOf(aux);
+	  }
 	  
 	  return this;
   }

@@ -160,6 +160,7 @@ public class ventana extends JFrame {
     JComboBox mCruce = new JComboBox();
     mCruce.setModel(new DefaultComboBoxModel(
         new String[] {"monopunto", "uniforme", "aritmético", "BLX-alpha", "OX","OXPP", "PMX", "CX"}));
+    mCruce.setSelectedIndex(4);
     mCruce.setBounds(131, 267, 86, 22);
     contentPane.add(mCruce);
 
@@ -168,7 +169,7 @@ public class ventana extends JFrame {
     contentPane.add(lblMMutacion);
 
     JComboBox mMutacion = new JComboBox();
-    mMutacion.setModel(new DefaultComboBoxModel(new String[] {"básica"}));
+    mMutacion.setModel(new DefaultComboBoxModel(new String[] {"Intercambio", "Inserción"}));
     mMutacion.setBounds(131, 296, 86, 22);
     contentPane.add(mMutacion);
 
@@ -263,7 +264,7 @@ public class ventana extends JFrame {
     contentPane.add(lblMax_1_1);
     
     nEjecuciones = new JTextField();
-    nEjecuciones.setText("2");
+    nEjecuciones.setText("1");
     nEjecuciones.setColumns(10);
     nEjecuciones.setBounds(131, 382, 86, 20);
     contentPane.add(nEjecuciones);
