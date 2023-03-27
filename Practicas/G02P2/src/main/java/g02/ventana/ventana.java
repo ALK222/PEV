@@ -11,6 +11,7 @@ import g02.algoritmogenetico.AlgoritmoGenetico;
 import g02.cruces.CruceAritmetico;
 import g02.cruces.CruceBLXAlpha;
 import g02.cruces.CruceCX;
+import g02.cruces.CruceERX;
 import g02.cruces.CruceMonopunto;
 import g02.cruces.CruceOX;
 import g02.cruces.CruceOXPP;
@@ -159,7 +160,7 @@ public class ventana extends JFrame {
 
     JComboBox mCruce = new JComboBox();
     mCruce.setModel(new DefaultComboBoxModel(
-        new String[] {"monopunto", "uniforme", "aritmético", "BLX-alpha", "OX","OXPP", "PMX", "CX"}));
+        new String[] {"OX","OXPP", "PMX", "CX", "ERX"}));
     mCruce.setSelectedIndex(4);
     mCruce.setBounds(131, 267, 86, 22);
     contentPane.add(mCruce);
@@ -292,11 +293,7 @@ public class ventana extends JFrame {
         int individuo = individuox.getSelectedIndex();
 
 
-        if (individuo != 4 && (mCruce.getSelectedIndex() == 2 || mCruce.getSelectedIndex() == 3)) {
-          JOptionPane.showMessageDialog(new JFrame(),
-              "Cruce aritmético y BLX-alpha solo disponible en Individuo 4B", "Dialog",
-              JOptionPane.ERROR_MESSAGE);
-        } else {
+
           boolean isMax = false;
           if (individuo == 0) {
             isMax = false;
@@ -306,86 +303,24 @@ public class ventana extends JFrame {
           int mutacion = mMutacion.getSelectedIndex();
           AlgoritmoGenetico<?> alg;
 
-//          if (individuo == 5) {
-//            switch (mSeleccion.getSelectedIndex()) {
-//              case 0:
-//                mSel = new RouletteSelection<Double>(tamPoblacion, null);
-//                break;
-//              case 1:
-//                mSel = new TournamentDeterministicSelection<Double>(tamPoblacion, null, isMax);
-//                break;
-//              case 2:
-//                mSel = new TournamentProbabilisticSelection<Double>(tamPoblacion, null, probTorneo,
-//                    isMax);
-//                break;
-//              case 3:
-//                mSel = new StochasticSelection<Double>(tamPoblacion, null);
-//                break;
-//              case 4:
-//                mSel = new TruncateSelection<Double>(tamPoblacion, null, 0.5);
-//                break;
-//              case 5:
-//                mSel = new RestosSelection<Double>(5, null);
-//                break;
-//              default:
-//                mSel = new RouletteSelection<Double>(tamPoblacion, null);
-//                break;
-//            }
-//
-//
-//
-//            switch (mCruce.getSelectedIndex()) {
-//
-//              case 1:
-//                mCru = new CruceUniforme<Double>();
-//                break;
-//              case 2:
-//                mCru = new CruceAritmetico();
-//                break;
-//              case 3:
-//                mCru = new CruceBLXAlpha();
-//                break;
-//              case 4:
-//                mCru = new CruceOX();
-//                break;
-//              case 5:
-//                mCru = new CrucePMX();
-//                break;
-//              default:
-//                mCru = new CruceMonopunto<Double>();
-//                break;
-//            }
-//            Individuo<Double> mejor;
-//            alg = new AlgoritmoGenetico(tamPoblacion, nGeneraciones, probC, probM, prec, mSel, mCru,
-//                elitismo);
-//            try {
-//              mejor = (Individuo<Double>) alg.run(individuo, dimensiones);
-//              System.out.println(mejor.fitness());
-//              resultsPane.setText(mejor.toString());
-//            } catch (Exception ex) {
-//              ex.printStackTrace();
-//            }
-//
-//          } else { // Individuos 1-4A
             switch (mCruce.getSelectedIndex()) {
-
-              case 1:
-                mCru = new CruceUniforme<Boolean>();
-                break;
-              case 4:
+              case 0:
                 mCru = new CruceOX();
                 break;
-              case 5:
+              case 1:
                   mCru = new CruceOXPP();
                   break;
-              case 6:
+              case 2:
                 mCru = new CrucePMX();
                 break;
-              case 7:
+              case 3:
                   mCru = new CruceCX();
                   break;
+              case 4:
+                  mCru = new CruceERX();
+                  break;
               default:
-                mCru = new CruceMonopunto<Boolean>();
+                mCru = new CruceOX();
                 break;
             }
             
@@ -511,25 +446,6 @@ public class ventana extends JFrame {
                             } catch (Exception ex) {
                               ex.printStackTrace();
                             }
-
-//                          double[] generaciones = new double[nGeneraciones];
-//                          for (int i = 0; i < nGeneraciones; i++) {
-//                            generaciones[i] = i;
-//                          }
-//                          double[] fitness = alg.getMejores();
-//                          double[] media = alg.getMedias();
-//                          double[] best = alg.getMejorSiempre();
-//
-//                          // create your PlotPanel (you can use it as a JPanel)
-//                          Plot2DPanel plot = new Plot2DPanel();
-//                          // define the legend position
-//                          plot.addLegend("SOUTH");
-//                          // add a line plot to the PlotPanel
-//                          plot.addLinePlot("MEJOR ABSOLUTO", generaciones, best);
-//                          plot.addLinePlot("EVOLUCIÓN", generaciones, fitness);
-//                          plot.addLinePlot("MEDIAS", generaciones, media);
-//                          // put the PlotPanel in a JFrame like a JPanel
-//                          plots.add(plot);
                         }
                 		}
                 	}
@@ -552,7 +468,6 @@ public class ventana extends JFrame {
                 internalFrame.setContentPane(plot);
                 }
             }
-        }
     });
     btnNewButton.setBounds(45, 413, 140, 23);
     contentPane.add(btnNewButton);
