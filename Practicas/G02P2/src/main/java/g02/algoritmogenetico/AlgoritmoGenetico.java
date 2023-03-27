@@ -168,8 +168,7 @@ public class AlgoritmoGenetico<T> {
 
         ArrayList<Individuo<T>> aux =
             cruce.cruzar(seleccionados.get(0), seleccionados.get(1), probCruce);
-        //aux.get(0).corregir();
-        //aux.get(1).corregir();
+
         cruzados.add(aux.get(0).copyIndividuo());
         cruzados.add(aux.get(1).copyIndividuo());
 

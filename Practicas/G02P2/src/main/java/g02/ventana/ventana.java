@@ -10,6 +10,7 @@ import g02.Selections.TruncateSelection;
 import g02.algoritmogenetico.AlgoritmoGenetico;
 import g02.cruces.CruceAritmetico;
 import g02.cruces.CruceBLXAlpha;
+import g02.cruces.CruceCO;
 import g02.cruces.CruceCX;
 import g02.cruces.CruceERX;
 import g02.cruces.CruceMonopunto;
@@ -160,7 +161,7 @@ public class ventana extends JFrame {
 
     JComboBox mCruce = new JComboBox();
     mCruce.setModel(new DefaultComboBoxModel(
-        new String[] {"OX","OXPP", "PMX", "CX", "ERX"}));
+        new String[] {"OX","OXPP", "PMX", "CX", "ERX", "CO"}));
     mCruce.setSelectedIndex(4);
     mCruce.setBounds(131, 267, 86, 22);
     contentPane.add(mCruce);
@@ -318,6 +319,9 @@ public class ventana extends JFrame {
                   break;
               case 4:
                   mCru = new CruceERX();
+                  break;
+              case 5:
+                  mCru = new CruceCO();
                   break;
               default:
                 mCru = new CruceOX();
