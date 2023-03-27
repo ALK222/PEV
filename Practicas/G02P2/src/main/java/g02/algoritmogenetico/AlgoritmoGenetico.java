@@ -186,7 +186,6 @@ public class AlgoritmoGenetico<T> {
       for (int j = 0; j < cruzados.size(); j++) {
         Individuo<T> i1 = cruzados.get(j);
         i1 = i1.mutar(i1, probMutacion, mutacion);
-        //i1.corregir();
         newPob.add(i1.copyIndividuo());
       }
       selection.setPob(newPob);

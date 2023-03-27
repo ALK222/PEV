@@ -118,9 +118,62 @@ public class IndividuoPractica2 extends Individuo<Integer> {
         case 3:
         	this.mutaHeuristica(individuo);
         	break;
+        case 4:
+        	this.mutaRotacionHeu(individuo);
+        	break;
         }
       }
     return this;
+  }
+  
+  private Individuo<Integer> mutaRotacionHeu(Individuo<Integer> individuo){
+	  int punto1 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length - 1);
+      int punto2 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length - 1);
+      
+      while(punto2 == punto1)
+    	  punto2 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length - 1);
+      
+
+      int ini = Math.min(punto1, punto2);
+      int fin = Math.max(punto1, punto2);
+      
+      int rotaciones = this.tamTotal - (fin - ini);
+      int bestP = 0;
+	  double bestFit = Double.MAX_VALUE;
+	  
+	  for(int it = 0; it < rotaciones; ++it) {
+		  int i = fin + 1;
+		  int auxAnterior = individuo.getCromosoma()[ini - 1];
+		  int auxNuevo;
+		  while(i != ini) {
+			  auxNuevo = individuo.getCromosoma()[i];
+			  individuo.getCromosoma()[i] = auxAnterior;
+			  
+			  auxAnterior = auxNuevo;
+			  ++i;
+			  if(i==individuo.getCromosoma().length) i = 0;
+		  }
+		  if(individuo.fitness() < bestFit) {
+			  bestFit = individuo.fitness();
+			  bestP = it;
+		  }
+	  }
+	  
+	  for(int it = 0; it < bestP; ++it) {
+		  int i = fin + 1;
+		  int auxAnterior = individuo.getCromosoma()[ini - 1];
+		  int auxNuevo;
+		  while(i != ini) {
+			  auxNuevo = individuo.getCromosoma()[i];
+			  individuo.getCromosoma()[i] = auxAnterior;
+			  
+			  auxAnterior = auxNuevo;
+			  ++i;
+			  if(i==individuo.getCromosoma().length) i = 0;
+		  }
+	  }
+	  
+	  return this;
   }
   
   private Individuo<Integer> mutaHeuristica(Individuo<Integer> individuo){
