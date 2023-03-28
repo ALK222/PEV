@@ -201,11 +201,11 @@ public class ventana extends JFrame {
     nDims.setText("2");
     nDims.setColumns(10);
     nDims.setBounds(131, 353, 86, 20);
-    contentPane.add(nDims);
+    //contentPane.add(nDims);
 
     JLabel lblDimensiones = new JLabel("Dimensiones");
     lblDimensiones.setBounds(10, 356, 111, 14);
-    contentPane.add(lblDimensiones);
+    //contentPane.add(lblDimensiones);
 
     JTextPane resultsPane = new JTextPane();
     resultsPane.setBounds(12, 11, 207, 118);
