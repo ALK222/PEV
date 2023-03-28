@@ -17,6 +17,7 @@ import g02.cruces.CruceERX;
 import g02.cruces.CruceMonopunto;
 import g02.cruces.CruceOX;
 import g02.cruces.CruceOXPP;
+import g02.cruces.CruceOXOP;
 import g02.cruces.CrucePMX;
 import g02.cruces.CruceUniforme;
 import g02.cruces.CruceVOT;
@@ -161,7 +162,7 @@ public class ventana extends JFrame {
 
     JComboBox mCruce = new JComboBox();
     mCruce.setModel(
-        new DefaultComboBoxModel(new String[] {"OX", "OXPP", "PMX", "CX", "ERX", "CO", "VOT"}));
+        new DefaultComboBoxModel(new String[] {"OX", "OXPP", "PMX", "CX", "ERX", "CO", "VOT", "OXOP"}));
     mCruce.setSelectedIndex(4);
     mCruce.setBounds(131, 267, 86, 22);
     contentPane.add(mCruce);
@@ -326,6 +327,9 @@ public class ventana extends JFrame {
             break;
           case 6:
             mCru = new CruceVOT();
+            break;
+          case 7:
+            mCru = new CruceOXOP();
             break;
           default:
             mCru = new CruceOX();
