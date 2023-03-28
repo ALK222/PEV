@@ -3,6 +3,7 @@ package g02.Selections;
 import g02.individuals.Individuo;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 /**
@@ -81,6 +82,40 @@ public class RouletteSelection<T> extends Selection<T> {
         }
         i++;
       }
+    }
+
+    return newPob;
+  }
+
+  ArrayList<Individuo<T>> runRanked(double[] ranking) {
+
+    ArrayList<Individuo<T>> newPob = new ArrayList<Individuo<T>>();
+
+    double prob = 0;
+    double probAcum = 0;
+
+    int k = 0;
+
+    double sum = 0;
+
+
+    for (Double f : ranking) {
+      sum += f;
+    }
+    
+    for(int i = 0; i < this.seleccionar; ++i) {
+      k = 0;
+      
+      prob = ThreadLocalRandom.current().nextDouble() * sum;
+      
+      probAcum = ranking[k];
+      
+      while(k < this.seleccionar - 1 && probAcum < prob) {
+        probAcum += ranking[k+1];
+        k++;
+      }
+      
+      newPob.add(pob.get(k).copyIndividuo());
     }
 
     return newPob;

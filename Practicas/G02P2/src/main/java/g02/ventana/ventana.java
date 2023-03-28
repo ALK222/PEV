@@ -1,5 +1,6 @@
 package g02.ventana;
 
+import g02.Selections.RankingSelection;
 import g02.Selections.RestosSelection;
 import g02.Selections.RouletteSelection;
 import g02.Selections.Selection;
@@ -116,15 +117,13 @@ public class ventana extends JFrame {
     pProbTorneo.setBounds(131, 113, 86, 20);
     contentPane.add(pProbTorneo);
 
-    precision = new JTextField();
-    precision.setText("0.001");
-    precision.setColumns(10);
-    precision.setBounds(131, 141, 86, 20);
-    contentPane.add(precision);
-
-    JLabel lblProfMaxInicial = new JLabel("Precision");
-    lblProfMaxInicial.setBounds(10, 144, 111, 14);
-    contentPane.add(lblProfMaxInicial);
+    /*
+     * precision = new JTextField(); precision.setText("0.001"); precision.setColumns(10);
+     * precision.setBounds(131, 141, 86, 20); contentPane.add(precision);
+     * 
+     * JLabel lblProfMaxInicial = new JLabel("Precision"); lblProfMaxInicial.setBounds(10, 144, 111,
+     * 14); contentPane.add(lblProfMaxInicial);
+     */
 
     pMutacionMin = new JTextField();
     pMutacionMin.setText("0.02");
@@ -147,8 +146,8 @@ public class ventana extends JFrame {
     contentPane.add(pCruceMin);
 
     JComboBox mSeleccion = new JComboBox();
-    mSeleccion.setModel(new DefaultComboBoxModel(
-        new String[] {"ruleta", "torneo 1", "torneo 2", "estocástico", "truncamiento", "restos"}));
+    mSeleccion.setModel(new DefaultComboBoxModel(new String[] {"ruleta", "torneo 1", "torneo 2",
+        "estocástico", "truncamiento", "restos", "Ranking"}));
     mSeleccion.setBounds(131, 234, 86, 22);
     contentPane.add(mSeleccion);
 
@@ -161,8 +160,8 @@ public class ventana extends JFrame {
     contentPane.add(lblMCruce);
 
     JComboBox mCruce = new JComboBox();
-    mCruce.setModel(new DefaultComboBoxModel(
-        new String[] {"OX","OXPP", "PMX", "CX", "ERX", "CO", "VOT"}));
+    mCruce.setModel(
+        new DefaultComboBoxModel(new String[] {"OX", "OXPP", "PMX", "CX", "ERX", "CO", "VOT"}));
     mCruce.setSelectedIndex(4);
     mCruce.setBounds(131, 267, 86, 22);
     contentPane.add(mCruce);
@@ -172,12 +171,13 @@ public class ventana extends JFrame {
     contentPane.add(lblMMutacion);
 
     JComboBox mMutacion = new JComboBox();
-    mMutacion.setModel(new DefaultComboBoxModel(new String[] {"Intercambio", "Inserción", "Inversion", "Heurística", "Rotación Heu."}));
+    mMutacion.setModel(new DefaultComboBoxModel(
+        new String[] {"Intercambio", "Inserción", "Inversion", "Heurística", "Rotación Heu."}));
     mMutacion.setBounds(131, 296, 86, 22);
     contentPane.add(mMutacion);
 
     pElitismo = new JTextField();
-    pElitismo.setText("0.1");
+    pElitismo.setText("0.01");
     pElitismo.setColumns(10);
     pElitismo.setBounds(131, 325, 86, 20);
     contentPane.add(pElitismo);
@@ -209,69 +209,69 @@ public class ventana extends JFrame {
     JTextPane resultsPane = new JTextPane();
     resultsPane.setBounds(12, 11, 207, 118);
     contentPane.add(resultsPane);
-    
+
     JScrollPane scrollPane = new JScrollPane(resultsPane);
     scrollPane.setBounds(10, 453, 207, 118);
     contentPane.add(scrollPane);
-    
+
     JLabel lblResultados = new JLabel("Resultados");
     lblResultados.setBounds(10, 439, 111, 14);
     contentPane.add(lblResultados);
-    
+
     tamPobMax = new JTextField();
     tamPobMax.setText("300");
     tamPobMax.setColumns(10);
     tamPobMax.setBounds(166, 82, 39, 20);
     contentPane.add(tamPobMax);
-    
+
     JLabel lblMin = new JLabel("Min");
     lblMin.setFont(new Font("Tahoma", Font.PLAIN, 8));
     lblMin.setBounds(146, 85, 39, 14);
     contentPane.add(lblMin);
-    
+
     JLabel lblMax = new JLabel("Max");
     lblMax.setFont(new Font("Tahoma", Font.PLAIN, 8));
     lblMax.setBounds(208, 85, 39, 14);
     contentPane.add(lblMax);
-    
+
     pMutacionMax = new JTextField();
     pMutacionMax.setText("0.08");
     pMutacionMax.setColumns(10);
     pMutacionMax.setBounds(166, 172, 39, 20);
     contentPane.add(pMutacionMax);
-    
+
     JLabel lblMin_1 = new JLabel("Min");
     lblMin_1.setFont(new Font("Tahoma", Font.PLAIN, 8));
     lblMin_1.setBounds(146, 175, 39, 14);
     contentPane.add(lblMin_1);
-    
+
     JLabel lblMax_1 = new JLabel("Max");
     lblMax_1.setFont(new Font("Tahoma", Font.PLAIN, 8));
     lblMax_1.setBounds(208, 175, 39, 14);
     contentPane.add(lblMax_1);
-    
+
     pCruceMax = new JTextField();
     pCruceMax.setText("0.8");
     pCruceMax.setColumns(10);
     pCruceMax.setBounds(166, 203, 39, 20);
     contentPane.add(pCruceMax);
-    
+
     JLabel lblMin_1_1 = new JLabel("Min");
     lblMin_1_1.setFont(new Font("Tahoma", Font.PLAIN, 8));
     lblMin_1_1.setBounds(146, 206, 39, 14);
     contentPane.add(lblMin_1_1);
-    
+
     JLabel lblMax_1_1 = new JLabel("Max");
     lblMax_1_1.setFont(new Font("Tahoma", Font.PLAIN, 8));
     lblMax_1_1.setBounds(208, 206, 39, 14);
     contentPane.add(lblMax_1_1);
-    
+
     nEjecuciones = new JTextField();
     nEjecuciones.setText("1");
     nEjecuciones.setColumns(10);
     nEjecuciones.setBounds(131, 382, 86, 20);
     contentPane.add(nEjecuciones);
-    
+
     JLabel lblNumEjecuciones = new JLabel("Num. Ejecuciones");
     lblNumEjecuciones.setBounds(10, 385, 111, 14);
     contentPane.add(lblNumEjecuciones);
@@ -286,7 +286,7 @@ public class ventana extends JFrame {
         double probCMax = Double.parseDouble(pCruceMax.getText());
         double probMMin = Double.parseDouble(pMutacionMin.getText());
         double probMMax = Double.parseDouble(pMutacionMax.getText());
-        double prec = Double.parseDouble(precision.getText());
+        double prec = 0;
         double elitismo = Double.parseDouble(pElitismo.getText());
         double probTorneo = Double.parseDouble(pProbTorneo.getText());
         int dimensiones = Integer.parseInt(nDims.getText());
@@ -296,219 +296,219 @@ public class ventana extends JFrame {
 
 
 
-          boolean isMax = false;
-          if (individuo == 0) {
-            isMax = false;
-          }
-          Selection<?> mSel;
-          Cruces<?> mCru;
-          int mutacion = mMutacion.getSelectedIndex();
-          AlgoritmoGenetico<?> alg;
+        boolean isMax = false;
+        if (individuo == 0) {
+          isMax = false;
+        }
+        Selection<?> mSel;
+        Cruces<?> mCru;
+        int mutacion = mMutacion.getSelectedIndex();
+        AlgoritmoGenetico<?> alg;
 
-            switch (mCruce.getSelectedIndex()) {
-              case 0:
-                mCru = new CruceOX();
-                break;
-              case 1:
-                  mCru = new CruceOXPP();
-                  break;
-              case 2:
-                mCru = new CrucePMX();
-                break;
-              case 3:
-                  mCru = new CruceCX();
-                  break;
-              case 4:
-                  mCru = new CruceERX();
-                  break;
-              case 5:
-                  mCru = new CruceCO();
-                  break;
-              case 6:
-                  mCru = new CruceVOT();
-                  break;
-              default:
-                mCru = new CruceOX();
-                break;
+        switch (mCruce.getSelectedIndex()) {
+          case 0:
+            mCru = new CruceOX();
+            break;
+          case 1:
+            mCru = new CruceOXPP();
+            break;
+          case 2:
+            mCru = new CrucePMX();
+            break;
+          case 3:
+            mCru = new CruceCX();
+            break;
+          case 4:
+            mCru = new CruceERX();
+            break;
+          case 5:
+            mCru = new CruceCO();
+            break;
+          case 6:
+            mCru = new CruceVOT();
+            break;
+          default:
+            mCru = new CruceOX();
+            break;
+        }
+
+        if (ejecuciones == 1) {
+          switch (mSeleccion.getSelectedIndex()) {
+            case 0:
+              mSel = new RouletteSelection<Integer>(tamPoblacionMin, null);
+              break;
+            case 1:
+              mSel = new TournamentDeterministicSelection<Integer>(tamPoblacionMin, null, isMax);
+              break;
+            case 2:
+              mSel = new TournamentProbabilisticSelection<Integer>(tamPoblacionMin, null,
+                  probTorneo, isMax);
+              break;
+            case 3:
+              mSel = new StochasticSelection<Integer>(tamPoblacionMin, null);
+              break;
+            case 4:
+              mSel = new TruncateSelection<Integer>(tamPoblacionMin, null, 0.5);
+              break;
+            case 5:
+              mSel = new RestosSelection<Integer>(5, null);
+              break;
+            case 6:
+              mSel = new RankingSelection<Integer>(tamPoblacionMin, null);
+              break;
+            default:
+              mSel = new RouletteSelection<Integer>(tamPoblacionMin, null);
+              break;
+          }
+          Individuo<Integer> mejor;
+          alg = new AlgoritmoGenetico(tamPoblacionMin, nGeneraciones, probCMin, probMMin, prec,
+              mSel, mCru, elitismo, mutacion);
+          try {
+            mejor = (Individuo<Integer>) alg.run(individuo, dimensiones);
+            System.out.println(mejor.fitness());
+            resultsPane.setText(mejor.toString());
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
+
+          double[] generaciones = new double[nGeneraciones];
+          for (int i = 0; i < nGeneraciones; i++) {
+            generaciones[i] = i;
+          }
+          double[] fitness = alg.getMejores();
+          double[] media = alg.getMedias();
+          double[] best = alg.getMejorSiempre();
+
+          // create your PlotPanel (you can use it as a JPanel)
+          Plot2DPanel plot = new Plot2DPanel();
+          // define the legend position
+          plot.addLegend("SOUTH");
+          // add a line plot to the PlotPanel
+          plot.addLinePlot("MEJOR ABSOLUTO", generaciones, best);
+          plot.addLinePlot("EVOLUCIÓN", generaciones, fitness);
+          plot.addLinePlot("MEDIAS", generaciones, media);
+          // put the PlotPanel in a JFrame like a JPanel
+          internalFrame.setContentPane(plot);
+        } else {
+          Integer[] tams;
+          if (tamPoblacionMax != tamPoblacionMin) {
+            tams = new Integer[ejecuciones];
+            int auxTams = (tamPoblacionMax - tamPoblacionMin) / (ejecuciones - 1);
+            for (int j = 0; j < ejecuciones; ++j) {
+              tams[j] = tamPoblacionMin + (auxTams * j);
             }
-            
-            if(ejecuciones == 1) {
-            	switch (mSeleccion.getSelectedIndex()) {
-                case 0:
-                  mSel = new RouletteSelection<Boolean>(tamPoblacionMin, null);
-                  break;
-                case 1:
-                  mSel = new TournamentDeterministicSelection<Boolean>(tamPoblacionMin, null, isMax);
-                  break;
-                case 2:
-                  mSel = new TournamentProbabilisticSelection<Boolean>(tamPoblacionMin, null, probTorneo,
-                      isMax);
-                  break;
-                case 3:
-                  mSel = new StochasticSelection<Boolean>(tamPoblacionMin, null);
-                  break;
-                case 4:
-                  mSel = new TruncateSelection<Boolean>(tamPoblacionMin, null, 0.5);
-                  break;
-                case 5:
-                  mSel = new RestosSelection<Boolean>(5, null);
-                  break;
-                default:
-                  mSel = new RouletteSelection<Boolean>(tamPoblacionMin, null);
-                  break;
-              }
-            	Individuo<Boolean> mejor;
-                alg = new AlgoritmoGenetico(tamPoblacionMin, nGeneraciones, probCMin, probMMin, prec, mSel, mCru,
-                    elitismo, mutacion);
+          } else {
+            tams = new Integer[1];
+            tams[0] = tamPoblacionMin;
+          }
+
+          Double[] mutaciones;
+          if (probMMax != probMMin) {
+            mutaciones = new Double[ejecuciones];
+            double auxMut = (probMMax - probMMin) / (double) (ejecuciones - 1);
+            for (int j = 0; j < ejecuciones; ++j) {
+              mutaciones[j] = probMMin + (auxMut * j);
+            }
+          } else {
+            mutaciones = new Double[1];
+            mutaciones[0] = probMMin;
+          }
+
+          Double[] cruces;
+          if (probCMax != probCMin) {
+            cruces = new Double[ejecuciones];
+            double auxCru = (probCMax - probCMin) / (double) (ejecuciones - 1);
+            for (int j = 0; j < ejecuciones; ++j) {
+              cruces[j] = probCMin + (auxCru * j);
+            }
+          } else {
+            cruces = new Double[1];
+            cruces[0] = probCMin;
+          }
+
+          // ArrayList<Plot2DPanel> plots = new ArrayList<Plot2DPanel>();
+          ArrayList<Individuo<Integer>> mejores = new ArrayList<Individuo<Integer>>();
+
+
+          double bestFit = Double.MAX_VALUE;
+          int bestT = 0;
+          int bestM = 0;
+          int bestC = 0;
+
+          for (int t = 0; t < tams.length; ++t) {
+            for (int m = 0; m < mutaciones.length; ++m) {
+              for (int c = 0; c < cruces.length; ++c) {
+                switch (mSeleccion.getSelectedIndex()) {
+                  case 0:
+                    mSel = new RouletteSelection<Integer>(tams[t], null);
+                    break;
+                  case 1:
+                    mSel = new TournamentDeterministicSelection<Integer>(tams[t], null, isMax);
+                    break;
+                  case 2:
+                    mSel = new TournamentProbabilisticSelection<Integer>(tams[t], null, probTorneo,
+                        isMax);
+                    break;
+                  case 3:
+                    mSel = new StochasticSelection<Integer>(tams[t], null);
+                    break;
+                  case 4:
+                    mSel = new TruncateSelection<Integer>(tams[t], null, 0.5);
+                    break;
+                  case 5:
+                    mSel = new RestosSelection<Integer>(5, null);
+                    break;
+                  case 6:
+                    mSel = new RankingSelection<Integer>(tams[t], null);
+                    break;
+                  default:
+                    mSel = new RouletteSelection<Integer>(tams[t], null);
+                    break;
+                }
+
+                Individuo<Integer> mejor;
+                alg = new AlgoritmoGenetico(tams[t], nGeneraciones, cruces[c], mutaciones[m], prec,
+                    mSel, mCru, elitismo, mutacion);
                 try {
-                  mejor = (Individuo<Boolean>) alg.run(individuo, dimensiones);
+                  mejor = (Individuo<Integer>) alg.run(individuo, dimensiones);
                   System.out.println(mejor.fitness());
-                  resultsPane.setText(mejor.toString());
+
+                  if (mejor.fitness() < bestFit) {
+                    bestFit = mejor.fitness();
+                    bestT = t;
+                    bestM = m;
+                    bestC = c;
+                  }
+
+                  mejores.add(mejor);
                 } catch (Exception ex) {
                   ex.printStackTrace();
                 }
-
-              double[] generaciones = new double[nGeneraciones];
-              for (int i = 0; i < nGeneraciones; i++) {
-                generaciones[i] = i;
               }
-              double[] fitness = alg.getMejores();
-              double[] media = alg.getMedias();
-              double[] best = alg.getMejorSiempre();
+            }
+          }
 
-              // create your PlotPanel (you can use it as a JPanel)
-              Plot2DPanel plot = new Plot2DPanel();
-              // define the legend position
-              plot.addLegend("SOUTH");
-              // add a line plot to the PlotPanel
-              plot.addLinePlot("MEJOR ABSOLUTO", generaciones, best);
-              plot.addLinePlot("EVOLUCIÓN", generaciones, fitness);
-              plot.addLinePlot("MEDIAS", generaciones, media);
-              // put the PlotPanel in a JFrame like a JPanel
-              internalFrame.setContentPane(plot);
-            }
-            else {
-            	Integer[] tams;
-            	if(tamPoblacionMax != tamPoblacionMin) {
-            		tams = new Integer[ejecuciones];
-                    int auxTams = (tamPoblacionMax - tamPoblacionMin) / (ejecuciones - 1);
-                    for(int j = 0; j < ejecuciones; ++j) {
-                    	tams[j] = tamPoblacionMin + (auxTams * j);
-                    }
-            	}
-            	else {
-            		tams = new Integer[1];
-            		tams[0] = tamPoblacionMin;
-            	}
-            	
-            	Double[] mutaciones;
-            	if(probMMax != probMMin) {
-            		mutaciones = new Double[ejecuciones];
-                    double auxMut = (probMMax - probMMin) / (double)(ejecuciones - 1);
-                    for(int j = 0; j < ejecuciones; ++j) {
-                    	mutaciones[j] = probMMin + (auxMut * j);
-                    }
-            	}
-            	else {
-            		mutaciones = new Double[1];
-            		mutaciones[0] = probMMin;
-            	}
-            	
-            	Double[] cruces;
-            	if(probCMax != probCMin) {
-            		cruces = new Double[ejecuciones];
-                    double auxCru = (probCMax - probCMin) / (double)(ejecuciones - 1);
-                    for(int j = 0; j < ejecuciones; ++j) {
-                    	cruces[j] = probCMin + (auxCru * j);
-                    }
-            	}
-            	else {
-            		cruces = new Double[1];
-            		cruces[0] = probCMin;
-            	}
-                
-                //ArrayList<Plot2DPanel> plots = new ArrayList<Plot2DPanel>();
-                ArrayList<Individuo<Boolean>> mejores = new ArrayList<Individuo<Boolean>>();
-                
-                
-                double bestFit = Double.MAX_VALUE;
-                int bestT = 0;
-                int bestM = 0;
-                int bestC = 0;
-                
-                for(int t = 0; t < tams.length; ++t) {
-                	for(int m = 0; m < mutaciones.length; ++m) {
-                		for(int c = 0; c < cruces.length; ++c) {
-                			switch (mSeleccion.getSelectedIndex()) {
-                            case 0:
-                              mSel = new RouletteSelection<Boolean>(tams[t], null);
-                              break;
-                            case 1:
-                              mSel = new TournamentDeterministicSelection<Boolean>(tams[t], null, isMax);
-                              break;
-                            case 2:
-                              mSel = new TournamentProbabilisticSelection<Boolean>(tams[t], null, probTorneo,
-                                  isMax);
-                              break;
-                            case 3:
-                              mSel = new StochasticSelection<Boolean>(tams[t], null);
-                              break;
-                            case 4:
-                              mSel = new TruncateSelection<Boolean>(tams[t], null, 0.5);
-                              break;
-                            case 5:
-                              mSel = new RestosSelection<Boolean>(5, null);
-                              break;
-                            default:
-                              mSel = new RouletteSelection<Boolean>(tams[t], null);
-                              break;
-                          }
-                        	
-                        	Individuo<Boolean> mejor;
-                            alg = new AlgoritmoGenetico(tams[t], nGeneraciones, cruces[c], mutaciones[m], prec, mSel, mCru,
-                                elitismo, mutacion);
-                            try {
-                              mejor = (Individuo<Boolean>) alg.run(individuo, dimensiones);
-                              System.out.println(mejor.fitness());
-                              
-                              if(mejor.fitness() < bestFit) {
-                            	  bestFit = mejor.fitness();
-                            	  bestT = t;
-                            	  bestM = m;
-                            	  bestC = c;
-                              }
-                              
-                              mejores.add(mejor);
-                            } catch (Exception ex) {
-                              ex.printStackTrace();
-                            }
-                        }
-                		}
-                	}
-                
-                String txt = "Mejor ejecución \nPoblación: " + tams[bestT] +
-                		"\nMutación: " + mutaciones[bestM] + "\nCruce: " + cruces[bestC]+ "\nFitness: " + bestFit;
-                resultsPane.setText(txt);
-                
-                double[] excs = new double[(int)(tams.length * mutaciones.length * cruces.length)];
-                double[] fits = new double[(int)(tams.length * mutaciones.length * cruces.length)];
-                for (int i = 0; i < (int)(tams.length * mutaciones.length * cruces.length); i++) {
-                	excs[i] = i;
-                	fits[i] = mejores.get(i).fitness();
-                }
-                Plot2DPanel plot = new Plot2DPanel();
-              // define the legend position
-                plot.addLegend("SOUTH");
-              // add a line plot to the PlotPanel
-                plot.addLinePlot("MEJOR DE LA EJECUCIÓN", excs, fits);
-                internalFrame.setContentPane(plot);
-                }
-            }
+          String txt = "Mejor ejecución \nPoblación: " + tams[bestT] + "\nMutación: "
+              + mutaciones[bestM] + "\nCruce: " + cruces[bestC] + "\nFitness: " + bestFit;
+          resultsPane.setText(txt);
+
+          double[] excs = new double[(int) (tams.length * mutaciones.length * cruces.length)];
+          double[] fits = new double[(int) (tams.length * mutaciones.length * cruces.length)];
+          for (int i = 0; i < (int) (tams.length * mutaciones.length * cruces.length); i++) {
+            excs[i] = i;
+            fits[i] = mejores.get(i).fitness();
+          }
+          Plot2DPanel plot = new Plot2DPanel();
+          // define the legend position
+          plot.addLegend("SOUTH");
+          // add a line plot to the PlotPanel
+          plot.addLinePlot("MEJOR DE LA EJECUCIÓN", excs, fits);
+          internalFrame.setContentPane(plot);
+        }
+      }
     });
     btnNewButton.setBounds(45, 413, 140, 23);
     contentPane.add(btnNewButton);
-
-    
 
 
 
