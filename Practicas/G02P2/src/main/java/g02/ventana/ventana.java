@@ -388,29 +388,57 @@ public class ventana extends JFrame {
               internalFrame.setContentPane(plot);
             }
             else {
-            	Integer[] tams = new Integer[ejecuciones];
-                int auxTams = (tamPoblacionMax - tamPoblacionMin) / (ejecuciones - 1);
-                Double[] mutaciones = new Double[ejecuciones];
-                double auxMut = (probMMax - probMMin) / (double)(ejecuciones - 1);
-                Double[] cruces = new Double[ejecuciones];
-                double auxCru = (probCMax - probCMin) / (double)(ejecuciones - 1);
+            	Integer[] tams;
+            	if(tamPoblacionMax != tamPoblacionMin) {
+            		tams = new Integer[ejecuciones];
+                    int auxTams = (tamPoblacionMax - tamPoblacionMin) / (ejecuciones - 1);
+                    for(int j = 0; j < ejecuciones; ++j) {
+                    	tams[j] = tamPoblacionMin + (auxTams * j);
+                    }
+            	}
+            	else {
+            		tams = new Integer[1];
+            		tams[0] = tamPoblacionMin;
+            	}
+            	
+            	Double[] mutaciones;
+            	if(probMMax != probMMin) {
+            		mutaciones = new Double[ejecuciones];
+                    double auxMut = (probMMax - probMMin) / (double)(ejecuciones - 1);
+                    for(int j = 0; j < ejecuciones; ++j) {
+                    	mutaciones[j] = probMMin + (auxMut * j);
+                    }
+            	}
+            	else {
+            		mutaciones = new Double[1];
+            		mutaciones[0] = probMMin;
+            	}
+            	
+            	Double[] cruces;
+            	if(probCMax != probCMin) {
+            		cruces = new Double[ejecuciones];
+                    double auxCru = (probCMax - probCMin) / (double)(ejecuciones - 1);
+                    for(int j = 0; j < ejecuciones; ++j) {
+                    	cruces[j] = probCMin + (auxCru * j);
+                    }
+            	}
+            	else {
+            		cruces = new Double[1];
+            		cruces[0] = probCMin;
+            	}
+                
                 //ArrayList<Plot2DPanel> plots = new ArrayList<Plot2DPanel>();
                 ArrayList<Individuo<Boolean>> mejores = new ArrayList<Individuo<Boolean>>();
                 
-                for(int j = 0; j < ejecuciones; ++j) {
-                	tams[j] = tamPoblacionMin + (auxTams * j);
-                	cruces[j] = probCMin + (auxCru * j);
-                	mutaciones[j] = probMMin + (auxMut * j);
-                }
                 
                 double bestFit = Double.MAX_VALUE;
                 int bestT = 0;
                 int bestM = 0;
                 int bestC = 0;
                 
-                for(int t = 0; t < ejecuciones; ++t) {
-                	for(int m = 0; m < ejecuciones; ++m) {
-                		for(int c = 0; c < ejecuciones; ++c) {
+                for(int t = 0; t < tams.length; ++t) {
+                	for(int m = 0; m < mutaciones.length; ++m) {
+                		for(int c = 0; c < cruces.length; ++c) {
                 			switch (mSeleccion.getSelectedIndex()) {
                             case 0:
                               mSel = new RouletteSelection<Boolean>(tams[t], null);
@@ -462,9 +490,9 @@ public class ventana extends JFrame {
                 		"\nMutación: " + mutaciones[bestM] + "\nCruce: " + cruces[bestC]+ "\nFitness: " + bestFit;
                 resultsPane.setText(txt);
                 
-                double[] excs = new double[(int)Math.pow(ejecuciones, 3)];
-                double[] fits = new double[(int)Math.pow(ejecuciones, 3)];
-                for (int i = 0; i < (int)Math.pow(ejecuciones, 3); i++) {
+                double[] excs = new double[(int)(tams.length * mutaciones.length * cruces.length)];
+                double[] fits = new double[(int)(tams.length * mutaciones.length * cruces.length)];
+                for (int i = 0; i < (int)(tams.length * mutaciones.length * cruces.length); i++) {
                 	excs[i] = i;
                 	fits[i] = mejores.get(i).fitness();
                 }
