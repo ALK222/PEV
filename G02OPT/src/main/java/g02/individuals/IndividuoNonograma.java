@@ -1,6 +1,8 @@
 package g02.individuals;
 
 import java.io.File; // Import the File class
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.FileNotFoundException; // Import this class to handle errors
 import java.util.Scanner; // Import the Scanner class to read text files
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
   private int numFilas;
   private ArrayList<ArrayList<Integer>> restriccionesColumnas;
   private ArrayList<ArrayList<Integer>> restriccionesFilas;
-
+  private String file;
 
   /**
    * Instantiates a new individuo funcion 1.
@@ -31,6 +33,7 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
     this.restriccionesColumnas = new ArrayList<ArrayList<Integer>>();
 
     try {
+      file = filename;
       File dataFile = new File(filename);
       Scanner fileReader = new Scanner(dataFile);
 
@@ -81,7 +84,8 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
    * @param restricciones restricciones de las filas y columnas del nonograma
    */
   public IndividuoNonograma(Boolean[][] chromosome, int numFilas, int numColumnas,
-      ArrayList<ArrayList<Integer>> restriccionesFilas, ArrayList<ArrayList<Integer>> restriccionesColumnas) {
+      ArrayList<ArrayList<Integer>> restriccionesFilas,
+      ArrayList<ArrayList<Integer>> restriccionesColumnas) {
     this.numColumnas = numColumnas;
     this.numFilas = numFilas;
 
@@ -259,55 +263,76 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
   @Override
   public double getValor() {
     double aux = 0;
+    int[] puntuacionFilas = new int[numFilas];
+    int[] puntuacionColumnas = new int[numColumnas];
 
     // filas
-    for (int i = 0; i < numColumnas; ++i) {
-      ArrayList<Integer> currentRestrictions = restriccionesFilas.get(i);
-      int r = 0;
-      int seguidos = 0;
-      for (int j = 0; j < numFilas; ++j) {
-        if (!chromosome[i][j] && seguidos != 0) {
-          if(currentRestrictions.size() > r) {
-            if (seguidos != currentRestrictions.get(r)) {
-              //aux -= 10;
-            } else {
-              aux += 10;
-            }
-            r++;
-          }
-          
-        }
-        if (chromosome[i][j]) {
-          aux += r >= currentRestrictions.size() || seguidos >= currentRestrictions.get(r) ? 0 : 1;
-          seguidos++;
-        }
-      }
-
-    }
-
-    // columnas
     for (int i = 0; i < numFilas; ++i) {
-      ArrayList<Integer> currentRestrictions = restriccionesColumnas.get(i);
-      int r = 0;
-      int seguidos = 0;
+      puntuacionFilas[i] = 0;
+      int maxPuestas = 0;
+      ArrayList<Integer> r = restriccionesFilas.get(i);
+      for (Integer res : r) {
+        maxPuestas += res;
+      }
+      int seguidas = 0;
+      int resActual = 0;
+      int puestas = 0;
       for (int j = 0; j < numColumnas; ++j) {
-        if (!chromosome[j][i] && seguidos != 0) {
-          if(currentRestrictions.size() > r) {
-            if (seguidos != currentRestrictions.get(r)) {
-              //aux -= 10;
-            } else {
-              aux += 10;
-            }
-            r++;
+        if (!this.chromosome[i][j]) {
+          if (resActual < r.size() && r.get(resActual) == seguidas) {
+            resActual++;
+            puntuacionFilas[i] += 10;
           }
-        }
-        if (chromosome[j][i]) {
-          aux += r >= currentRestrictions.size() || seguidos >= currentRestrictions.get(r) ? 0 : 1;
-          seguidos++;
+        } else {
+          seguidas += 1;
+          puestas += 1;
         }
       }
 
+      
+      if (resActual < r.size() && r.get(resActual) == seguidas) {
+        resActual++;
+        puntuacionFilas[i] += 10;
+      }
+      if (puestas > maxPuestas) {
+        puntuacionFilas[i] = 0;
+      }
+      aux += puntuacionFilas[i];
     }
+
+    for (int i = 0; i < numColumnas; ++i) {
+      puntuacionColumnas[i] = 0;
+      int maxPuestas = 0;
+      ArrayList<Integer> r = restriccionesColumnas.get(i);
+      for (Integer res : r) {
+        maxPuestas += res;
+      }
+      int seguidas = 0;
+      int resActual = 0;
+      int puestas = 0;
+      for (int j = 0; j < numFilas; ++j) {
+        if (!this.chromosome[j][i]) {
+          if (resActual < r.size() && r.get(resActual) == seguidas) {
+            resActual++;
+            puntuacionColumnas[i] += 10;
+          }
+        } else {
+          seguidas += 1;
+          puestas += 1;
+        }
+      }
+      
+      if (resActual < r.size() && r.get(resActual) == seguidas) {
+        resActual++;
+        puntuacionColumnas[i] += 10;
+      }
+
+      if (puestas > maxPuestas) {
+        puntuacionColumnas[i] = 0;
+      }
+      aux += puntuacionColumnas[i];
+    }
+
     return aux;
   }
 
@@ -341,6 +366,31 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
   public String toString() {
     String aux = "Cromosoma: ";
 
+    try {
+      File myObj = new File(file + "_solution");
+      if (myObj.createNewFile()) {
+        System.out.println("File created: " + myObj.getName());
+      } else {
+        System.out.println("File already exists.");
+      }
+
+      FileWriter writer = new FileWriter(file + "_solution");
+
+      for (int i = 0; i < numFilas; ++i) {
+        for (int j = 0; j < numColumnas; ++j) {
+          if (!chromosome[i][j]) {
+            writer.write('·');
+          } else {
+            writer.write('X');
+          }
+        }
+        writer.write("\n");
+      }
+      writer.close();
+    } catch (IOException e) {
+      System.out.println("An error occurred.");
+      e.printStackTrace();
+    }
 
     return aux;
   }
