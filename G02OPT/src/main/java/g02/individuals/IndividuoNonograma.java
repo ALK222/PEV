@@ -157,15 +157,15 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
   private IndividuoNonograma mutaHeuristica(Individuo<Boolean[]> individuo) {
 
     double puntuacionInicial = this.getValor();
-    
+
     for (int i = 0; i < this.numFilas; ++i) {
       for (int j = 0; j < this.numColumnas; ++j) {
-        //if (ThreadLocalRandom.current().nextDouble() > 0.5) {
+        // if (ThreadLocalRandom.current().nextDouble() > 0.5) {
+        this.chromosome[i][j] = !this.chromosome[i][j];
+        if (this.getValor() < puntuacionInicial) {
           this.chromosome[i][j] = !this.chromosome[i][j];
-          if(this.getValor() < puntuacionInicial) {
-            this.chromosome[i][j] = !this.chromosome[i][j];
-          }
-        //}
+        }
+        // }
       }
     }
 
@@ -250,83 +250,62 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
   @Override
   public double getValor() {
     double aux = 0;
-    int[] puntuacionFilas = new int[numFilas];
-    int[] puntuacionColumnas = new int[numColumnas];
 
     // filas
     for (int i = 0; i < numFilas; ++i) {
-      puntuacionFilas[i] = 0;
-      int maxPuestas = 0;
-      ArrayList<Integer> r = restriccionesFilas.get(i);
-      for (Integer res : r) {
-        maxPuestas += res;
-      }
-      int seguidas = 0;
-      int resActual = 0;
-      int puestas = 0;
-      for (int j = 0; j < numColumnas; ++j) {
-        if (!this.chromosome[i][j]) {
-          if (resActual < r.size() && r.get(resActual) == seguidas) {
-            resActual++;
-            puntuacionFilas[i] += 10;
-          }
-        } else {
-          seguidas += 1;
-          puestas += 1;
-        }
-      }
-
-      
-      if (resActual < r.size() && r.get(resActual) == seguidas) {
-        resActual++;
-        puntuacionFilas[i] += 10;
-      }
-      if (puestas > maxPuestas) {
-        puntuacionFilas[i] = 0;
-      }
-      if(resActual > r.size()) {
-        puntuacionFilas[i] -= numColumnas * 2;
-      }
-      aux += puntuacionFilas[i];
+      aux += fitnessArray(restriccionesFilas.get(i), this.chromosome[i], numFilas);
     }
 
+    // columnas
     for (int i = 0; i < numColumnas; ++i) {
-      puntuacionColumnas[i] = 0;
-      int maxPuestas = 0;
-      ArrayList<Integer> r = restriccionesColumnas.get(i);
-      for (Integer res : r) {
-        maxPuestas += res;
+      Boolean[] columna = new Boolean[numFilas];
+      for(int j = 0; j < numFilas; ++j) {
+        columna[j] = chromosome[i][j];
       }
-      int seguidas = 0;
-      int resActual = 0;
-      int puestas = 0;
-      for (int j = 0; j < numFilas; ++j) {
-        if (!this.chromosome[j][i]) {
-          if (resActual < r.size() && r.get(resActual) == seguidas) {
-            resActual++;
-            puntuacionColumnas[i] += 10;
-          }
-        } else {
-          seguidas += 1;
-          puestas += 1;
-        }
-      }
-      
-      if (resActual < r.size() && r.get(resActual) == seguidas) {
-        resActual++;
-        puntuacionColumnas[i] += 10;
-      }
-
-      if (puestas > maxPuestas) {
-        puntuacionColumnas[i] = 0;
-      }
-      if(resActual > r.size()) {
-        puntuacionColumnas[i] -= numFilas * 2;
-      }
-      aux += puntuacionColumnas[i];
+      aux += fitnessArray(restriccionesFilas.get(i), columna, numColumnas);
     }
 
     return aux;
+  }
+
+  private int fitnessArray(ArrayList<Integer> restricciones, Boolean[] fila, int tam) {
+    int fitness = 0;
+    int conjuntos = 0;
+    int puestas = 0;
+    int seguidas = 0;
+    int[] conjunto = new int[tam];
+
+    for (int i = 0; i < tam; ++i) {
+      if (seguidas > 0 && !fila[i]) {
+        conjunto[conjuntos] = seguidas;
+        conjuntos++;
+        seguidas = 0;
+      }
+      if (fila[i]) {
+        puestas++;
+        seguidas++;
+      }
+    }
+    
+    if(seguidas > 0) {
+      conjunto[conjuntos] = seguidas;
+      conjuntos++;
+    }
+    
+    fitness += puestas;
+
+    if (conjuntos == restricciones.size()) {
+      fitness += conjuntos * 2;
+      for(int i = 0; i < restricciones.size(); ++i) {
+        if(restricciones.get(i) == conjunto[i]) {
+          fitness += tam*3;
+        }
+      }
+    }else {
+      fitness = 0;
+    }
+
+    return fitness;
   }
 
   /**

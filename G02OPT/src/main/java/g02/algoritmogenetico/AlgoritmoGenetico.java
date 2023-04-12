@@ -106,7 +106,7 @@ public class AlgoritmoGenetico<T> {
     for (int i = 0; i < tamPoblacion; i++) {
       switch (ind) {
         case 0:
-          poblacion.add((Individuo<T>) new IndividuoNonograma("/home/_alk/Documentos/PEV/G02OPT/target/classes/15x15-1.txt"));
+          poblacion.add((Individuo<T>) new IndividuoNonograma("/home/_alk/Documentos/PEV/G02OPT/target/classes/5x5-1.txt"));
           break;
       }
 
