@@ -155,32 +155,19 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
   }
 
   private IndividuoNonograma mutaHeuristica(Individuo<Boolean[]> individuo) {
-    /*
-     * ArrayList<Integer> puntos = new ArrayList<Integer>(); ArrayList<Integer> elementos = new
-     * ArrayList<Integer>(); int[] indexes = new int[nDesplazamientos];
-     * 
-     * for (int i = 0; i < nDesplazamientos; ++i) { indexes[i] = 0; int aux =
-     * ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length); while
-     * (puntos.contains(aux)) { aux = ThreadLocalRandom.current().nextInt(1,
-     * individuo.getCromosoma().length); } puntos.add(aux);
-     * elementos.add(individuo.getCromosoma()[puntos.get(i)]); }
-     * 
-     * ArrayList<ArrayList<Integer>> permutaciones = new ArrayList<ArrayList<Integer>>();
-     * permutaciones.add(new ArrayList<Integer>(elementos)); int i = 0; while (i < nDesplazamientos)
-     * { if (indexes[i] < i) { Collections.swap(elementos, i % 2 == 0 ? 0 : indexes[i], i);
-     * permutaciones.add(new ArrayList<Integer>(elementos)); ++indexes[i]; i = 0; } else {
-     * indexes[i] = 0; ++i; } }
-     * 
-     * int bestP = 0; double bestFit = Double.MAX_VALUE;
-     * 
-     * for (int j = 0; j < permutaciones.size(); ++j) { for (int x = 0; x <
-     * permutaciones.get(j).size(); ++x) { individuo.getCromosoma()[puntos.get(x)] =
-     * permutaciones.get(j).get(x); } if (individuo.fitness() < bestFit) { bestFit =
-     * individuo.fitness(); bestP = j; } }
-     * 
-     * for (int x = 0; x < permutaciones.get(bestP).size(); ++x) {
-     * individuo.getCromosoma()[puntos.get(x)] = permutaciones.get(bestP).get(x); }
-     */
+
+    double puntuacionInicial = this.getValor();
+    
+    for (int i = 0; i < this.numFilas; ++i) {
+      for (int j = 0; j < this.numColumnas; ++j) {
+        //if (ThreadLocalRandom.current().nextDouble() > 0.5) {
+          this.chromosome[i][j] = !this.chromosome[i][j];
+          if(this.getValor() < puntuacionInicial) {
+            this.chromosome[i][j] = !this.chromosome[i][j];
+          }
+        //}
+      }
+    }
 
     return this;
   }
@@ -297,6 +284,9 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
       if (puestas > maxPuestas) {
         puntuacionFilas[i] = 0;
       }
+      if(resActual > r.size()) {
+        puntuacionFilas[i] -= numColumnas * 2;
+      }
       aux += puntuacionFilas[i];
     }
 
@@ -329,6 +319,9 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
 
       if (puestas > maxPuestas) {
         puntuacionColumnas[i] = 0;
+      }
+      if(resActual > r.size()) {
+        puntuacionColumnas[i] -= numFilas * 2;
       }
       aux += puntuacionColumnas[i];
     }

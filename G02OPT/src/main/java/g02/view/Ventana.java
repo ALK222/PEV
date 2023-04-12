@@ -284,7 +284,7 @@ public class Ventana extends JFrame {
 
         switch (mCruce.getSelectedIndex()) {
           case 0:
-            mCru = new CruceMonopunto<Boolean[]>();
+            mCru = new CruceUniforme<Boolean[]>();
             break;
           default:
             mCru = new CruceMonopunto<Boolean[]>();
