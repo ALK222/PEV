@@ -5,6 +5,8 @@ import g02.cruces.Cruces;
 import g02.individuals.Individuo;
 import g02.individuals.IndividuoNonograma;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 
@@ -103,10 +105,12 @@ public class AlgoritmoGenetico<T> {
    */
   @SuppressWarnings("unchecked")
   public Individuo<T> run(int ind, int dim) throws Exception {
+	  Path currentRelativePath = Paths.get("");
+	  String s = currentRelativePath.toAbsolutePath().toString();
     for (int i = 0; i < tamPoblacion; i++) {
       switch (ind) {
         case 0:
-          poblacion.add((Individuo<T>) new IndividuoNonograma("/home/_alk/Documentos/PEV/G02OPT/target/classes/5x5-1.txt"));
+          poblacion.add((Individuo<T>) new IndividuoNonograma(s + "/target/classes/5x5-1.txt"));
           break;
       }
 

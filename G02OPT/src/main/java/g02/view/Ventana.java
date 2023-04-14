@@ -39,6 +39,7 @@ import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 import org.math.plot.Plot2DPanel;
 import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class Ventana extends JFrame {
 
@@ -77,7 +78,7 @@ public class Ventana extends JFrame {
   @SuppressWarnings({"unchecked", "rawtypes"})
   public Ventana() {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setBounds(100, 100, 884, 725);
+    setBounds(100, 100, 1329, 725);
     contentPane = new JPanel();
     contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
     setContentPane(contentPane);
@@ -253,6 +254,12 @@ public class Ventana extends JFrame {
     JLabel lblNumEjecuciones = new JLabel("Num. Ejecuciones");
     lblNumEjecuciones.setBounds(10, 385, 111, 14);
     contentPane.add(lblNumEjecuciones);
+    
+    JLabel lblNewLabel_1 = new JLabel("Nonograma");
+    lblNewLabel_1.setVerticalAlignment(SwingConstants.TOP);
+    lblNewLabel_1.setBounds(868, 54, 435, 457);
+    lblNewLabel_1.setText("");
+    contentPane.add(lblNewLabel_1);
 
     JButton btnNewButton = new JButton("Iniciar");
     btnNewButton.addActionListener(new ActionListener() {
@@ -319,7 +326,7 @@ public class Ventana extends JFrame {
               mSel = new RouletteSelection<Boolean[]>(tamPoblacionMin, null);
               break;
           }
-          Individuo<Boolean[]> mejor;
+          Individuo<Boolean[]> mejor = null;
           alg = new AlgoritmoGenetico(tamPoblacionMin, nGeneraciones, probCMin, probMMin, prec,
               mSel, mCru, elitismo, mutacion);
           try {
@@ -348,6 +355,19 @@ public class Ventana extends JFrame {
           plot.addLinePlot("MEDIAS", generaciones, media);
           // put the PlotPanel in a JFrame like a JPanel
           internalFrame.setContentPane(plot);
+          
+          String margin = "<p style='margin-top:-" + 150/mejor.getCromosoma().length + "'>";
+          String nono = "<html>";
+          for(int i = 0; i < mejor.getCromosoma().length; i++) {
+        	  for(int j = 0; j < mejor.getCromosoma()[i].length; j++) {
+        		  if(mejor.getCromosoma()[i][j]) nono += "\u25A0";
+        		  else nono += "\u25A1";
+        	  }
+        	  nono += margin;
+          }
+          lblNewLabel_1.setText(nono);
+          lblNewLabel_1.setFont(new Font("Serif", Font.PLAIN, (int)((lblNewLabel_1.getWidth() / mejor.getCromosoma().length))));
+          
         } else {
           Integer[] tams;
           if (tamPoblacionMax != tamPoblacionMin) {
@@ -388,7 +408,7 @@ public class Ventana extends JFrame {
           // ArrayList<Plot2DPanel> plots = new ArrayList<Plot2DPanel>();
           ArrayList<Individuo<Boolean[]>> mejores = new ArrayList<Individuo<Boolean[]>>();
 
-
+          Boolean[][] bestChromosome = new Boolean[5][5];
           double bestFit = Double.MAX_VALUE;
           int bestT = 0;
           int bestM = 0;
@@ -433,6 +453,7 @@ public class Ventana extends JFrame {
                   System.out.println(mejor.fitness());
 
                   if (mejor.fitness() > bestFit) {
+                	bestChromosome = mejor.getCromosoma();
                     bestFit = mejor.fitness();
                     bestT = t;
                     bestM = m;
@@ -463,13 +484,30 @@ public class Ventana extends JFrame {
           // add a line plot to the PlotPanel
           plot.addLinePlot("MEJOR DE LA EJECUCIÓN", excs, fits);
           internalFrame.setContentPane(plot);
+          
+          Individuo<Boolean[]> mejor = null;
+          mejor = mejores.get(0);
+          for(Individuo<Boolean[]> a : mejores) {
+        	  if(a.fitness() > mejor.fitness()) mejor = a;
+          }
+          
+          String margin = "<p style='margin-top:-" + 150/mejor.getCromosoma().length + "'>";
+          String nono = "<html>";
+          for(int i = 0; i < mejor.getCromosoma().length; i++) {
+        	  for(int j = 0; j < mejor.getCromosoma()[i].length; j++) {
+        		  if(mejor.getCromosoma()[i][j]) nono += "\u25A0";
+        		  else nono += "\u25A1";
+        	  }
+        	  nono += margin;
+          }
+          lblNewLabel_1.setText(nono);
+          lblNewLabel_1.setFont(new Font("Serif", Font.PLAIN, (int)((lblNewLabel_1.getWidth() / mejor.getCromosoma().length))));
+          
         }
       }
     });
     btnNewButton.setBounds(45, 413, 140, 23);
     contentPane.add(btnNewButton);
-
-
 
   }
 }
