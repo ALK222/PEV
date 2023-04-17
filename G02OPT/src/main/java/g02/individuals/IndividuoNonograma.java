@@ -6,9 +6,6 @@ import java.io.IOException;
 import java.io.FileNotFoundException; // Import this class to handle errors
 import java.util.Scanner; // Import the Scanner class to read text files
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -160,12 +157,12 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
 
     for (int i = 0; i < this.numFilas; ++i) {
       for (int j = 0; j < this.numColumnas; ++j) {
-        // if (ThreadLocalRandom.current().nextDouble() > 0.5) {
-        this.chromosome[i][j] = !this.chromosome[i][j];
-        if (this.getValor() < puntuacionInicial) {
+        if (ThreadLocalRandom.current().nextDouble() > 0.5) {
           this.chromosome[i][j] = !this.chromosome[i][j];
+          if (this.getValor() < puntuacionInicial) {
+            this.chromosome[i][j] = !this.chromosome[i][j];
+          }
         }
-        // }
       }
     }
 
@@ -253,16 +250,16 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
 
     // filas
     for (int i = 0; i < numFilas; ++i) {
-      aux += fitnessArray(restriccionesFilas.get(i), this.chromosome[i], numFilas);
+      aux += fitnessArray(restriccionesColumnas.get(i), this.chromosome[i], numColumnas);
     }
 
     // columnas
     for (int i = 0; i < numColumnas; ++i) {
       Boolean[] columna = new Boolean[numFilas];
-      for(int j = 0; j < numFilas; ++j) {
-        columna[j] = chromosome[i][j];
+      for (int j = 0; j < numFilas; ++j) {
+        columna[j] = chromosome[j][i];
       }
-      aux += fitnessArray(restriccionesFilas.get(i), columna, numColumnas);
+      aux += fitnessArray(restriccionesFilas.get(i), columna, numFilas);
     }
 
     return aux;
@@ -279,32 +276,50 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
       if (seguidas > 0 && !fila[i]) {
         conjunto[conjuntos] = seguidas;
         conjuntos++;
+        // fitness += 0.02;
         seguidas = 0;
       }
       if (fila[i]) {
-        puestas++;
         seguidas++;
+        puestas++;
       }
     }
-    
-    if(seguidas > 0) {
+
+    if (seguidas > 0) {
       conjunto[conjuntos] = seguidas;
       conjuntos++;
     }
-    
-    fitness += puestas;
 
-    if (conjuntos == restricciones.size()) {
-      fitness += conjuntos * 2;
-      for(int i = 0; i < restricciones.size(); ++i) {
-        if(restricciones.get(i) == conjunto[i]) {
-          fitness += tam*3;
-        }
+    if (restricciones.size() == conjunto.length) {
+      fitness += conjuntos * 10;
+    } else if (restricciones.size() > conjunto.length) {
+      fitness += conjuntos;
+    }
+    
+    int maxPuestas = 0;
+
+    for (int i = 0; i < restricciones.size(); ++i) {
+      maxPuestas += restricciones.get(i);
+      if (i > conjunto.length) {
+        continue;
       }
-    }else {
+      if (restricciones.get(i) == conjunto[i]) {
+        fitness += conjunto[i] * 2;
+      } else if(restricciones.get(i) > conjunto[i]) {
+        fitness += conjunto[i];
+      } else {
+        fitness = 0;
+      }
+    }
+    
+    if(puestas <= maxPuestas) {
+      fitness += puestas;
+    } else {
       fitness = 0;
     }
-
+    if(puestas == 0 && restricciones.get(0) == 0) {
+      fitness += tam;
+    }
     return fitness;
   }
 

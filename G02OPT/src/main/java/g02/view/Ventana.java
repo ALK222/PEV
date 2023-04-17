@@ -409,7 +409,7 @@ public class Ventana extends JFrame {
           ArrayList<Individuo<Boolean[]>> mejores = new ArrayList<Individuo<Boolean[]>>();
 
           Boolean[][] bestChromosome = new Boolean[5][5];
-          double bestFit = Double.MAX_VALUE;
+          double bestFit = 0;
           int bestT = 0;
           int bestM = 0;
           int bestC = 0;
@@ -488,7 +488,12 @@ public class Ventana extends JFrame {
           Individuo<Boolean[]> mejor = null;
           mejor = mejores.get(0);
           for(Individuo<Boolean[]> a : mejores) {
-        	  if(a.fitness() > mejor.fitness()) mejor = a;
+        	  if(a.fitness() > mejor.fitness()) {
+        	    mejor = a;
+        	    bestChromosome = mejor.getCromosoma();
+                bestFit = mejor.fitness();
+        	  }
+        	  
           }
           
           String margin = "<p style='margin-top:-" + 150/mejor.getCromosoma().length + "'>";
