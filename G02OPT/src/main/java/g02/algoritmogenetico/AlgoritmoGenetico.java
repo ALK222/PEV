@@ -61,6 +61,8 @@ public class AlgoritmoGenetico<T> {
   private boolean isMax;
   
   private int mutacion;
+  
+  private String filename;
 
   /**
    * Instantiates a new algoritmo genetico.
@@ -75,7 +77,7 @@ public class AlgoritmoGenetico<T> {
    * @param elitismo porcentaje de elitismo
    */
   public AlgoritmoGenetico(int tam, int max, double probC, double probM, double prec,
-      Selection<T> selection, Cruces<T> cruce, double elitismo, int mut) {
+      Selection<T> selection, Cruces<T> cruce, double elitismo, int mut, String filename) {
     tamPoblacion = tam;
     poblacion = new ArrayList<Individuo<T>>();
     maxGeneraciones = max;
@@ -92,6 +94,7 @@ public class AlgoritmoGenetico<T> {
     this.selection = selection;
 
     this.cruce = cruce;
+    this.filename = filename;
   }
 
 
@@ -110,7 +113,7 @@ public class AlgoritmoGenetico<T> {
     for (int i = 0; i < tamPoblacion; i++) {
       switch (ind) {
         case 0:
-          poblacion.add((Individuo<T>) new IndividuoNonograma(s + "/target/classes/10x10-1.txt"));
+          poblacion.add((Individuo<T>) new IndividuoNonograma(filename));
           break;
       }
 

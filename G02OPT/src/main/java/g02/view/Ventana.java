@@ -20,9 +20,11 @@ import g02.cruces.CruceUniforme;
 import g02.cruces.CruceVOT;
 import g02.cruces.Cruces;
 import g02.individuals.Individuo;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
@@ -40,6 +42,9 @@ import javax.swing.border.EmptyBorder;
 import org.math.plot.Plot2DPanel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JFileChooser;
 
 public class Ventana extends JFrame {
 
@@ -55,6 +60,8 @@ public class Ventana extends JFrame {
   private JTextField pMutacionMax;
   private JTextField pCruceMax;
   private JTextField nEjecuciones;
+  private final Action action = new SwingAction();
+  private String filename;
 
   /**
    * Launch the application.
@@ -77,6 +84,7 @@ public class Ventana extends JFrame {
    */
   @SuppressWarnings({"unchecked", "rawtypes"})
   public Ventana() {
+   
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setBounds(100, 100, 1329, 725);
     contentPane = new JPanel();
@@ -328,7 +336,7 @@ public class Ventana extends JFrame {
           }
           Individuo<Boolean[]> mejor = null;
           alg = new AlgoritmoGenetico(tamPoblacionMin, nGeneraciones, probCMin, probMMin, prec,
-              mSel, mCru, elitismo, mutacion);
+              mSel, mCru, elitismo, mutacion, filename);
           try {
             mejor = (Individuo<Boolean[]>) alg.run(individuo, 0);
             System.out.println(mejor.fitness());
@@ -447,7 +455,7 @@ public class Ventana extends JFrame {
 
                 Individuo<Boolean[]> mejor;
                 alg = new AlgoritmoGenetico(tams[t], nGeneraciones, cruces[c], mutaciones[m], prec,
-                    mSel, mCru, elitismo, mutacion);
+                    mSel, mCru, elitismo, mutacion, filename);
                 try {
                   mejor = (Individuo<Boolean[]>) alg.run(individuo, 0);
                   System.out.println(mejor.fitness());
@@ -513,7 +521,37 @@ public class Ventana extends JFrame {
     });
     btnNewButton.setBounds(45, 413, 140, 23);
     contentPane.add(btnNewButton);
+    
+    JButton btnArchivo = new JButton("Archivo");
+    btnArchivo.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        JFileChooser fileChooser = new JFileChooser();
+        int returnVal = fileChooser.showOpenDialog((Component)e.getSource());
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            try {
+               filename = file.toString();
+            } catch (Exception ex) {
+              System.out.println("problem accessing file"+file.getAbsolutePath());
+            }
+        } 
+        else {
+            System.out.println("File access cancelled by user.");
+        } 
+      }
+    });
+    btnArchivo.setAction(action);
+    btnArchivo.setBounds(61, 354, 100, 25);
+    contentPane.add(btnArchivo);
 
+  }
+  private class SwingAction extends AbstractAction {
+    public SwingAction() {
+      putValue(NAME, "Archivo");
+      putValue(SHORT_DESCRIPTION, "Some short description");
+    }
+    public void actionPerformed(ActionEvent e) {
+    }
   }
 }
 
