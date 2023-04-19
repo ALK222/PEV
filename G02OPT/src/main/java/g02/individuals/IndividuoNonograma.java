@@ -23,8 +23,9 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
    * Instantiates a new individuo funcion 1.
    *
    * @param filename archivo del que se sacan las restricciones
+   * @throws Exception 
    */
-  public IndividuoNonograma(String filename) {
+  public IndividuoNonograma(String filename) throws Exception {
 
     this.restriccionesFilas = new ArrayList<ArrayList<Integer>>();
     this.restriccionesColumnas = new ArrayList<ArrayList<Integer>>();
@@ -56,9 +57,8 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
         restriccionesColumnas.add(lineRestriction);
       }
       fileReader.close();
-    } catch (FileNotFoundException e) {
-      System.out.println("An error occurred.");
-      e.printStackTrace();
+    } catch (Exception e) {
+      throw new Exception("No se seleccionó un archivo");
     }
 
 
@@ -272,20 +272,19 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
     int seguidas = 0;
     int[] conjunto = new int[tam];
 
-    for (int i = 0; i < tam; ++i) {
-      if (seguidas > 0 && !fila[i]) {
+    for (int i = 0; i < tam; ++i) { // Comprobamos cada casilla
+      if (seguidas > 0 && !fila[i]) { // si hay fichas seguidas y estamos en una casilla sin colocar, añadimos nuevo conjunto
         conjunto[conjuntos] = seguidas;
         conjuntos++;
-        // fitness += 0.02;
         seguidas = 0;
       }
-      if (fila[i]) {
+      if (fila[i]) { // añadimos una ficha seguida
         seguidas++;
         puestas++;
       }
     }
 
-    if (seguidas > 0) {
+    if (seguidas > 0) { // añadimos un conjunto si la ultima fila estaba puesta
       conjunto[conjuntos] = seguidas;
       conjuntos++;
     }
@@ -294,6 +293,8 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
       fitness += conjuntos * 10;
     } else if (restricciones.size() > conjunto.length) {
       fitness += conjuntos;
+    } else {
+      fitness -= conjuntos;
     }
     
     int maxPuestas = 0;
@@ -306,7 +307,7 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
       if (restricciones.get(i) == conjunto[i]) {
         fitness += conjunto[i] * 2;
       } else if(restricciones.get(i) > conjunto[i]) {
-        fitness += conjunto[i];
+        fitness += 1;
       } else {
         fitness = 0;
       }
@@ -315,7 +316,7 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
     if(puestas <= maxPuestas) {
       fitness += puestas;
     } else {
-      fitness = 0;
+      fitness -= puestas+ 1;
     }
     if(puestas == 0 && restricciones.get(0) == 0) {
       fitness += tam;
@@ -351,33 +352,7 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
 
   @Override
   public String toString() {
-    String aux = "Cromosoma: ";
-
-    try {
-      File myObj = new File(file + "_solution");
-      if (myObj.createNewFile()) {
-        System.out.println("File created: " + myObj.getName());
-      } else {
-        System.out.println("File already exists.");
-      }
-
-      FileWriter writer = new FileWriter(file + "_solution");
-
-      for (int i = 0; i < numFilas; ++i) {
-        for (int j = 0; j < numColumnas; ++j) {
-          if (!chromosome[i][j]) {
-            writer.write('·');
-          } else {
-            writer.write('X');
-          }
-        }
-        writer.write("\n");
-      }
-      writer.close();
-    } catch (IOException e) {
-      System.out.println("An error occurred.");
-      e.printStackTrace();
-    }
+    String aux = "Cromosoma: " + this.getValor();
 
     return aux;
   }

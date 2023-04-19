@@ -73,7 +73,7 @@ public class Ventana extends JFrame {
           Ventana frame = new Ventana();
           frame.setVisible(true);
         } catch (Exception e) {
-          e.printStackTrace();
+          showError(e.toString());
         }
       }
     });
@@ -342,7 +342,7 @@ public class Ventana extends JFrame {
             System.out.println(mejor.fitness());
             resultsPane.setText(mejor.toString());
           } catch (Exception ex) {
-            ex.printStackTrace();
+            showError(ex.toString());
           }
 
           double[] generaciones = new double[nGeneraciones];
@@ -470,7 +470,7 @@ public class Ventana extends JFrame {
 
                   mejores.add(mejor);
                 } catch (Exception ex) {
-                  ex.printStackTrace();
+                  showError(ex.toString());
                 }
               }
             }
@@ -532,11 +532,11 @@ public class Ventana extends JFrame {
             try {
                filename = file.toString();
             } catch (Exception ex) {
-              System.out.println("problem accessing file"+file.getAbsolutePath());
+              showError("problem accessing file"+file.getAbsolutePath());
             }
         } 
         else {
-            System.out.println("File access cancelled by user.");
+            showError("File access cancelled by user.");
         } 
       }
     });
@@ -545,6 +545,10 @@ public class Ventana extends JFrame {
     contentPane.add(btnArchivo);
 
   }
+  
+  public static void showError(String errorMessage) {
+    JOptionPane.showMessageDialog(null, errorMessage, "ERROR", JOptionPane.ERROR_MESSAGE);
+}  
   private class SwingAction extends AbstractAction {
     public SwingAction() {
       putValue(NAME, "Archivo");
