@@ -118,20 +118,20 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
     if (ThreadLocalRandom.current().nextDouble() < prob) {
       switch (mut) {
         case 0:
-          this.mutaIntercambio(individuo);
+        	for (int i = 0; i < this.numFilas; ++i) {
+                for (int j = 0; j < this.numColumnas; ++j) {
+                  if (ThreadLocalRandom.current().nextDouble() > 0.5) {
+                    this.chromosome[i][j] = !this.chromosome[i][j];
+                  }
+                }
+              }
           break;
         case 1:
-          this.mutaInsercion(individuo);
+        	this.mutaHeuristica(individuo);
           break;
         case 2:
-          this.mutaInversion(individuo);
-          break;
-        case 3:
-          this.mutaHeuristica(individuo);
-          break;
-        case 4:
-          this.mutaRotacionHeu(individuo);
-          break;
+        	this.mutaInversion(individuo);
+        	break;
         default:
           for (int i = 0; i < this.numFilas; ++i) {
             for (int j = 0; j < this.numColumnas; ++j) {
@@ -170,24 +170,24 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
   }
 
   private IndividuoNonograma mutaInversion(Individuo<Boolean[]> individuo) {
-    /*
-     * int punto1 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length); int
-     * punto2 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length);
-     * 
-     * while (punto2 == punto1) punto2 = ThreadLocalRandom.current().nextInt(1,
-     * individuo.getCromosoma().length);
-     * 
-     * 
-     * int ini = Math.min(punto1, punto2); int fin = Math.max(punto1, punto2);
-     * 
-     * Integer[] aux = new Integer[fin - ini]; int itAux = 0;
-     * 
-     * for (int i = fin; i > ini; --i) { aux[itAux] = individuo.getCromosoma()[i]; ++itAux; }
-     * 
-     * itAux = 0; for (int i = ini + 1; i <= fin; ++i) { individuo.getCromosoma()[i] = aux[itAux];
-     * ++itAux; }
-     */
+	  for(int j = 0; j < individuo.getCromosoma().length; ++j) {
+		  if(ThreadLocalRandom.current().nextBoolean()) {
+			  int punto1 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length); int
+			     punto2 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length);
+			     
+			     while (punto2 == punto1) punto2 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length);
+			 
+			     int ini = Math.min(punto1, punto2); int fin = Math.max(punto1, punto2);
 
+			     Boolean[] aux = new Boolean[fin - ini];
+			     int itAux = 0;
+			      
+			     for (int i = fin; i > ini; --i) { aux[itAux] = individuo.getCromosoma()[j][i]; ++itAux; }
+			     
+			     itAux = 0; for (int i = ini + 1; i <= fin; ++i) { individuo.getCromosoma()[j][i] = aux[itAux];
+			     ++itAux; }
+		  }
+	  }
 
     return this;
   }

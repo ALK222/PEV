@@ -18,6 +18,7 @@ import g02.cruces.CruceOXPP;
 import g02.cruces.CruceOXOP;
 import g02.cruces.CruceUniforme;
 import g02.cruces.CruceVOT;
+import g02.cruces.CruceXOR;
 import g02.cruces.Cruces;
 import g02.individuals.Individuo;
 import java.awt.Component;
@@ -158,8 +159,7 @@ public class Ventana extends JFrame {
 
     JComboBox mCruce = new JComboBox();
     mCruce.setModel(
-        new DefaultComboBoxModel(new String[] {"OX", "OXPP", "PMX", "CX", "ERX", "CO", "VOT", "OXOP"}));
-    mCruce.setSelectedIndex(4);
+        new DefaultComboBoxModel(new String[] {"Uniforme", "Monopunto", "XOR"}));
     mCruce.setBounds(131, 267, 86, 22);
     contentPane.add(mCruce);
 
@@ -169,7 +169,7 @@ public class Ventana extends JFrame {
 
     JComboBox mMutacion = new JComboBox();
     mMutacion.setModel(new DefaultComboBoxModel(
-        new String[] {"Intercambio", "Inserción", "Inversion", "Heurística", "Rotación Heu.", "Básica"}));
+        new String[] {"Básica", "Heurística", "Inversión"}));
     mMutacion.setBounds(131, 296, 86, 22);
     contentPane.add(mMutacion);
 
@@ -301,6 +301,12 @@ public class Ventana extends JFrame {
           case 0:
             mCru = new CruceUniforme<Boolean[]>();
             break;
+          case 1:
+        	  mCru = new CruceMonopunto<Boolean[]>();
+              break;
+          case 2:
+        	  mCru = new CruceXOR();
+              break;
           default:
             mCru = new CruceMonopunto<Boolean[]>();
             break;
@@ -525,7 +531,7 @@ public class Ventana extends JFrame {
     JButton btnArchivo = new JButton("Archivo");
     btnArchivo.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        JFileChooser fileChooser = new JFileChooser();
+        JFileChooser fileChooser = new JFileChooser("./src/main/resources");
         int returnVal = fileChooser.showOpenDialog((Component)e.getSource());
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
