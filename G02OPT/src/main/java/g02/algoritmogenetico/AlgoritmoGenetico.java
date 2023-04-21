@@ -59,9 +59,9 @@ public class AlgoritmoGenetico<T> {
 
   /** The is max. */
   private boolean isMax;
-  
+
   private int mutacion;
-  
+
   private String filename;
 
   /**
@@ -108,8 +108,8 @@ public class AlgoritmoGenetico<T> {
    */
   @SuppressWarnings("unchecked")
   public Individuo<T> run(int ind, int dim) throws Exception {
-	  Path currentRelativePath = Paths.get("");
-	  String s = currentRelativePath.toAbsolutePath().toString();
+    Path currentRelativePath = Paths.get("");
+    String s = currentRelativePath.toAbsolutePath().toString();
     for (int i = 0; i < tamPoblacion; i++) {
       switch (ind) {
         case 0:
@@ -150,7 +150,7 @@ public class AlgoritmoGenetico<T> {
       ArrayList<Individuo<T>> cruzados = new ArrayList<>();
       // Cruce
       while (seleccionados.size() > 2) {
-        
+
 
         ArrayList<Individuo<T>> aux =
             cruce.cruzar(seleccionados.get(0), seleccionados.get(1), probCruce);
@@ -164,7 +164,7 @@ public class AlgoritmoGenetico<T> {
       }
 
       // Metemos el indidivuo que no se haya podido cruzar por imparidad
-      for(int j = 0; j < seleccionados.size(); ++j) {
+      for (int j = 0; j < seleccionados.size(); ++j) {
         cruzados.add(seleccionados.get(j).copyIndividuo());
       }
 
@@ -177,6 +177,36 @@ public class AlgoritmoGenetico<T> {
       selection.setPob(newPob);
       poblacion = newPob;
       evaluate(i + 1);
+
+      if (mediaGen[i] >= 0.7 * mejorGen[i]) {
+        // Regeneramos poblacion si la media converge al maximo
+
+        int nuevos = tamPoblacion - 1;
+
+        ArrayList<Individuo<T>> regenerados = new ArrayList<Individuo<T>>();
+
+        for (int j = 0; j < nuevos; j++) {
+          switch (ind) {
+            case 0:
+              regenerados.add((Individuo<T>) new IndividuoNonograma(filename));
+              break;
+          }
+
+        }
+
+        if (isMax) {
+          newPob.sort((o1, o2) -> (o1.compareTo(o2)));
+        } else {
+          newPob.sort((o1, o2) -> (o2.compareTo(o1)));
+        }
+
+
+        regenerados.add(newPob.get(0));
+
+
+        this.poblacion = newPob;
+        this.selection.setPob(regenerados);
+      }
 
     }
 
