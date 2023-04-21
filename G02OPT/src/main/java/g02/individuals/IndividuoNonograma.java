@@ -11,7 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * Individuo de calibrado.
  */
-public class IndividuoNonograma extends Individuo<Boolean[]> {
+public class IndividuoNonograma extends Individuo<boolean[]> {
 
   private int numColumnas;
   private int numFilas;
@@ -23,7 +23,7 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
    * Instantiates a new individuo funcion 1.
    *
    * @param filename archivo del que se sacan las restricciones
-   * @throws Exception 
+   * @throws Exception
    */
   public IndividuoNonograma(String filename) throws Exception {
 
@@ -62,7 +62,7 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
     }
 
 
-    this.chromosome = new Boolean[numFilas][numColumnas];
+    this.chromosome = new boolean[numFilas][numColumnas];
 
     for (int i = 0; i < this.numFilas; i++) {
       for (int j = 0; j < this.numColumnas; ++j) {
@@ -80,7 +80,7 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
    * @param numColumas numero de columnas del nonograma
    * @param restricciones restricciones de las filas y columnas del nonograma
    */
-  public IndividuoNonograma(Boolean[][] chromosome, int numFilas, int numColumnas,
+  public IndividuoNonograma(boolean[][] chromosome, int numFilas, int numColumnas,
       ArrayList<ArrayList<Integer>> restriccionesFilas,
       ArrayList<ArrayList<Integer>> restriccionesColumnas) {
     this.numColumnas = numColumnas;
@@ -89,7 +89,7 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
     this.restriccionesFilas = restriccionesFilas;
     this.restriccionesColumnas = restriccionesColumnas;
 
-    this.chromosome = new Boolean[numFilas][numColumnas];
+    this.chromosome = new boolean[numFilas][numColumnas];
     for (int i = 0; i < numFilas; i++) {
       for (int j = 0; j < numColumnas; ++j)
         this.chromosome[i][j] = chromosome[i][j];
@@ -114,7 +114,7 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
    * @return individuo mutado
    */
   @Override
-  public Individuo<Boolean[]> mutar(Individuo<Boolean[]> individuo, double prob, int mut) {
+  public Individuo<boolean[]> mutar(Individuo<boolean[]> individuo, double prob, int mut) {
     if (ThreadLocalRandom.current().nextDouble() < prob) {
       switch (mut) {
         case 0:
@@ -145,13 +145,13 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
     return this.copyIndividuo();
   }
 
-  private IndividuoNonograma mutaRotacionHeu(Individuo<Boolean[]> individuo) {
+  private IndividuoNonograma mutaRotacionHeu(Individuo<boolean[]> individuo) {
 
 
     return this;
   }
 
-  private IndividuoNonograma mutaHeuristica(Individuo<Boolean[]> individuo) {
+  private IndividuoNonograma mutaHeuristica(Individuo<boolean[]> individuo) {
 
     double puntuacionInicial = this.getValor();
 
@@ -169,7 +169,7 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
     return this;
   }
 
-  private IndividuoNonograma mutaInversion(Individuo<Boolean[]> individuo) {
+  private IndividuoNonograma mutaInversion(Individuo<boolean[]> individuo) {
 	  for(int j = 0; j < individuo.getCromosoma().length; ++j) {
 		  if(ThreadLocalRandom.current().nextBoolean()) {
 			  int punto1 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length); int
@@ -192,7 +192,7 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
     return this;
   }
 
-  private IndividuoNonograma mutaInsercion(Individuo<Boolean[]> individuo) {
+  private IndividuoNonograma mutaInsercion(Individuo<boolean[]> individuo) {
     /*
      * for (int i = 0; i < nDesplazamientos; ++i) { int punto1 =
      * ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length - 1); int punto2 =
@@ -205,7 +205,7 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
     return this;
   }
 
-  private Individuo<Boolean[]> mutaIntercambio(Individuo<Boolean[]> individuo) {
+  private Individuo<boolean[]> mutaIntercambio(Individuo<boolean[]> individuo) {
     /*
      * int punto1 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length - 1); int
      * punto2 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length - 1);
@@ -223,7 +223,7 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
    * @return el cromosoma
    */
   @Override
-  public Boolean[][] getCromosoma() {
+  public boolean[][] getCromosoma() {
     return chromosome;
   }
 
@@ -255,7 +255,7 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
 
     // columnas
     for (int i = 0; i < numColumnas; ++i) {
-      Boolean[] columna = new Boolean[numFilas];
+      boolean[] columna = new boolean[numFilas];
       for (int j = 0; j < numFilas; ++j) {
         columna[j] = chromosome[j][i];
       }
@@ -265,7 +265,7 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
     return aux;
   }
 
-  private int fitnessArray(ArrayList<Integer> restricciones, Boolean[] fila, int tam) {
+  private int fitnessArray(ArrayList<Integer> restricciones, boolean[] fila, int tam) {
     int fitness = 0;
     int conjuntos = 0;
     int puestas = 0;
@@ -330,7 +330,7 @@ public class IndividuoNonograma extends Individuo<Boolean[]> {
    * @return the individuo
    */
   @Override
-  public Individuo<Boolean[]> copyIndividuo() {
+  public Individuo<boolean[]> copyIndividuo() {
     return new IndividuoNonograma(this.chromosome, this.numFilas, this.numColumnas,
         this.restriccionesFilas, this.restriccionesColumnas);
   }

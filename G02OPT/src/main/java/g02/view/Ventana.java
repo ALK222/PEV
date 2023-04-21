@@ -292,59 +292,59 @@ public class Ventana extends JFrame {
         if (individuo == 0) {
           isMax = false;
         }
-        Selection<Boolean[]> mSel;
-        Cruces<Boolean[]> mCru;
+        Selection<boolean[]> mSel;
+        Cruces<boolean[]> mCru;
         int mutacion = mMutacion.getSelectedIndex();
-        AlgoritmoGenetico<Boolean[]> alg;
+        AlgoritmoGenetico<boolean[]> alg;
 
         switch (mCruce.getSelectedIndex()) {
           case 0:
-            mCru = new CruceUniforme<Boolean[]>();
+            mCru = new CruceUniforme<boolean[]>();
             break;
           case 1:
-        	  mCru = new CruceMonopunto<Boolean[]>();
+        	  mCru = new CruceMonopunto<boolean[]>();
               break;
           case 2:
         	  mCru = new CruceXOR();
               break;
           default:
-            mCru = new CruceMonopunto<Boolean[]>();
+            mCru = new CruceMonopunto<boolean[]>();
             break;
         }
 
         if (ejecuciones == 1) {
           switch (mSeleccion.getSelectedIndex()) {
             case 0:
-              mSel = new RouletteSelection<Boolean[]>(tamPoblacionMin, null);
+              mSel = new RouletteSelection<boolean[]>(tamPoblacionMin, null);
               break;
             case 1:
-              mSel = new TournamentDeterministicSelection<Boolean[]>(tamPoblacionMin, null, isMax);
+              mSel = new TournamentDeterministicSelection<boolean[]>(tamPoblacionMin, null, isMax);
               break;
             case 2:
-              mSel = new TournamentProbabilisticSelection<Boolean[]>(tamPoblacionMin, null,
+              mSel = new TournamentProbabilisticSelection<boolean[]>(tamPoblacionMin, null,
                   probTorneo, isMax);
               break;
             case 3:
-              mSel = new StochasticSelection<Boolean[]>(tamPoblacionMin, null);
+              mSel = new StochasticSelection<boolean[]>(tamPoblacionMin, null);
               break;
             case 4:
-              mSel = new TruncateSelection<Boolean[]>(tamPoblacionMin, null, 0.5);
+              mSel = new TruncateSelection<boolean[]>(tamPoblacionMin, null, 0.5);
               break;
             case 5:
-              mSel = new RestosSelection<Boolean[]>(5, null);
+              mSel = new RestosSelection<boolean[]>(5, null);
               break;
             case 6:
-              mSel = new RankingSelection<Boolean[]>(tamPoblacionMin, null);
+              mSel = new RankingSelection<boolean[]>(tamPoblacionMin, null);
               break;
             default:
-              mSel = new RouletteSelection<Boolean[]>(tamPoblacionMin, null);
+              mSel = new RouletteSelection<boolean[]>(tamPoblacionMin, null);
               break;
           }
-          Individuo<Boolean[]> mejor = null;
+          Individuo<boolean[]> mejor = null;
           alg = new AlgoritmoGenetico(tamPoblacionMin, nGeneraciones, probCMin, probMMin, prec,
               mSel, mCru, elitismo, mutacion, filename);
           try {
-            mejor = (Individuo<Boolean[]>) alg.run(individuo, 0);
+            mejor = (Individuo<boolean[]>) alg.run(individuo, 0);
             System.out.println(mejor.fitness());
             resultsPane.setText(mejor.toString());
           } catch (Exception ex) {
@@ -420,10 +420,10 @@ public class Ventana extends JFrame {
           }
 
           // ArrayList<Plot2DPanel> plots = new ArrayList<Plot2DPanel>();
-          ArrayList<Individuo<Boolean[]>> mejores = new ArrayList<Individuo<Boolean[]>>();
+          ArrayList<Individuo<boolean[]>> mejores = new ArrayList<Individuo<boolean[]>>();
 
-          Boolean[][] bestChromosome = new Boolean[5][5];
-          double bestFit = 0;
+          boolean[][] bestChromosome = new boolean[5][5];
+          double bestFit = Double.MAX_VALUE;
           int bestT = 0;
           int bestM = 0;
           int bestC = 0;
@@ -433,37 +433,37 @@ public class Ventana extends JFrame {
               for (int c = 0; c < cruces.length; ++c) {
                 switch (mSeleccion.getSelectedIndex()) {
                   case 0:
-                    mSel = new RouletteSelection<Boolean[]>(tams[t], null);
+                    mSel = new RouletteSelection<boolean[]>(tams[t], null);
                     break;
                   case 1:
-                    mSel = new TournamentDeterministicSelection<Boolean[]>(tams[t], null, isMax);
+                    mSel = new TournamentDeterministicSelection<boolean[]>(tams[t], null, isMax);
                     break;
                   case 2:
-                    mSel = new TournamentProbabilisticSelection<Boolean[]>(tams[t], null, probTorneo,
+                    mSel = new TournamentProbabilisticSelection<boolean[]>(tams[t], null, probTorneo,
                         isMax);
                     break;
                   case 3:
-                    mSel = new StochasticSelection<Boolean[]>(tams[t], null);
+                    mSel = new StochasticSelection<boolean[]>(tams[t], null);
                     break;
                   case 4:
-                    mSel = new TruncateSelection<Boolean[]>(tams[t], null, 0.5);
+                    mSel = new TruncateSelection<boolean[]>(tams[t], null, 0.5);
                     break;
                   case 5:
-                    mSel = new RestosSelection<Boolean[]>(5, null);
+                    mSel = new RestosSelection<boolean[]>(5, null);
                     break;
                   case 6:
-                    mSel = new RankingSelection<Boolean[]>(tams[t], null);
+                    mSel = new RankingSelection<boolean[]>(tams[t], null);
                     break;
                   default:
-                    mSel = new RouletteSelection<Boolean[]>(tams[t], null);
+                    mSel = new RouletteSelection<boolean[]>(tams[t], null);
                     break;
                 }
 
-                Individuo<Boolean[]> mejor;
+                Individuo<boolean[]> mejor;
                 alg = new AlgoritmoGenetico(tams[t], nGeneraciones, cruces[c], mutaciones[m], prec,
                     mSel, mCru, elitismo, mutacion, filename);
                 try {
-                  mejor = (Individuo<Boolean[]>) alg.run(individuo, 0);
+                  mejor = (Individuo<boolean[]>) alg.run(individuo, 0);
                   System.out.println(mejor.fitness());
 
                   if (mejor.fitness() > bestFit) {
@@ -499,9 +499,9 @@ public class Ventana extends JFrame {
           plot.addLinePlot("MEJOR DE LA EJECUCIÓN", excs, fits);
           internalFrame.setContentPane(plot);
           
-          Individuo<Boolean[]> mejor = null;
+          Individuo<boolean[]> mejor = null;
           mejor = mejores.get(0);
-          for(Individuo<Boolean[]> a : mejores) {
+          for(Individuo<boolean[]> a : mejores) {
         	  if(a.fitness() > mejor.fitness()) {
         	    mejor = a;
         	    bestChromosome = mejor.getCromosoma();

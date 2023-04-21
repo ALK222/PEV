@@ -6,12 +6,12 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import g02.individuals.Individuo;
 
-public class CruceXOR implements Cruces<Boolean[]> {
+public class CruceXOR implements Cruces<boolean[]> {
 	
 	 @Override
-	  public ArrayList<Individuo<Boolean[]>> cruzar(Individuo<Boolean[]> i1, Individuo<Boolean[]> i2, double prob)
+	  public ArrayList<Individuo<boolean[]>> cruzar(Individuo<boolean[]> i1, Individuo<boolean[]> i2, double prob)
 	      throws Exception {
-		 ArrayList<Individuo<Boolean[]>> res = new ArrayList<Individuo<Boolean[]>>();
+		 ArrayList<Individuo<boolean[]>> res = new ArrayList<Individuo<boolean[]>>();
 		 
 		 if (ThreadLocalRandom.current().nextDouble() < prob) {
 			 // Toma el padre con menor fitness y cambia su cromosoma al XOR entre ambos
