@@ -293,9 +293,7 @@ public class IndividuoNonograma extends Individuo<boolean[]> {
       fitness += conjuntos * 10;
     } else if (restricciones.size() > conjunto.length) {
       fitness += conjuntos;
-    } else {
-      fitness -= conjuntos;
-    }
+    } 
     
     int maxPuestas = 0;
 
@@ -308,15 +306,13 @@ public class IndividuoNonograma extends Individuo<boolean[]> {
         fitness += conjunto[i] * 2;
       } else if(restricciones.get(i) > conjunto[i]) {
         fitness += 1;
-      } else {
-        fitness = 0;
-      }
+      } 
     }
     
     if(puestas <= maxPuestas) {
       fitness += puestas;
     } else {
-      fitness -= puestas+ 1;
+      fitness -= puestas;
     }
     if(puestas == 0 && restricciones.get(0) == 0) {
       fitness += tam;

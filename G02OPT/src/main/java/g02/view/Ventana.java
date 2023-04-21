@@ -423,7 +423,7 @@ public class Ventana extends JFrame {
           ArrayList<Individuo<boolean[]>> mejores = new ArrayList<Individuo<boolean[]>>();
 
           boolean[][] bestChromosome = new boolean[5][5];
-          double bestFit = Double.MAX_VALUE;
+          double bestFit = 0;
           int bestT = 0;
           int bestM = 0;
           int bestC = 0;
