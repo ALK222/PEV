@@ -416,6 +416,22 @@ public class IndividuoNonograma extends Individuo<boolean[]> {
 
     return aux;
   }
+  
+  @Override
+  public double fitnessFila(int i) {
+	    return fitnessArray(restriccionesColumnas.get(i), this.chromosome[i], numColumnas);
+  }
+  
+  @Override
+  public double fitnessColumna(int i) {
+	  boolean[] columna = new boolean[numFilas];
+	  for (int j = 0; j < numFilas; ++j) {
+	        columna[j] = chromosome[j][i];
+	      }
+	  
+	  return fitnessArray(restriccionesFilas.get(i), columna, numFilas);
+	  
+  }
 
 
 }

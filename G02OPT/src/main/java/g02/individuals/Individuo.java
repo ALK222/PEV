@@ -155,5 +155,13 @@ public abstract class Individuo<T> {
   public void corregir(double i) {
     return;
   }
+  
+  public double fitnessFila(int i) {
+	  return 0;
+  }
+  
+  public double fitnessColumna(int i) {
+	  return 0;
+  }
 
 }
