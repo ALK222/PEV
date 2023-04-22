@@ -169,7 +169,7 @@ public class Ventana extends JFrame {
 
     JComboBox mMutacion = new JComboBox();
     mMutacion.setModel(new DefaultComboBoxModel(
-        new String[] {"Básica", "Heurística", "Inversión"}));
+        new String[] {"Básica", "Heurística", "Inversión", "Rot. Heurística"}));
     mMutacion.setBounds(131, 296, 86, 22);
     contentPane.add(mMutacion);
 

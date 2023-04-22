@@ -133,6 +133,9 @@ public class IndividuoNonograma extends Individuo<boolean[]> {
         case 2:
         	this.mutaInversion(individuo);
         	break;
+        case 3:
+        	this.mutaRotHeu(individuo);
+        	break;
         default:
           for (int i = 0; i < this.numFilas; ++i) {
             for (int j = 0; j < this.numColumnas; ++j) {
@@ -192,6 +195,59 @@ public class IndividuoNonograma extends Individuo<boolean[]> {
 
     return this;
   }
+  
+  private IndividuoNonograma mutaRotHeu(Individuo<boolean[]> individuo) {
+	  for(int i = 0; i < individuo.getCromosoma().length; ++i) {
+		  if(ThreadLocalRandom.current().nextBoolean()) {
+			  int punto1 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma()[i].length - 1);
+		      int punto2 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma()[i].length - 1);
+		      
+		      while(punto2 == punto1)
+		    	  punto2 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length - 1);
+		      
+
+		      int ini = Math.min(punto1, punto2);
+		      int fin = Math.max(punto1, punto2);
+		      
+		      int rotaciones = individuo.getCromosoma()[i].length - (fin - ini);
+		      int bestP = 0;
+			  double bestFit = Double.MIN_VALUE;
+			  
+			  for(int it = 0; it < rotaciones; ++it) {
+				  int x = fin + 1;
+				  boolean auxAnterior = individuo.getCromosoma()[i][ini - 1];
+				  boolean auxNuevo;
+				  while(x != ini) {
+					  auxNuevo = individuo.getCromosoma()[i][x];
+					  individuo.getCromosoma()[i][x] = auxAnterior;
+					  
+					  auxAnterior = auxNuevo;
+					  ++x;
+					  if(x==individuo.getCromosoma()[i].length) x = 0;
+				  }
+				  if(individuo.fitness() > bestFit) {
+					  bestFit = individuo.fitness();
+					  bestP = it;
+				  }
+			  }
+			  
+			  for(int it = 0; it < bestP; ++it) {
+				  int x = fin + 1;
+				  boolean auxAnterior = individuo.getCromosoma()[i][ini - 1];
+				  boolean auxNuevo;
+				  while(x != ini) {
+					  auxNuevo = individuo.getCromosoma()[i][x];
+					  individuo.getCromosoma()[i][x] = auxAnterior;
+					  
+					  auxAnterior = auxNuevo;
+					  ++x;
+					  if(x==individuo.getCromosoma()[i].length) x = 0;
+				  }
+			  }
+		  }
+	  }
+	    return this;
+	  }
 
   private IndividuoNonograma mutaInsercion(Individuo<boolean[]> individuo) {
     /*
