@@ -366,7 +366,8 @@ public class IndividuoNonograma extends Individuo<boolean[]> {
       if (restricciones.get(i) == conjunto[i]) {
         fitness += conjunto[i] * 10;
       } else if(restricciones.get(i) > conjunto[i]) {
-        fitness += 1;
+        fitness -= restricciones.get(i) -conjunto[i];
+        //fitness += 1;
       } 
     }
     
