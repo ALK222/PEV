@@ -18,6 +18,7 @@ public class IndividuoNonograma extends Individuo<boolean[]> {
   private ArrayList<ArrayList<Integer>> restriccionesColumnas;
   private ArrayList<ArrayList<Integer>> restriccionesFilas;
   private String file;
+  private double correcion = 0;
 
   /**
    * Instantiates a new individuo funcion 1.
@@ -261,8 +262,10 @@ public class IndividuoNonograma extends Individuo<boolean[]> {
       }
       aux += fitnessArray(restriccionesFilas.get(i), columna, numFilas);
     }
+    
+    //aux += (0 - correcion);
 
-    return aux;
+    return aux + 1;
   }
 
   private int fitnessArray(ArrayList<Integer> restricciones, boolean[] fila, int tam) {
@@ -290,10 +293,12 @@ public class IndividuoNonograma extends Individuo<boolean[]> {
     }
 
     if (restricciones.size() == conjunto.length) {
-      fitness += conjuntos * 10;
+      fitness += conjuntos * 2;
     } else if (restricciones.size() > conjunto.length) {
       fitness += conjuntos;
-    } 
+    } else if(restricciones.size() < conjunto.length) {
+    	fitness -= (conjunto.length - restricciones.size());
+    }
     
     int maxPuestas = 0;
 
@@ -303,16 +308,19 @@ public class IndividuoNonograma extends Individuo<boolean[]> {
         continue;
       }
       if (restricciones.get(i) == conjunto[i]) {
-        fitness += conjunto[i] * 2;
+        fitness += conjunto[i] * 10;
       } else if(restricciones.get(i) > conjunto[i]) {
         fitness += 1;
       } 
     }
     
-    if(puestas <= maxPuestas) {
-      fitness += puestas;
-    } else {
-      fitness -= puestas;
+    if(puestas < maxPuestas) {
+      fitness -= (maxPuestas - puestas);
+    } else if(puestas == maxPuestas) {
+    	fitness += puestas * 2;
+    }
+    else {
+      fitness -= (puestas - maxPuestas);
     }
     if(puestas == 0 && restricciones.get(0) == 0) {
       fitness += tam;
@@ -342,8 +350,8 @@ public class IndividuoNonograma extends Individuo<boolean[]> {
   }
 
   @Override
-  public void corregir() {
-    this.chromosome[this.numFenotipos - 1] = this.chromosome[0];
+  public void corregir(double min) {
+    this.correcion = min;
   }
 
   @Override
