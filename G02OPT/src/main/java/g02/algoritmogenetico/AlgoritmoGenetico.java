@@ -63,7 +63,7 @@ public class AlgoritmoGenetico<T> {
   private int mutacion;
 
   private int nGenAtasco;
-  
+
   private String filename;
 
   /**
@@ -128,8 +128,8 @@ public class AlgoritmoGenetico<T> {
     evaluate(0);
 
     for (int i = 0; i < maxGeneraciones; ++i) {
-    	System.out.println(i);
-    	
+      System.out.println(i);
+
       int directos = (int) Math.round(poblacion.size() * elitismo);
       ArrayList<Individuo<T>> newPob = new ArrayList<>();
 
@@ -140,10 +140,10 @@ public class AlgoritmoGenetico<T> {
         this.poblacion.sort((o1, o2) -> (o2.compareTo(o1)));
       }
 
-      for(int x = 0; x < this.poblacion.size(); ++x) {
-    	  this.poblacion.get(x).corregir(this.poblacion.get(this.poblacion.size() - 1).fitness());
+      for (int x = 0; x < this.poblacion.size(); ++x) {
+        this.poblacion.get(x).corregir(this.poblacion.get(this.poblacion.size() - 1).fitness());
       }
-      
+
       for (int j = 0; j < directos; ++j) {
         newPob.add(this.poblacion.get(j).copyIndividuo());
         this.poblacion.remove(j);
@@ -186,42 +186,39 @@ public class AlgoritmoGenetico<T> {
       poblacion = newPob;
       evaluate(i + 1);
 
-      if (mediaGen[i] >= 0.7 * mejorGen[i]) {
-    	  if(nGenAtasco < 50) {
-    		  nGenAtasco++;
-    	  }
-    	  else {
-    		  nGenAtasco = 0;
-    		// Regeneramos poblacion si la media converge al maximo
+      if (mediaGen[i] >= 0.7 * mejorGen[i] || (i > 0 && mediaGen[i] >= 0.9 * mediaGen[i - 1])) {
 
-    	        int nuevos = tamPoblacion - 1;
+        nGenAtasco = 0;
+        // Regeneramos poblacion si la media converge al maximo
 
-    	        ArrayList<Individuo<T>> regenerados = new ArrayList<Individuo<T>>();
+        int nuevos = tamPoblacion - 1;
 
-    	        for (int j = 0; j < nuevos; j++) {
-    	          switch (ind) {
-    	            case 0:
-    	              regenerados.add((Individuo<T>) new IndividuoNonograma(filename));
-    	              break;
-    	          }
+        ArrayList<Individuo<T>> regenerados = new ArrayList<Individuo<T>>();
 
-    	        }
+        for (int j = 0; j < nuevos; j++) {
+          switch (ind) {
+            case 0:
+              regenerados.add((Individuo<T>) new IndividuoNonograma(filename));
+              break;
+          }
 
-    	        if (isMax) {
-    	          newPob.sort((o1, o2) -> (o1.compareTo(o2)));
-    	        } else {
-    	          newPob.sort((o1, o2) -> (o2.compareTo(o1)));
-    	        }
+        }
+
+        if (isMax) {
+          newPob.sort((o1, o2) -> (o1.compareTo(o2)));
+        } else {
+          newPob.sort((o1, o2) -> (o2.compareTo(o1)));
+        }
 
 
-    	        regenerados.add(newPob.get(0));
+        regenerados.add(newPob.get(0));
 
 
-    	        this.poblacion = newPob;
-    	        this.selection.setPob(regenerados);
-    	  }
+        this.poblacion = newPob;
+        this.selection.setPob(regenerados);
       }
     }
+
 
     return elMejor.copyIndividuo();
   }
