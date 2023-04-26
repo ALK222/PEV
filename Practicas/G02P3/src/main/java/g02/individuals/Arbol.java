@@ -94,13 +94,9 @@ public class Arbol {
 		if(p < max_prof){
 			setProfundidad(p);
 			int func = 0;
-				if(useIF){
-					func = ThreadLocalRandom.current().nextInt(Cromosoma.funciones.length);
-				}else{
-					func = ThreadLocalRandom.current().nextInt(Cromosoma.funciones.length-1);
-				}
-		this.valor = Cromosoma.funciones[func];
-		this.setEsRaiz(true);
+			func = ThreadLocalRandom.current().nextInt(Cromosoma.funciones.length);
+			this.valor = Cromosoma.funciones[func];
+			this.setEsRaiz(true);
 		}
 		//TODO acabar funcion
 		return 0;

@@ -4,8 +4,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Cromosoma {
 	public static String terminales[];
-	public static final String terminales6[] = { "A0", "A1", "D0", "D1", "D2", "D3" };
-	public static final String funciones[] = { "AND", "OR", "NOT", "IF" };
+	public static final String terminales6[] = { "x", "-2", "-1", "0", "1", "2" };
+	public static final String funciones[] = { "add", "sub", "mul" };
 	private Arbol arbol;
 	private double fitness;
 	private double fitness_bruto; //Aptitud antes de transformarla

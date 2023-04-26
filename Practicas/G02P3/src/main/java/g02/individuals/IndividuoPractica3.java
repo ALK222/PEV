@@ -3,10 +3,7 @@ package g02.individuals;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-/**
- * Individuo de calibrado.
- */
-public class IndividuoPractica3 extends Individuo<Boolean> {
+public class IndividuoPractica3 extends Individuo<Cromosoma> {
 
 
   /**
@@ -15,22 +12,7 @@ public class IndividuoPractica3 extends Individuo<Boolean> {
    * @param precision precision de la codificacion
    */
   public IndividuoPractica3(double precision) {
-    this.numFenotipos = 2;
-    this.tamGenes = new int[2];
-    this.min = new double[2];
-    this.max = new double[2];
-    this.min[0] = -3.000;
-    this.min[1] = 4.100;
-    this.max[0] = 12.100;
-    this.max[1] = 5.800;
-    this.precision = precision;
-    this.tamGenes[0] = this.tamGen(precision, min[0], max[0]);
-    this.tamGenes[1] = this.tamGen(precision, min[1], max[1]);
-    this.tamTotal = tamGenes[0] + tamGenes[1];
-    this.chromosome = new Boolean[tamTotal];
-    for (int i = 0; i < tamTotal; i++) {
-      this.chromosome[i] = ThreadLocalRandom.current().nextBoolean();
-    }
+    
 
   }
 
@@ -40,7 +22,7 @@ public class IndividuoPractica3 extends Individuo<Boolean> {
    * @param chromosome cromosoma dado
    * @param precision precision de la codificacion
    */
-  public IndividuoPractica3(Boolean[] chromosome, double precision) {
+  public IndividuoPractica3(Cromosoma chromosome, double precision) {
     this.numFenotipos = 2;
     this.tamGenes = new int[2];
     this.min = new double[2];
@@ -54,9 +36,9 @@ public class IndividuoPractica3 extends Individuo<Boolean> {
     this.tamGenes[1] = this.tamGen(precision, min[1], max[1]);
 
     this.tamTotal = this.tamGenes[0] + this.tamGenes[1];
-    this.chromosome = new Boolean[tamTotal];
+    this.chromosome = new Cromosoma();
     for (int i = 0; i < tamTotal; i++) {
-      this.chromosome[i] = chromosome[i];
+      this.chromosome = chromosome;
     }
   }
 
@@ -78,11 +60,11 @@ public class IndividuoPractica3 extends Individuo<Boolean> {
    * @return individuo mutado
    */
   @Override
-  public Individuo<Boolean> mutar(Individuo<Boolean> individuo, double prob, int mut) {
+  public Individuo<Cromosoma> mutar(Individuo<Cromosoma> individuo, double prob, int mut) {
 	  for(int i = 0; i < this.tamTotal; i++) {
 		  if (ThreadLocalRandom.current().nextDouble() < prob) {
 
-		      chromosome[i] = !chromosome[i];
+		      //chromosome[i] = !chromosome[i];
 	  }
     }
 
@@ -95,7 +77,7 @@ public class IndividuoPractica3 extends Individuo<Boolean> {
    * @return el cromosoma
    */
   @Override
-  public Boolean[] getCromosoma() {
+  public Cromosoma getCromosoma() {
     return chromosome;
   }
 
@@ -151,7 +133,7 @@ public class IndividuoPractica3 extends Individuo<Boolean> {
    * @return the individuo
    */
   @Override
-  public Individuo<Boolean> copyIndividuo() {
+  public Individuo<Cromosoma> copyIndividuo() {
     return new IndividuoPractica3(this.chromosome, this.precision);
   }
 

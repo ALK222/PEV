@@ -11,7 +11,7 @@ import java.util.Random;
 public abstract class Individuo<T> {
 
   /** Cromosoma del individuo. */
-  protected T[] chromosome;
+  protected T chromosome;
 
   /** Valor máximo de cada gen. */
   protected double[] max;
@@ -48,7 +48,7 @@ public abstract class Individuo<T> {
    *
    * @param chromosome cromosoma dado
    */
-  public Individuo(T[] chromosome) {
+  public Individuo(T chromosome) {
     this.chromosome = chromosome;
   }
 
@@ -75,7 +75,7 @@ public abstract class Individuo<T> {
    *
    * @return the cromosoma
    */
-  public abstract T[] getCromosoma();
+  public abstract T getCromosoma();
 
   /**
    * Gets the fenotipo.
