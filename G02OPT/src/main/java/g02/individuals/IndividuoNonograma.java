@@ -119,23 +119,23 @@ public class IndividuoNonograma extends Individuo<boolean[]> {
     if (ThreadLocalRandom.current().nextDouble() < prob) {
       switch (mut) {
         case 0:
-        	for (int i = 0; i < this.numFilas; ++i) {
-                for (int j = 0; j < this.numColumnas; ++j) {
-                  if (ThreadLocalRandom.current().nextDouble() > 0.5) {
-                    this.chromosome[i][j] = !this.chromosome[i][j];
-                  }
-                }
+          for (int i = 0; i < this.numFilas; ++i) {
+            for (int j = 0; j < this.numColumnas; ++j) {
+              if (ThreadLocalRandom.current().nextDouble() > 0.5) {
+                this.chromosome[i][j] = !this.chromosome[i][j];
               }
+            }
+          }
           break;
         case 1:
-        	this.mutaHeuristica(individuo);
+          this.mutaHeuristica(individuo);
           break;
         case 2:
-        	this.mutaInversion(individuo);
-        	break;
+          this.mutaInversion(individuo);
+          break;
         case 3:
-        	this.mutaRotHeu(individuo);
-        	break;
+          this.mutaRotHeu(individuo);
+          break;
         default:
           for (int i = 0; i < this.numFilas; ++i) {
             for (int j = 0; j < this.numColumnas; ++j) {
@@ -174,80 +174,90 @@ public class IndividuoNonograma extends Individuo<boolean[]> {
   }
 
   private IndividuoNonograma mutaInversion(Individuo<boolean[]> individuo) {
-	  for(int j = 0; j < individuo.getCromosoma().length; ++j) {
-		  if(ThreadLocalRandom.current().nextBoolean()) {
-			  int punto1 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length); int
-			     punto2 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length);
-			     
-			     while (punto2 == punto1) punto2 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length);
-			 
-			     int ini = Math.min(punto1, punto2); int fin = Math.max(punto1, punto2);
+    for (int j = 0; j < individuo.getCromosoma().length; ++j) {
+      if (ThreadLocalRandom.current().nextBoolean()) {
+        int punto1 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length);
+        int punto2 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length);
 
-			     Boolean[] aux = new Boolean[fin - ini];
-			     int itAux = 0;
-			      
-			     for (int i = fin; i > ini; --i) { aux[itAux] = individuo.getCromosoma()[j][i]; ++itAux; }
-			     
-			     itAux = 0; for (int i = ini + 1; i <= fin; ++i) { individuo.getCromosoma()[j][i] = aux[itAux];
-			     ++itAux; }
-		  }
-	  }
+        while (punto2 == punto1)
+          punto2 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length);
+
+        int ini = Math.min(punto1, punto2);
+        int fin = Math.max(punto1, punto2);
+
+        Boolean[] aux = new Boolean[fin - ini];
+        int itAux = 0;
+
+        for (int i = fin; i > ini; --i) {
+          aux[itAux] = individuo.getCromosoma()[j][i];
+          ++itAux;
+        }
+
+        itAux = 0;
+        for (int i = ini + 1; i <= fin; ++i) {
+          individuo.getCromosoma()[j][i] = aux[itAux];
+          ++itAux;
+        }
+      }
+    }
 
     return this;
   }
-  
-  private IndividuoNonograma mutaRotHeu(Individuo<boolean[]> individuo) {
-	  for(int i = 0; i < individuo.getCromosoma().length; ++i) {
-		  if(ThreadLocalRandom.current().nextBoolean()) {
-			  int punto1 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma()[i].length - 1);
-		      int punto2 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma()[i].length - 1);
-		      
-		      while(punto2 == punto1)
-		    	  punto2 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length - 1);
-		      
 
-		      int ini = Math.min(punto1, punto2);
-		      int fin = Math.max(punto1, punto2);
-		      
-		      int rotaciones = individuo.getCromosoma()[i].length - (fin - ini);
-		      int bestP = 0;
-			  double bestFit = Double.MIN_VALUE;
-			  
-			  for(int it = 0; it < rotaciones; ++it) {
-				  int x = fin + 1;
-				  boolean auxAnterior = individuo.getCromosoma()[i][ini - 1];
-				  boolean auxNuevo;
-				  while(x != ini) {
-					  auxNuevo = individuo.getCromosoma()[i][x];
-					  individuo.getCromosoma()[i][x] = auxAnterior;
-					  
-					  auxAnterior = auxNuevo;
-					  ++x;
-					  if(x==individuo.getCromosoma()[i].length) x = 0;
-				  }
-				  if(individuo.fitness() > bestFit) {
-					  bestFit = individuo.fitness();
-					  bestP = it;
-				  }
-			  }
-			  
-			  for(int it = 0; it < bestP; ++it) {
-				  int x = fin + 1;
-				  boolean auxAnterior = individuo.getCromosoma()[i][ini - 1];
-				  boolean auxNuevo;
-				  while(x != ini) {
-					  auxNuevo = individuo.getCromosoma()[i][x];
-					  individuo.getCromosoma()[i][x] = auxAnterior;
-					  
-					  auxAnterior = auxNuevo;
-					  ++x;
-					  if(x==individuo.getCromosoma()[i].length) x = 0;
-				  }
-			  }
-		  }
-	  }
-	    return this;
-	  }
+  private IndividuoNonograma mutaRotHeu(Individuo<boolean[]> individuo) {
+    for (int i = 0; i < individuo.getCromosoma().length; ++i) {
+      if (ThreadLocalRandom.current().nextBoolean()) {
+        int punto1 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma()[i].length - 1);
+        int punto2 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma()[i].length - 1);
+
+        while (punto2 == punto1)
+          punto2 = ThreadLocalRandom.current().nextInt(1, individuo.getCromosoma().length - 1);
+
+
+        int ini = Math.min(punto1, punto2);
+        int fin = Math.max(punto1, punto2);
+
+        int rotaciones = individuo.getCromosoma()[i].length - (fin - ini);
+        int bestP = 0;
+        double bestFit = Double.MIN_VALUE;
+
+        for (int it = 0; it < rotaciones; ++it) {
+          int x = fin + 1;
+          boolean auxAnterior = individuo.getCromosoma()[i][ini - 1];
+          boolean auxNuevo;
+          while (x != ini) {
+            auxNuevo = individuo.getCromosoma()[i][x];
+            individuo.getCromosoma()[i][x] = auxAnterior;
+
+            auxAnterior = auxNuevo;
+            ++x;
+            if (x == individuo.getCromosoma()[i].length)
+              x = 0;
+          }
+          if (individuo.fitness() > bestFit) {
+            bestFit = individuo.fitness();
+            bestP = it;
+          }
+        }
+
+        for (int it = 0; it < bestP; ++it) {
+          int x = fin + 1;
+          boolean auxAnterior = individuo.getCromosoma()[i][ini - 1];
+          boolean auxNuevo;
+          while (x != ini) {
+            auxNuevo = individuo.getCromosoma()[i][x];
+            individuo.getCromosoma()[i][x] = auxAnterior;
+
+            auxAnterior = auxNuevo;
+            ++x;
+            if (x == individuo.getCromosoma()[i].length)
+              x = 0;
+          }
+        }
+      }
+    }
+    return this;
+  }
 
   private IndividuoNonograma mutaInsercion(Individuo<boolean[]> individuo) {
     /*
@@ -318,8 +328,8 @@ public class IndividuoNonograma extends Individuo<boolean[]> {
       }
       aux += fitnessArray(restriccionesFilas.get(i), columna, numFilas);
     }
-    
-    //aux += (0 - correcion);
+
+    // aux += (0 - correcion);
 
     return aux + 1;
   }
@@ -332,7 +342,8 @@ public class IndividuoNonograma extends Individuo<boolean[]> {
     int[] conjunto = new int[tam];
 
     for (int i = 0; i < tam; ++i) { // Comprobamos cada casilla
-      if (seguidas > 0 && !fila[i]) { // si hay fichas seguidas y estamos en una casilla sin colocar, añadimos nuevo conjunto
+      if (seguidas > 0 && !fila[i]) { // si hay fichas seguidas y estamos en una casilla sin
+                                      // colocar, añadimos nuevo conjunto
         conjunto[conjuntos] = seguidas;
         conjuntos++;
         seguidas = 0;
@@ -352,10 +363,10 @@ public class IndividuoNonograma extends Individuo<boolean[]> {
       fitness += conjuntos * 2;
     } else if (restricciones.size() > conjunto.length) {
       fitness += conjuntos;
-    } else if(restricciones.size() < conjunto.length) {
-    	fitness -= (conjunto.length - restricciones.size());
+    } else if (restricciones.size() < conjunto.length) {
+      fitness -= (conjunto.length - restricciones.size());
     }
-    
+
     int maxPuestas = 0;
 
     for (int i = 0; i < restricciones.size(); ++i) {
@@ -365,21 +376,20 @@ public class IndividuoNonograma extends Individuo<boolean[]> {
       }
       if (restricciones.get(i) == conjunto[i]) {
         fitness += conjunto[i] * 10;
-      } else if(restricciones.get(i) > conjunto[i]) {
-        fitness -= restricciones.get(i) -conjunto[i];
-        //fitness += 1;
-      } 
+      } else if (restricciones.get(i) > conjunto[i]) {
+        fitness -= restricciones.get(i) - conjunto[i];
+        // fitness += 1;
+      }
     }
-    
-    if(puestas < maxPuestas) {
+
+    if (puestas < maxPuestas) {
       fitness -= (maxPuestas - puestas);
-    } else if(puestas == maxPuestas) {
-    	fitness += puestas * 2;
-    }
-    else {
+    } else if (puestas == maxPuestas) {
+      fitness += puestas * 2;
+    } else {
       fitness -= (puestas - maxPuestas);
     }
-    if(puestas == 0 && restricciones.get(0) == 0) {
+    if (puestas == 0 && restricciones.get(0) == 0) {
       fitness += tam;
     }
     return fitness;
@@ -417,21 +427,21 @@ public class IndividuoNonograma extends Individuo<boolean[]> {
 
     return aux;
   }
-  
+
   @Override
   public double fitnessFila(int i) {
-	    return fitnessArray(restriccionesColumnas.get(i), this.chromosome[i], numColumnas);
+    return fitnessArray(restriccionesColumnas.get(i), this.chromosome[i], numColumnas);
   }
-  
+
   @Override
   public double fitnessColumna(int i) {
-	  boolean[] columna = new boolean[numFilas];
-	  for (int j = 0; j < numFilas; ++j) {
-	        columna[j] = chromosome[j][i];
-	      }
-	  
-	  return fitnessArray(restriccionesFilas.get(i), columna, numFilas);
-	  
+    boolean[] columna = new boolean[numFilas];
+    for (int j = 0; j < numFilas; ++j) {
+      columna[j] = chromosome[j][i];
+    }
+
+    return fitnessArray(restriccionesFilas.get(i), columna, numFilas);
+
   }
 
 

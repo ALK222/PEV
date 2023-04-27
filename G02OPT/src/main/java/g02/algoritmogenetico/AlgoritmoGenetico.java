@@ -128,7 +128,6 @@ public class AlgoritmoGenetico<T> {
     evaluate(0);
 
     for (int i = 0; i < maxGeneraciones; ++i) {
-      System.out.println(i);
 
       int directos = (int) Math.round(poblacion.size() * elitismo);
       ArrayList<Individuo<T>> newPob = new ArrayList<>();
