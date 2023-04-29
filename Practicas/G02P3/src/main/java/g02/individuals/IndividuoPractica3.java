@@ -122,9 +122,14 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
    */
   @Override
   public double getValor() {
-    double x1 = this.getFenotipo(0);
-    double x2 = this.getFenotipo(1);
-    return (21.5 + x1 * Math.sin(4 * Math.PI * x1) + x2 * Math.sin(20 * Math.PI * x2));
+	  double diferencia = 0;
+    for(int i = 0; i < 101; ++i) {
+    	double valorX = (-1.0) + ((2.0/100.0) * i);
+    	double valor1 = Math.pow(valorX, 4) + Math.pow(valorX, 3) + Math.pow(valorX, 2) + valorX + 1;
+    	double valor2 = this.chromosome.updateFitness(valorX, this.chromosome.getArbol());
+    	diferencia += Math.pow(valor1 - valor2, 2);
+    }
+    return Math.sqrt(diferencia/101);
   }
 
   /**

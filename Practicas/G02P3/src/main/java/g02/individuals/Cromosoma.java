@@ -50,4 +50,8 @@ public class Cromosoma {
 		}
 		return fit;
 	}
+	
+	public Arbol getArbol() {
+		return arbol;
+	}
 }
