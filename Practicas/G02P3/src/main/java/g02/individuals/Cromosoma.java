@@ -31,7 +31,23 @@ public class Cromosoma {
 	}
 	
 	// Cálculo del fitness según una x dada
-	public void updateFitness(double x, Arbol a) {
-		if(a.getValor() )
+	public double updateFitness(double x, Arbol a) {
+		double fit = 0;
+		if(!a.getEsRaiz()) {
+			if(a.getValor() == "x") return x;
+			else return Double.valueOf(a.getValor());
+		}
+		else {
+			if(a.getValor() == "add") {
+				fit = updateFitness(x,a.getHijos().get(0)) + updateFitness(x, a.getHijos().get(1));
+			}
+			else if(a.getValor() == "sub") {
+				fit = updateFitness(x,a.getHijos().get(0)) - updateFitness(x, a.getHijos().get(1));
+			}
+			else if(a.getValor() == "mul") {
+				fit = updateFitness(x,a.getHijos().get(0)) * updateFitness(x, a.getHijos().get(1));
+			}
+		}
+		return fit;
 	}
 }
