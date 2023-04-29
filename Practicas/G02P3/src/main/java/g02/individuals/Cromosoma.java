@@ -29,4 +29,9 @@ public class Cromosoma {
 			break;
 		}
 	}
+	
+	// Cálculo del fitness según una x dada
+	public void updateFitness(double x, Arbol a) {
+		if(a.getValor() )
+	}
 }

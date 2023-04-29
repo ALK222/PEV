@@ -14,7 +14,7 @@ public class Arbol {
 	private boolean esHoja;
 	private boolean esRaiz;
 	
-	// Constructora del árbol
+	// Constructora del ï¿½rbol
 	public Arbol(String s) {
 		
 	}
@@ -75,11 +75,11 @@ public class Arbol {
 	}
 	
 	// Devuelve todos los hijos en forma de ArrayList
-	private ArrayList<Arbol> getHijos() {
+	public ArrayList<Arbol> getHijos() {
 		return hijos;
 	}
 
-	// Ayuda para el método toArray()
+	// Ayuda para el mï¿½todo toArray()
 	private void toArrayAux(ArrayList<String> array, Arbol a){
 		array.add(a.valor);
 		for(int i = 0; i < a.hijos.size(); i++){
@@ -87,7 +87,7 @@ public class Arbol {
 		}
 	}
 	
-	// Inicialización del árbol
+	// Inicializaciï¿½n del ï¿½rbol
 	public int inicializacionCompleta(int p, int nodos){
 		int n = nodos;
 		int nHijos = 2;
@@ -113,5 +113,12 @@ public class Arbol {
 	public void inicializacionCreciente(int i) {
 		// TODO Auto-generated method stub
 		
+	}
+	public String getValor() {
+		return this.valor;
+	}
+	
+	public boolean getEsRaiz() {
+		return this.esRaiz;
 	}
 }
