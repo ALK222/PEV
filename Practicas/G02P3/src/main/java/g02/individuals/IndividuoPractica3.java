@@ -23,7 +23,7 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
    * @param precision precision de la codificacion
    */
   public IndividuoPractica3(Cromosoma chromosome) {
-    this.chromosome = new Cromosoma(5,0,2);
+    this.chromosome = chromosome;
     
   }
 
@@ -135,7 +135,7 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
    */
   @Override
   public boolean isMax() {
-    return true;
+    return false;
   }
 
 

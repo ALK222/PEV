@@ -11,6 +11,7 @@ import g02.Selections.TruncateSelection;
 import g02.algoritmogenetico.AlgoritmoGenetico;
 import g02.cruces.CruceP3;
 import g02.cruces.Cruces;
+import g02.individuals.Cromosoma;
 import g02.individuals.Individuo;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -71,7 +72,7 @@ public class ventana extends JFrame {
   @SuppressWarnings({"unchecked", "rawtypes"})
   public ventana() {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setBounds(100, 100, 884, 725);
+    setBounds(100, 100, 1520, 725);
     contentPane = new JPanel();
     contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
     setContentPane(contentPane);
@@ -250,6 +251,12 @@ public class ventana extends JFrame {
     nEjecuciones.setColumns(10);
     nEjecuciones.setBounds(131, 382, 86, 20);
     contentPane.add(nEjecuciones);
+    
+    JInternalFrame resultsp3 = new JInternalFrame("Funciones");
+    resultsp3.setBounds(868, 51, 607, 624);
+    contentPane.add(resultsp3);
+    resultsp3.setVisible(true);
+
 
     JLabel lblNumEjecuciones = new JLabel("Num. Ejecuciones");
     lblNumEjecuciones.setBounds(10, 385, 111, 14);
@@ -288,38 +295,56 @@ public class ventana extends JFrame {
         if (ejecuciones == 1) {
           switch (mSeleccion.getSelectedIndex()) {
             case 0:
-              mSel = new RouletteSelection<Integer>(tamPoblacionMin, null);
+              mSel = new RouletteSelection<Cromosoma>(tamPoblacionMin, null);
               break;
             case 1:
-              mSel = new TournamentDeterministicSelection<Integer>(tamPoblacionMin, null, isMax);
+              mSel = new TournamentDeterministicSelection<Cromosoma>(tamPoblacionMin, null, isMax);
               break;
             case 2:
-              mSel = new TournamentProbabilisticSelection<Integer>(tamPoblacionMin, null,
+              mSel = new TournamentProbabilisticSelection<Cromosoma>(tamPoblacionMin, null,
                   probTorneo, isMax);
               break;
             case 3:
-              mSel = new StochasticSelection<Integer>(tamPoblacionMin, null);
+              mSel = new StochasticSelection<Cromosoma>(tamPoblacionMin, null);
               break;
             case 4:
-              mSel = new TruncateSelection<Integer>(tamPoblacionMin, null, 0.5);
+              mSel = new TruncateSelection<Cromosoma>(tamPoblacionMin, null, 0.5);
               break;
             case 5:
-              mSel = new RestosSelection<Integer>(5, null);
+              mSel = new RestosSelection<Cromosoma>(5, null);
               break;
             case 6:
-              mSel = new RankingSelection<Integer>(tamPoblacionMin, null);
+              mSel = new RankingSelection<Cromosoma>(tamPoblacionMin, null);
               break;
             default:
-              mSel = new RouletteSelection<Integer>(tamPoblacionMin, null);
+              mSel = new RouletteSelection<Cromosoma>(tamPoblacionMin, null);
               break;
           }
-          Individuo<Integer> mejor;
+          Individuo<Cromosoma> mejor;
           alg = new AlgoritmoGenetico(tamPoblacionMin, nGeneraciones, probCMin, probMMin, prec,
               mSel, mCru, elitismo, mutacion);
           try {
-            mejor = (Individuo<Integer>) alg.run(individuo, dimensiones);
+            mejor = (Individuo<Cromosoma>) alg.run(individuo, dimensiones);
             System.out.println(mejor.fitness());
             resultsPane.setText(mejor.toString());
+            
+            double[] valorX = new double[101];
+            double[] valor1 = new double[101];
+            double[] valor2 = new double[101];
+            
+            // Resultados esperados de la funcion
+            for(int i = 0; i < 101; ++i) {
+            	valorX[i] = (-1.0) + ((2.0/100.0) * i);
+            	valor1[i] = Math.pow(valorX[i], 4) + Math.pow(valorX[i], 3) + Math.pow(valorX[i], 2) + valorX[i] + 1;
+            	valor2[i] = mejor.getCromosoma().updateFitness(valorX[i], mejor.getCromosoma().getArbol());
+            }
+            
+            Plot2DPanel resultadosp3 = new Plot2DPanel();
+            resultadosp3.addLegend("SOUTH");
+            resultadosp3.addLinePlot("VALORES ESPERADOS", valorX, valor1);
+            resultadosp3.addLinePlot("VALORES OBTENIDOS", valorX, valor2);
+            resultsp3.setContentPane(resultadosp3);
+            
           } catch (Exception ex) {
             ex.printStackTrace();
           }
@@ -342,6 +367,9 @@ public class ventana extends JFrame {
           plot.addLinePlot("MEDIAS", generaciones, media);
           // put the PlotPanel in a JFrame like a JPanel
           internalFrame.setContentPane(plot);
+          
+          
+          
         } else {
           Integer[] tams;
           if (tamPoblacionMax != tamPoblacionMin) {
@@ -462,7 +490,8 @@ public class ventana extends JFrame {
     });
     btnNewButton.setBounds(45, 413, 140, 23);
     contentPane.add(btnNewButton);
-
+    
+    
 
 
   }
