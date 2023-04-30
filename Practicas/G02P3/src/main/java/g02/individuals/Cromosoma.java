@@ -13,14 +13,14 @@ public class Cromosoma {
 	private double puntAcum;
 	private String fenotipo;
 	
-	public Cromosoma(int profundidad, int tipoCreacion, boolean useIf, int tipoMultiplexor) {
-		arbol = new Arbol(profundidad, useIf);
+	public Cromosoma(int profundidad, int tipoCreacion, int nodos, int tipoMultiplexor) {
+		arbol = new Arbol(profundidad, nodos);
 		switch(tipoCreacion){
 		case 0:
 			arbol.inicializacionCreciente(0);
 			break;
 		case 1:
-			arbol.inicializacionCompleta(0,0);
+			arbol.inicializacionCompleta(0, nodos);
 			break;
 		case 2:
 			int ini = ThreadLocalRandom.current().nextInt(2);

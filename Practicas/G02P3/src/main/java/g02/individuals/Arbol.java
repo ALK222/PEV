@@ -8,9 +8,9 @@ public class Arbol {
 	private ArrayList<Arbol> hijos;
 	private int numHijos;
 	private int numNodos;
-	private int max_prof;
+	private int max_prof = 5;
+	private int min_prof = 2;
 	private int profundidad;
-	private boolean useIF;
 	private boolean esHoja;
 	private boolean esRaiz;
 	
@@ -19,7 +19,7 @@ public class Arbol {
 		
 	}
 	
-	public Arbol(int profundidad2, boolean useIf2) {
+	public Arbol(int profundidad2, int nodos) {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -89,16 +89,24 @@ public class Arbol {
 	
 	// Inicializaci�n del �rbol
 	public int inicializacionCompleta(int p, int nodos){
-		int n = nodos;
-		int nHijos = 2;
 		if(p < max_prof){
 			setProfundidad(p);
 			int func = 0;
 			func = ThreadLocalRandom.current().nextInt(Cromosoma.funciones.length);
 			this.valor = Cromosoma.funciones[func];
 			this.setEsRaiz(true);
+			for(int i = 0; i < nodos; i++) {
+				Arbol hijo1 = new Arbol(p+1, nodos);
+				hijo1.inicializacionCompleta(p + 1, nodos);
+				hijos.add(hijo1);
+			}
 		}
-		//TODO acabar funcion
+		else {
+			setProfundidad(p);
+			int t = ThreadLocalRandom.current().nextInt(Cromosoma.terminales.length);
+			this.valor = Cromosoma.terminales[t];
+			this.setEsRaiz(false);
+		}
 		return 0;
 	}
 
@@ -110,9 +118,47 @@ public class Arbol {
 		profundidad = p;
 	}
 
-	public void inicializacionCreciente(int i) {
-		// TODO Auto-generated method stub
-		
+	public void inicializacionCreciente(int p, int nodos) {
+		if(p < max_prof){
+			setProfundidad(p);
+			// Si se llega a la profundidad mínima se empiezan a crear hojas
+			if(min_prof < p) {
+				int ale = ThreadLocalRandom.current().nextInt(Cromosoma.funciones.length + Cromosoma.terminales.length);
+				// Se toma un valor de las funciones
+				if(ale < Cromosoma.funciones.length) {
+					this.setEsRaiz(true);
+					this.valor = Cromosoma.funciones[ale];
+					for(int i = 0; i < nodos; i++) {
+						Arbol hijo1 = new Arbol(p+1, nodos);
+						hijo1.inicializacionCreciente(p+1, nodos);
+						hijos.add(hijo1);
+					}
+				}
+				// Se toma un valor de los terminales
+				else {
+					this.setEsRaiz(false);
+					this.valor = Cromosoma.terminales[ale - Cromosoma.funciones.length];
+				}
+			}
+			// Si no se llega a la profundidad minima no se pueden crear hojas
+			else {
+				int func = 0;
+				func = ThreadLocalRandom.current().nextInt(Cromosoma.funciones.length);
+				this.valor = Cromosoma.funciones[func];
+				this.setEsRaiz(true);
+				for(int i = 0; i < nodos; i++) {
+					Arbol hijo1 = new Arbol(p+1, nodos);
+					hijo1.inicializacionCreciente(p + 1, nodos);
+					hijos.add(hijo1);
+				}
+			}
+		}
+		else {
+			setProfundidad(p);
+			int t = ThreadLocalRandom.current().nextInt(Cromosoma.terminales.length);
+			this.valor = Cromosoma.terminales[t];
+			this.setEsRaiz(false);
+		}
 	}
 	public String getValor() {
 		return this.valor;
