@@ -128,6 +128,7 @@ public class Arbol {
 				if(ale < Cromosoma.funciones.length) {
 					this.setEsRaiz(true);
 					this.valor = Cromosoma.funciones[ale];
+					this.hijos = new ArrayList<Arbol>();
 					for(int i = 0; i < nodos; i++) {
 						Arbol hijo1 = new Arbol(p+1, nodos);
 						hijo1.inicializacionCreciente(p+1, nodos);
@@ -146,6 +147,7 @@ public class Arbol {
 				func = ThreadLocalRandom.current().nextInt(Cromosoma.funciones.length);
 				this.valor = Cromosoma.funciones[func];
 				this.setEsRaiz(true);
+				this.hijos = new ArrayList<Arbol>();
 				for(int i = 0; i < nodos; i++) {
 					Arbol hijo1 = new Arbol(p+1, nodos);
 					hijo1.inicializacionCreciente(p + 1, nodos);

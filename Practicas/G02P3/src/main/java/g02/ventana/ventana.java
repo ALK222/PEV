@@ -9,18 +9,7 @@ import g02.Selections.TournamentDeterministicSelection;
 import g02.Selections.TournamentProbabilisticSelection;
 import g02.Selections.TruncateSelection;
 import g02.algoritmogenetico.AlgoritmoGenetico;
-import g02.cruces.CruceAritmetico;
-import g02.cruces.CruceBLXAlpha;
-import g02.cruces.CruceCO;
-import g02.cruces.CruceCX;
-import g02.cruces.CruceERX;
-import g02.cruces.CruceMonopunto;
-import g02.cruces.CruceOX;
-import g02.cruces.CruceOXPP;
-import g02.cruces.CruceOXOP;
-import g02.cruces.CrucePMX;
-import g02.cruces.CruceUniforme;
-import g02.cruces.CruceVOT;
+import g02.cruces.CruceP3;
 import g02.cruces.Cruces;
 import g02.individuals.Individuo;
 import java.awt.EventQueue;
@@ -156,17 +145,6 @@ public class ventana extends JFrame {
     lblMSeleccion.setBounds(10, 238, 111, 14);
     contentPane.add(lblMSeleccion);
 
-    JLabel lblMCruce = new JLabel("M. Cruce");
-    lblMCruce.setBounds(10, 271, 111, 14);
-    contentPane.add(lblMCruce);
-
-    JComboBox mCruce = new JComboBox();
-    mCruce.setModel(
-        new DefaultComboBoxModel(new String[] {"OX", "OXPP", "PMX", "CX", "ERX", "CO", "VOT", "OXOP"}));
-    mCruce.setSelectedIndex(4);
-    mCruce.setBounds(131, 267, 86, 22);
-    contentPane.add(mCruce);
-
     JLabel lblMMutacion = new JLabel("M. Mutacion");
     lblMMutacion.setBounds(10, 300, 111, 14);
     contentPane.add(lblMMutacion);
@@ -295,7 +273,7 @@ public class ventana extends JFrame {
 
         int individuo = individuox.getSelectedIndex();
 
-
+        
 
         boolean isMax = false;
         if (individuo == 0) {
@@ -303,38 +281,9 @@ public class ventana extends JFrame {
         }
         Selection<?> mSel;
         Cruces<?> mCru;
+        mCru = new CruceP3();
         int mutacion = mMutacion.getSelectedIndex();
         AlgoritmoGenetico<?> alg;
-
-        switch (mCruce.getSelectedIndex()) {
-          case 0:
-            mCru = new CruceOX();
-            break;
-          case 1:
-            mCru = new CruceOXPP();
-            break;
-          case 2:
-            mCru = new CrucePMX();
-            break;
-          case 3:
-            mCru = new CruceCX();
-            break;
-          case 4:
-            mCru = new CruceERX();
-            break;
-          case 5:
-            mCru = new CruceCO();
-            break;
-          case 6:
-            mCru = new CruceVOT();
-            break;
-          case 7:
-            mCru = new CruceOXOP();
-            break;
-          default:
-            mCru = new CruceOX();
-            break;
-        }
 
         if (ejecuciones == 1) {
           switch (mSeleccion.getSelectedIndex()) {

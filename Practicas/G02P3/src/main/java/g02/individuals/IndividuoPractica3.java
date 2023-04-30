@@ -12,7 +12,7 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
    * @param precision precision de la codificacion
    */
   public IndividuoPractica3(double precision) {
-    
+	  this.chromosome = new Cromosoma(5,0,2);
 
   }
 
@@ -22,24 +22,9 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
    * @param chromosome cromosoma dado
    * @param precision precision de la codificacion
    */
-  public IndividuoPractica3(Cromosoma chromosome, double precision) {
-    this.numFenotipos = 2;
-    this.tamGenes = new int[2];
-    this.min = new double[2];
-    this.max = new double[2];
-    this.min[0] = -3.000;
-    this.min[1] = 4.100;
-    this.max[0] = 12.100;
-    this.max[1] = 5.800;
-    this.precision = precision;
-    this.tamGenes[0] = this.tamGen(precision, min[0], max[0]);
-    this.tamGenes[1] = this.tamGen(precision, min[1], max[1]);
-
-    this.tamTotal = this.tamGenes[0] + this.tamGenes[1];
-    this.chromosome = new Cromosoma();
-    for (int i = 0; i < tamTotal; i++) {
-      this.chromosome = chromosome;
-    }
+  public IndividuoPractica3(Cromosoma chromosome) {
+    this.chromosome = new Cromosoma(5,0,2);
+    
   }
 
 
@@ -90,29 +75,30 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
   // Necesario para calcular el fitness
   @Override
   public double getFenotipo(int index) {
-    int start;
-    int end;
-
-    if (index == 0) {
-      start = 0;
-      end = this.tamGenes[index] - 1;
-    } else {
-      start = this.tamGenes[index - 1];
-      end = this.tamGenes[index] + this.tamGenes[index - 1] - 1;
-    }
-
-
-    double res = 0;
-    int power = 0;
-    for (int i = end; i >= start; i--) {
-      if (this.chromosome[i]) {
-        res += Math.pow(2, power);
-      }
-      power++;
-    }
-
-    return this.min[index]
-        + (res * (this.max[index] - this.min[index]) / (Math.pow(2, this.tamGenes[index]) - 1));
+//    int start;
+//    int end;
+//
+//    if (index == 0) {
+//      start = 0;
+//      end = this.tamGenes[index] - 1;
+//    } else {
+//      start = this.tamGenes[index - 1];
+//      end = this.tamGenes[index] + this.tamGenes[index - 1] - 1;
+//    }
+//
+//
+//    double res = 0;
+//    int power = 0;
+//    for (int i = end; i >= start; i--) {
+//      if (this.chromosome[i]) {
+//        res += Math.pow(2, power);
+//      }
+//      power++;
+//    }
+//
+//    return this.min[index]
+//        + (res * (this.max[index] - this.min[index]) / (Math.pow(2, this.tamGenes[index]) - 1));
+	  return 0;
   }
 
   /**
@@ -139,7 +125,7 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
    */
   @Override
   public Individuo<Cromosoma> copyIndividuo() {
-    return new IndividuoPractica3(this.chromosome, this.precision);
+    return new IndividuoPractica3(this.chromosome);
   }
 
   /**
