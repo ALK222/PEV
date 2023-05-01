@@ -408,9 +408,9 @@ public class ventana extends JFrame {
           }
 
           // ArrayList<Plot2DPanel> plots = new ArrayList<Plot2DPanel>();
-          ArrayList<Individuo<Integer>> mejores = new ArrayList<Individuo<Integer>>();
+          ArrayList<Individuo<Cromosoma>> mejores = new ArrayList<Individuo<Cromosoma>>();
 
-
+          Individuo<Cromosoma> mejorSiempre = null;
           double bestFit = Double.MAX_VALUE;
           int bestT = 0;
           int bestM = 0;
@@ -421,41 +421,42 @@ public class ventana extends JFrame {
               for (int c = 0; c < cruces.length; ++c) {
                 switch (mSeleccion.getSelectedIndex()) {
                   case 0:
-                    mSel = new RouletteSelection<Integer>(tams[t], null);
+                    mSel = new RouletteSelection<Cromosoma>(tams[t], null);
                     break;
                   case 1:
-                    mSel = new TournamentDeterministicSelection<Integer>(tams[t], null, isMax);
+                    mSel = new TournamentDeterministicSelection<Cromosoma>(tams[t], null, isMax);
                     break;
                   case 2:
-                    mSel = new TournamentProbabilisticSelection<Integer>(tams[t], null, probTorneo,
+                    mSel = new TournamentProbabilisticSelection<Cromosoma>(tams[t], null, probTorneo,
                         isMax);
                     break;
                   case 3:
-                    mSel = new StochasticSelection<Integer>(tams[t], null);
+                    mSel = new StochasticSelection<Cromosoma>(tams[t], null);
                     break;
                   case 4:
-                    mSel = new TruncateSelection<Integer>(tams[t], null, 0.5);
+                    mSel = new TruncateSelection<Cromosoma>(tams[t], null, 0.5);
                     break;
                   case 5:
-                    mSel = new RestosSelection<Integer>(5, null);
+                    mSel = new RestosSelection<Cromosoma>(5, null);
                     break;
                   case 6:
-                    mSel = new RankingSelection<Integer>(tams[t], null);
+                    mSel = new RankingSelection<Cromosoma>(tams[t], null);
                     break;
                   default:
-                    mSel = new RouletteSelection<Integer>(tams[t], null);
+                    mSel = new RouletteSelection<Cromosoma>(tams[t], null);
                     break;
                 }
 
-                Individuo<Integer> mejor;
+                Individuo<Cromosoma> mejor;
                 alg = new AlgoritmoGenetico(tams[t], nGeneraciones, cruces[c], mutaciones[m], prec,
                     mSel, mCru, elitismo, mutacion);
                 try {
-                  mejor = (Individuo<Integer>) alg.run(individuo, dimensiones);
+                  mejor = (Individuo<Cromosoma>) alg.run(individuo, dimensiones);
                   System.out.println(mejor.fitness());
 
                   if (mejor.fitness() < bestFit) {
                     bestFit = mejor.fitness();
+                    mejorSiempre = mejor;
                     bestT = t;
                     bestM = m;
                     bestC = c;
@@ -468,6 +469,22 @@ public class ventana extends JFrame {
               }
             }
           }
+          double[] valorX = new double[101];
+          double[] valor1 = new double[101];
+          double[] valor2 = new double[101];
+          
+          // Resultados esperados de la funcion
+          for(int i = 0; i < 101; ++i) {
+          	valorX[i] = (-1.0) + ((2.0/100.0) * i);
+          	valor1[i] = Math.pow(valorX[i], 4) + Math.pow(valorX[i], 3) + Math.pow(valorX[i], 2) + valorX[i] + 1;
+          	valor2[i] = mejorSiempre.getCromosoma().updateFitness(valorX[i], mejorSiempre.getCromosoma().getArbol());
+          }
+          
+          Plot2DPanel resultadosp3 = new Plot2DPanel();
+          resultadosp3.addLegend("SOUTH");
+          resultadosp3.addLinePlot("VALORES ESPERADOS", valorX, valor1);
+          resultadosp3.addLinePlot("VALORES OBTENIDOS", valorX, valor2);
+          resultsp3.setContentPane(resultadosp3);
 
           String txt = "Mejor ejecución \nPoblación: " + tams[bestT] + "\nMutación: "
               + mutaciones[bestM] + "\nCruce: " + cruces[bestC] + "\nFitness: " + bestFit;
