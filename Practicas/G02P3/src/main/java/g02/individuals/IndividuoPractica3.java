@@ -4,6 +4,8 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class IndividuoPractica3 extends Individuo<Cromosoma> {
+  
+  private double K;
 
 
   /**
@@ -26,6 +28,10 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
     this.chromosome = new Cromosoma(chromosome.getArbol());
 
   }
+  
+  public void setK(double k) {
+    this.K = k;
+  }
 
 
   /**
@@ -34,7 +40,17 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
    * @return fitness del individuo
    */
   public double fitness() {
-    return this.getValor();
+    
+    double fitness = this.getValor();
+    int profundidad = this.getCromosoma().getArbol().getProfundidad();
+    
+    // Factor de penalización: incremento exponencial con la profundidad del árbol
+    double penalizacion = Math.exp(profundidad);
+    
+    // Reducción del fitness según el factor de penalización
+    fitness /= penalizacion;
+    
+    return fitness;
   }
 
   /**

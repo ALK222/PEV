@@ -40,6 +40,10 @@ public class Arbol {
 	  this.esRaiz = arbol.esRaiz;
 	  this.numNodos = arbol.numNodos;
 	}
+	
+	public int getProfundidad() {
+	  return this.profundidad;
+	}
 
 	// Devuelve el arbol en forma de array
 	public ArrayList<String> toArray(){
