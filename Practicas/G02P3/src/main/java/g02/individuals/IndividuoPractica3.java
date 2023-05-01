@@ -153,6 +153,4 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
   public boolean isMax() {
     return false;
   }
-
-
 }

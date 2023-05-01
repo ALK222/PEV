@@ -1,15 +1,17 @@
 package g02.cruces;
 
+import g02.individuals.Arbol;
+import g02.individuals.Cromosoma;
 import g02.individuals.Individuo;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Cruce uniforme de dos individuos.
  *
  * @param <T> puede ser  Boolean o Double
  */
-public class CruceP3<Cromosoma> implements Cruces<Cromosoma> {
+public class CruceP3 implements Cruces<Cromosoma> {
 
   /**
    * Cruza dos individuos por el metodo uniforme.
@@ -23,18 +25,21 @@ public class CruceP3<Cromosoma> implements Cruces<Cromosoma> {
   @Override
   public ArrayList<Individuo<Cromosoma>> cruzar(Individuo<Cromosoma> i1, Individuo<Cromosoma> i2, double prob)
       throws Exception {
-
-    Random r = new Random(System.currentTimeMillis());
-
-//    if (r.nextDouble() < prob) {
-//      for (int i = 0; i < i1.getCromosoma().length; i++) {
-//        if (r.nextDouble() > 0.5) {
-//          T aux = i1.getCromosoma()[i];
-//          i1.getCromosoma()[i] = i2.getCromosoma()[i];
-//          i2.getCromosoma()[i] = aux;
-//        }
-//      }
-//    }
+    if (ThreadLocalRandom.current().nextDouble() < prob) {
+      Arbol aux = null;
+      int arbol1 = 0;
+      while(aux == null) {
+    	  arbol1 = ThreadLocalRandom.current().nextInt(i1.getCromosoma().getArbol().toArray().size() - 1);
+          aux = i1.getCromosoma().getArbol().at(arbol1);
+      }
+      int arbol2 =  ThreadLocalRandom.current().nextInt(i2.getCromosoma().getArbol().toArray().size() - 1);
+      while(i2.getCromosoma().getArbol().at(arbol2) == null) {
+    	  arbol2 = ThreadLocalRandom.current().nextInt(i2.getCromosoma().getArbol().toArray().size() - 1);
+      }
+      
+      i1.getCromosoma().getArbol().at(arbol1).insert(i2.getCromosoma().getArbol().at(arbol2), -1);
+      i2.getCromosoma().getArbol().at(arbol2).insert(aux, -1);
+    }
 
     ArrayList<Individuo<Cromosoma>> res = new ArrayList<Individuo<Cromosoma>>();
 

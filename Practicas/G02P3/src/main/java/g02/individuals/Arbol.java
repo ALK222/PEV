@@ -29,9 +29,9 @@ public class Arbol {
 	  this.valor = arbol.valor;
 	  this.hijos = new ArrayList<Arbol>();
 	  
-	  if(arbol.hijos != null) {
+	  if(arbol.hijos != null && !arbol.hijos.isEmpty()) {
 	    for(Arbol a: arbol.hijos) {
-	        hijos.add(new Arbol(a));
+	        this.hijos.add(new Arbol(a));
 	      }
 	  }
 	  
@@ -93,7 +93,7 @@ public class Arbol {
 	
 	// Devuelve el numero de hijos
 	private int getNumHijos() {
-		return numHijos;
+		return hijos.size();
 	}
 	
 	// Devuelve todos los hijos en forma de ArrayList
@@ -112,18 +112,21 @@ public class Arbol {
 	// Inicializaci�n del �rbol
 	public int inicializacionCompleta(int p, int nodos){
 		if(p < max_prof){
+			numNodos++;
 			setProfundidad(p);
 			int func = 0;
 			func = ThreadLocalRandom.current().nextInt(Cromosoma.funciones.length);
 			this.valor = Cromosoma.funciones[func];
 			this.setEsRaiz(true);
 			for(int i = 0; i < nodos; i++) {
+				numNodos++;
 				Arbol hijo1 = new Arbol(p+1, nodos);
 				hijo1.inicializacionCompleta(p + 1, nodos);
 				hijos.add(hijo1);
 			}
 		}
 		else {
+			numNodos++;
 			setProfundidad(p);
 			int t = ThreadLocalRandom.current().nextInt(Cromosoma.terminales.length);
 			this.valor = Cromosoma.terminales[t];
@@ -148,10 +151,12 @@ public class Arbol {
 				int ale = ThreadLocalRandom.current().nextInt(Cromosoma.funciones.length + Cromosoma.terminales.length);
 				// Se toma un valor de las funciones
 				if(ale < Cromosoma.funciones.length) {
+					numNodos++;
 					this.setEsRaiz(true);
 					this.valor = Cromosoma.funciones[ale];
 					this.hijos = new ArrayList<Arbol>();
 					for(int i = 0; i < nodos; i++) {
+						numNodos++;
 						Arbol hijo1 = new Arbol(p+1, nodos);
 						hijo1.inicializacionCreciente(p+1, nodos);
 						hijos.add(hijo1);
@@ -159,18 +164,21 @@ public class Arbol {
 				}
 				// Se toma un valor de los terminales
 				else {
+					numNodos++;
 					this.setEsRaiz(false);
 					this.valor = Cromosoma.terminales[ale - Cromosoma.funciones.length];
 				}
 			}
 			// Si no se llega a la profundidad minima no se pueden crear hojas
 			else {
+				numNodos++;
 				int func = 0;
 				func = ThreadLocalRandom.current().nextInt(Cromosoma.funciones.length);
 				this.valor = Cromosoma.funciones[func];
 				this.setEsRaiz(true);
 				this.hijos = new ArrayList<Arbol>();
 				for(int i = 0; i < nodos; i++) {
+					numNodos++;
 					Arbol hijo1 = new Arbol(p+1, nodos);
 					hijo1.inicializacionCreciente(p + 1, nodos);
 					hijos.add(hijo1);
@@ -178,6 +186,7 @@ public class Arbol {
 			}
 		}
 		else {
+			numNodos++;
 			setProfundidad(p);
 			int t = ThreadLocalRandom.current().nextInt(Cromosoma.terminales.length);
 			this.valor = Cromosoma.terminales[t];
@@ -191,4 +200,16 @@ public class Arbol {
 	public boolean getEsRaiz() {
 		return this.esRaiz;
 	}
+	
+	public String toString() {
+		String s = this.valor;
+		if(this.hijos != null) {
+			for(Arbol a : this.hijos) {
+				s += "\n ";
+				s += a.toString();
+			}
+		}
+		return s;
+	}
+	
 }
