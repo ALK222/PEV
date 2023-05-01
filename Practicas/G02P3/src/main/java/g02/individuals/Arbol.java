@@ -22,6 +22,19 @@ public class Arbol {
 	public Arbol(int profundidad2, int nodos) {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Arbol(Arbol arbol) {
+	  this.valor = arbol.valor;
+	  this.hijos = new ArrayList<Arbol>();
+	  
+	  for(Arbol a: arbol.hijos) {
+	    hijos.add(new Arbol(a));
+	  }
+	  this.profundidad = arbol.profundidad;
+	  this.esHoja = arbol.esHoja;
+	  this.esRaiz = arbol.esRaiz;
+	  this.numNodos = arbol.numNodos;
+	}
 
 	// Devuelve el arbol en forma de array
 	public ArrayList<String> toArray(){

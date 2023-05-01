@@ -29,6 +29,10 @@ public class Cromosoma {
 		}
 	}
 	
+	public Cromosoma(Arbol arbol) {
+	  this.arbol = new Arbol(arbol);
+	}
+	
 	// Cálculo del fitness según una x dada
 	public double updateFitness(double x, Arbol a) {
 		double fit = 0;

@@ -23,7 +23,7 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
    * @param precision precision de la codificacion
    */
   public IndividuoPractica3(Cromosoma chromosome) {
-    this.chromosome = chromosome;
+    this.chromosome = new Cromosoma(chromosome.getArbol());
     
   }
 
