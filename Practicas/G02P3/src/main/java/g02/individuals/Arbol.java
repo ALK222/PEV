@@ -20,16 +20,21 @@ public class Arbol {
 	}
 	
 	public Arbol(int profundidad2, int nodos) {
-		// TODO Auto-generated constructor stub
+		this.profundidad = profundidad2;
+		this.numNodos = nodos;
+		
 	}
 	
 	public Arbol(Arbol arbol) {
 	  this.valor = arbol.valor;
 	  this.hijos = new ArrayList<Arbol>();
 	  
-	  for(Arbol a: arbol.hijos) {
-	    hijos.add(new Arbol(a));
+	  if(arbol.hijos != null) {
+	    for(Arbol a: arbol.hijos) {
+	        hijos.add(new Arbol(a));
+	      }
 	  }
+	  
 	  this.profundidad = arbol.profundidad;
 	  this.esHoja = arbol.esHoja;
 	  this.esRaiz = arbol.esRaiz;

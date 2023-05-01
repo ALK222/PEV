@@ -55,6 +55,6 @@ public class Cromosoma {
 	}
 	
 	public Arbol getArbol() {
-		return arbol;
+		return this.arbol;
 	}
 }
