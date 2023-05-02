@@ -7,9 +7,6 @@ import g02.individuals.Individuo;
 import g02.individuals.IndividuoPractica3;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 
 
@@ -63,7 +60,7 @@ public class AlgoritmoGenetico<T> {
   private boolean isMax;
 
   private int mutacion;
-  
+
   private int typeArbol;
 
   /**
@@ -110,7 +107,11 @@ public class AlgoritmoGenetico<T> {
     double c = covariance(tamArray, fitnessArray);
     double v = variance(tamArray);
 
-    IndividuoPractica3.setK(c / v);
+    if (c == 0 || v == 0) {
+      IndividuoPractica3.setK(0);
+    } else {
+      IndividuoPractica3.setK(c / v);
+    }
   }
 
 
@@ -124,20 +125,20 @@ public class AlgoritmoGenetico<T> {
    */
   @SuppressWarnings("unchecked")
   public Individuo<T> run(int ind, int dim) throws Exception {
-	  this.typeArbol = ind;
+    this.typeArbol = ind;
     for (int i = 0; i < tamPoblacion; i++) {
-    	poblacion.add((Individuo<T>) new IndividuoPractica3(precision, ind));
+      poblacion.add((Individuo<T>) new IndividuoPractica3(precision, ind));
     }
     selection.setPob(poblacion);
 
     isMax = poblacion.get(0).isMax();
     // Evaluar Pob
     evaluate(0);
-
+    calcularK();
 
     for (int i = 0; i < maxGeneraciones; ++i) {
 
-      //calcularK();
+      
 
       // ELITISMO
 
@@ -201,6 +202,7 @@ public class AlgoritmoGenetico<T> {
       evaluate(i + 1);
 
       regenerarPob(i, newPob);
+      calcularK();
     }
 
     return elMejor.copyIndividuo();
@@ -285,7 +287,6 @@ public class AlgoritmoGenetico<T> {
   private void evaluate(int iter) {
     double auxMedia = 0;
     Individuo<T> auxMejor = null;
-    double auxTam = 0;
 
     for (int i = 0; i < tamPoblacion; i++) {
       if (auxMejor == null) {
