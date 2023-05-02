@@ -175,4 +175,8 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
   public boolean isMax() {
     return false;
   }
+  
+  public String toString() {
+	  return this.chromosome.getArbol().toString();
+  }
 }
