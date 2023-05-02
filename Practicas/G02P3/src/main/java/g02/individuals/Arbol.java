@@ -15,7 +15,7 @@ public class Arbol {
   private boolean esRaiz;
 
   // Constructora del �rbol
-  public Arbol(String s) {
+  public Arbol() {
 
   }
 
@@ -55,8 +55,8 @@ public class Arbol {
   }
 
   // Insertar un valor en el arbol (nodo simple)
-  public Arbol insert(String v, int index) {
-    Arbol a = new Arbol(v);
+  public Arbol insert(int index) {
+    Arbol a = new Arbol();
     if (index == -1) {
       hijos.add(a);
       numHijos = hijos.size();

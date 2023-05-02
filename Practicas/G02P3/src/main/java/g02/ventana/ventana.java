@@ -152,7 +152,7 @@ public class ventana extends JFrame {
 
     JComboBox mMutacion = new JComboBox();
     mMutacion.setModel(new DefaultComboBoxModel(
-        new String[] {"Terminal", "Funcional"}));
+        new String[] {"Terminal", "Funcional", "SubArbol"}));
     mMutacion.setBounds(131, 296, 86, 22);
     contentPane.add(mMutacion);
 

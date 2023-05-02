@@ -70,6 +70,9 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
 		  case 1:
 			  this.mutacionFuncional(individuo);
 			  break;
+		  case 2:
+			  this.mutacionSubArbol(individuo);
+			  break;
 		  }
 	  }
 
@@ -91,6 +94,14 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
 		  ale = ThreadLocalRandom.current().nextInt(this.chromosome.getArbol().toArray().size());
 	  }
 	  this.chromosome.getArbol().at(ale).changeValor(Cromosoma.funciones[ThreadLocalRandom.current().nextInt(Cromosoma.funciones.length)]);
+	  return this;
+  }
+  
+  public Individuo<Cromosoma> mutacionSubArbol(Individuo<Cromosoma> individuo){
+	  int ale = ThreadLocalRandom.current().nextInt(this.chromosome.getArbol().toArray().size() - 1) + 1;
+	  Arbol a = new Arbol();
+	  a.inicializacionCreciente(ThreadLocalRandom.current().nextInt(5), 2);
+	  this.chromosome.getArbol().at(ale).substitute(a);
 	  return this;
   }
 
