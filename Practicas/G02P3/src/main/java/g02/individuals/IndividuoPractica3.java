@@ -92,7 +92,11 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
 	  while(this.chromosome.getArbol().at(ale).getEsRaiz()) {
 		  ale = ThreadLocalRandom.current().nextInt(this.chromosome.getArbol().toArray().size());
 	  }
-	  this.chromosome.getArbol().at(ale).changeValor(Cromosoma.terminales[ThreadLocalRandom.current().nextInt(Cromosoma.terminales.length)]);
+	  String newS = Cromosoma.terminales[ThreadLocalRandom.current().nextInt(Cromosoma.terminales.length)];
+	  while(newS == this.chromosome.getArbol().at(ale).getValor()) {
+		  newS = Cromosoma.terminales[ThreadLocalRandom.current().nextInt(Cromosoma.terminales.length)];
+	  }
+	  this.chromosome.getArbol().at(ale).changeValor(newS);
 	  return this;
   }
   
@@ -101,7 +105,11 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
 	  while(!this.chromosome.getArbol().at(ale).getEsRaiz()) {
 		  ale = ThreadLocalRandom.current().nextInt(this.chromosome.getArbol().toArray().size());
 	  }
-	  this.chromosome.getArbol().at(ale).changeValor(Cromosoma.funciones[ThreadLocalRandom.current().nextInt(Cromosoma.funciones.length)]);
+	  String newS = Cromosoma.funciones[ThreadLocalRandom.current().nextInt(Cromosoma.funciones.length)];
+	  while(newS == this.chromosome.getArbol().at(ale).getValor()) {
+		  newS = Cromosoma.funciones[ThreadLocalRandom.current().nextInt(Cromosoma.funciones.length)];
+	  }
+	  this.chromosome.getArbol().at(ale).changeValor(newS);
 	  return this;
   }
   
