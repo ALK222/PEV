@@ -3,13 +3,14 @@ package g02.cruces;
 import g02.individuals.Arbol;
 import g02.individuals.Cromosoma;
 import g02.individuals.Individuo;
+import g02.individuals.IndividuoPractica3;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Cruce uniforme de dos individuos.
  *
- * @param <T> puede ser  Boolean o Double
+ * @param <T> puede ser Boolean o Double
  */
 public class CruceP3 implements Cruces<Cromosoma> {
 
@@ -23,31 +24,56 @@ public class CruceP3 implements Cruces<Cromosoma> {
    * @throws Exception the exception
    */
   @Override
-  public ArrayList<Individuo<Cromosoma>> cruzar(Individuo<Cromosoma> i1, Individuo<Cromosoma> i2, double prob)
-      throws Exception {
-    if (ThreadLocalRandom.current().nextDouble() < prob) {
-      Arbol aux = null;
-      int arbol1 = 0;
-      while(aux == null) {
-    	  arbol1 = ThreadLocalRandom.current().nextInt(i1.getCromosoma().getArbol().toArray().size() - 1);
-          aux = i1.getCromosoma().getArbol().at(arbol1);
-      }
-      int arbol2 =  ThreadLocalRandom.current().nextInt(i2.getCromosoma().getArbol().toArray().size() - 1);
-      while(i2.getCromosoma().getArbol().at(arbol2) == null) {
-    	  arbol2 = ThreadLocalRandom.current().nextInt(i2.getCromosoma().getArbol().toArray().size() - 1);
-      }
-      
-      i1.getCromosoma().getArbol().at(arbol1).insert(i2.getCromosoma().getArbol().at(arbol2), -1);
-      i2.getCromosoma().getArbol().at(arbol2).insert(aux, -1);
-    }
+  public ArrayList<Individuo<Cromosoma>> cruzar(Individuo<Cromosoma> i1, Individuo<Cromosoma> i2,
+      double prob) throws Exception {
 
     ArrayList<Individuo<Cromosoma>> res = new ArrayList<Individuo<Cromosoma>>();
 
-    res.add(i1.copyIndividuo());
-    res.add(i2.copyIndividuo());
+    if (ThreadLocalRandom.current().nextDouble() < prob) {
+
+      ArrayList<Arbol> nodos1 = new ArrayList<Arbol>();
+      ArrayList<Arbol> nodos2 = new ArrayList<Arbol>();
+
+      nodos1 = obtieneNodos(new Arbol(i1.getCromosoma().getArbol()));
+      nodos2 = obtieneNodos(new Arbol(i2.getCromosoma().getArbol()));
+
+      int punto1 = (int) Math.random() * nodos1.size();
+      int punto2 = (int) Math.random() * nodos2.size();
+
+      Arbol aux1 = new Arbol(nodos1.get(punto1));
+      Arbol aux2 = new Arbol(nodos2.get(punto2));
+
+      corte(i1, aux2, punto1, aux1.getEsRaiz());
+      corte(i2, aux1, punto2, aux2.getEsRaiz());
+      int nuevosNodos1 = i1.getCromosoma().getArbol().getNodos(i1.getCromosoma().getArbol(), 0);
+      int nuevosNodos2 = i1.getCromosoma().getArbol().getNodos(i2.getCromosoma().getArbol(), 0);
+
+      i1.getCromosoma().getArbol().setNumNodos(nuevosNodos1);
+      i2.getCromosoma().getArbol().setNumNodos(nuevosNodos2);
+
+    }
+
+    res.add(i1);
+    res.add(i2);
 
     return res;
   }
 
+  public void corte(Individuo<Cromosoma> i, Arbol aux, int punto, boolean esRaiz) {
+    i.getCromosoma().getArbol().insert(aux, punto);
+  }
 
+  public ArrayList<Arbol> obtieneNodos(Arbol arbol) {
+    ArrayList<Arbol> aux = new ArrayList<Arbol>();
+    if (ThreadLocalRandom.current().nextDouble() > 0.9) {
+      arbol.getFunciones(arbol.getHijos(), aux);
+
+      if (aux.size() == 0) {
+        arbol.getTerminales(arbol.getHijos(), aux);
+      }
+    } else {
+      arbol.getTerminales(arbol.getHijos(), aux);
+    }
+    return aux;
+  }
 }
