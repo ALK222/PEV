@@ -32,6 +32,7 @@ import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 import org.math.plot.Plot2DPanel;
 import java.awt.Font;
+import javax.swing.JCheckBox;
 
 public class ventana extends JFrame {
 
@@ -261,6 +262,14 @@ public class ventana extends JFrame {
     JLabel lblNumEjecuciones = new JLabel("Num. Ejecuciones");
     lblNumEjecuciones.setBounds(10, 385, 111, 14);
     contentPane.add(lblNumEjecuciones);
+    
+    JLabel lblbloating = new JLabel("Control Bloating");
+    lblbloating.setBounds(12, 358, 109, 15);
+    contentPane.add(lblbloating);
+    
+    JCheckBox chckbxBloating = new JCheckBox("");
+    chckbxBloating.setBounds(131, 353, 86, 23);
+    contentPane.add(chckbxBloating);
 
     JButton btnNewButton = new JButton("Iniciar");
     btnNewButton.addActionListener(new ActionListener() {
@@ -322,7 +331,7 @@ public class ventana extends JFrame {
           }
           Individuo<Cromosoma> mejor;
           alg = new AlgoritmoGenetico(tamPoblacionMin, nGeneraciones, probCMin, probMMin, prec,
-              mSel, mCru, elitismo, mutacion);
+              mSel, mCru, elitismo, mutacion, chckbxBloating.isSelected());
           try {
             mejor = (Individuo<Cromosoma>) alg.run(individuo, dimensiones);
             System.out.println(mejor.fitness());
@@ -449,7 +458,7 @@ public class ventana extends JFrame {
 
                 Individuo<Cromosoma> mejor;
                 alg = new AlgoritmoGenetico(tams[t], nGeneraciones, cruces[c], mutaciones[m], prec,
-                    mSel, mCru, elitismo, mutacion);
+                    mSel, mCru, elitismo, mutacion, chckbxBloating.isSelected());
                 try {
                   mejor = (Individuo<Cromosoma>) alg.run(individuo, dimensiones);
                   System.out.println(mejor.fitness());
@@ -507,6 +516,8 @@ public class ventana extends JFrame {
     });
     btnNewButton.setBounds(45, 413, 140, 23);
     contentPane.add(btnNewButton);
+    
+    
     
     
 

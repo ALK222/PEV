@@ -43,9 +43,16 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
   public double fitness() {
     double fitness = getValor();
     // Reducción del fitness según el factor de penalización
-    fitness = fitness + K * this.getCromosoma().getArbol().getNumNodos();
-    
-    return fitness;
+    double fitnessPen = fitness + K * this.getCromosoma().getArbol().getNumNodos();
+   
+    if(fitnessPen < 0) {
+      System.out.println(fitnessPen);
+      System.out.println(fitness);
+      System.out.println(K);
+      System.out.println(this.getCromosoma().getArbol().getNumNodos());
+      
+    }
+    return Math.abs(fitnessPen);
   }
 
   /**
