@@ -62,14 +62,36 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
    */
   @Override
   public Individuo<Cromosoma> mutar(Individuo<Cromosoma> individuo, double prob, int mut) {
-    for (int i = 0; i < this.tamTotal; i++) {
-      if (ThreadLocalRandom.current().nextDouble() < prob) {
-
-        // chromosome[i] = !chromosome[i];
-      }
-    }
+	  if(ThreadLocalRandom.current().nextDouble() < prob) {
+		  switch(mut) {
+		  case 0:
+			  this.mutacionTerminal(individuo);
+			  break;
+		  case 1:
+			  this.mutacionFuncional(individuo);
+			  break;
+		  }
+	  }
 
     return this;
+  }
+  
+  public Individuo<Cromosoma> mutacionTerminal(Individuo<Cromosoma> individuo){
+	  int ale = ThreadLocalRandom.current().nextInt(this.chromosome.getArbol().toArray().size());
+	  while(this.chromosome.getArbol().at(ale).getEsRaiz()) {
+		  ale = ThreadLocalRandom.current().nextInt(this.chromosome.getArbol().toArray().size());
+	  }
+	  this.chromosome.getArbol().at(ale).changeValor(Cromosoma.terminales[ThreadLocalRandom.current().nextInt(Cromosoma.terminales.length)]);
+	  return this;
+  }
+  
+  public Individuo<Cromosoma> mutacionFuncional(Individuo<Cromosoma> individuo){
+	  int ale = ThreadLocalRandom.current().nextInt(this.chromosome.getArbol().toArray().size());
+	  while(!this.chromosome.getArbol().at(ale).getEsRaiz()) {
+		  ale = ThreadLocalRandom.current().nextInt(this.chromosome.getArbol().toArray().size());
+	  }
+	  this.chromosome.getArbol().at(ale).changeValor(Cromosoma.funciones[ThreadLocalRandom.current().nextInt(Cromosoma.funciones.length)]);
+	  return this;
   }
 
   /**

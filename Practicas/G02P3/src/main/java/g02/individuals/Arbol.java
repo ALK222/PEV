@@ -90,7 +90,7 @@ public class Arbol {
     else if (a.getNumHijos() > 0) {
       for (int i = 0; i < a.getNumHijos(); i++)
         if (s == null)
-          s = at(a.getHijos().get(i), pos + i + 1, index);
+          s = at(a.getHijos().get(i), (2*pos) + i + 1, index);
     }
     return s;
   }
@@ -237,6 +237,10 @@ public class Arbol {
 
   public boolean getEsRaiz() {
     return this.esRaiz;
+  }
+  
+  public void changeValor(String s) {
+	  this.valor = s;
   }
 
   public String toString() {
