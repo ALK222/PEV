@@ -79,18 +79,21 @@ public class Arbol {
 
   // Devuelve nodo index
   public Arbol at(int index) {
-    return at(this, 0, index);
+	  int[] counter = {0};
+    return at(this, counter, index);
   }
 
   // Funcion para encontrar el nodo index
-  private Arbol at(Arbol a, int pos, int index) {
+  private Arbol at(Arbol a, int[] pos, int index) {
     Arbol s = null;
-    if (pos >= index)
+    if (pos[0] >= index)
       s = a;
     else if (a.getNumHijos() > 0) {
       for (int i = 0; i < a.getNumHijos(); i++)
-        if (s == null)
-          s = at(a.getHijos().get(i), (2*pos) + i + 1, index);
+        if (s == null) {
+        	pos[0]++;
+        	s = at(a.getHijos().get(i), pos, index);
+        }
     }
     return s;
   }
