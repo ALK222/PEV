@@ -63,6 +63,8 @@ public class AlgoritmoGenetico<T> {
   private boolean isMax;
 
   private int mutacion;
+  
+  private int typeArbol;
 
   /**
    * Instantiates a new algoritmo genetico.
@@ -122,16 +124,9 @@ public class AlgoritmoGenetico<T> {
    */
   @SuppressWarnings("unchecked")
   public Individuo<T> run(int ind, int dim) throws Exception {
+	  this.typeArbol = ind;
     for (int i = 0; i < tamPoblacion; i++) {
-      switch (ind) {
-        case 0:
-          poblacion.add((Individuo<T>) new IndividuoPractica3(precision));
-          break;
-        default:
-          poblacion.add((Individuo<T>) new IndividuoPractica3(precision));
-          break;
-      }
-
+    	poblacion.add((Individuo<T>) new IndividuoPractica3(precision, ind));
     }
     selection.setPob(poblacion);
 
@@ -258,7 +253,7 @@ public class AlgoritmoGenetico<T> {
       ArrayList<Individuo<T>> regenerados = new ArrayList<Individuo<T>>();
 
       for (int j = 0; j < nuevos; j++) {
-        regenerados.add((Individuo<T>) new IndividuoPractica3(precision));
+        regenerados.add((Individuo<T>) new IndividuoPractica3(precision, this.typeArbol));
 
 
       }

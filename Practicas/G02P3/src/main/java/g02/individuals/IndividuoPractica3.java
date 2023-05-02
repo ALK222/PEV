@@ -4,7 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class IndividuoPractica3 extends Individuo<Cromosoma> {
   
-  
+  private int typeArbol;
   public static double K = 0;
 
 
@@ -13,8 +13,9 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
    *
    * @param precision precision de la codificacion
    */
-  public IndividuoPractica3(double precision) {
-    this.chromosome = new Cromosoma(5, 0, 2);
+  public IndividuoPractica3(double precision, int t) {
+	  this.typeArbol = t;
+    this.chromosome = new Cromosoma(5, t, 2);
 
   }
 
@@ -64,6 +65,15 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
 		  case 1:
 			  this.mutacionFuncional(individuo);
 			  break;
+		  case 2:
+			  this.mutacionSubArbol(individuo);
+			  break;
+		  case 3:
+			  this.mutacionPermutacion(individuo);
+			  break;
+		  case 4:
+			  this.mutacionExpansion(individuo);
+			  break;
 		  }
 	  }
 
@@ -85,6 +95,59 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
 		  ale = ThreadLocalRandom.current().nextInt(this.chromosome.getArbol().toArray().size());
 	  }
 	  this.chromosome.getArbol().at(ale).changeValor(Cromosoma.funciones[ThreadLocalRandom.current().nextInt(Cromosoma.funciones.length)]);
+	  return this;
+  }
+  
+  public Individuo<Cromosoma> mutacionSubArbol(Individuo<Cromosoma> individuo){
+	  int ale = ThreadLocalRandom.current().nextInt(this.chromosome.getArbol().toArray().size() - 1) + 1;
+	  Arbol a = new Arbol();
+	  switch(this.typeArbol) {
+	  	case 0:
+	  		a.inicializacionCompleta(ThreadLocalRandom.current().nextInt(5), 2);
+		  break;
+	  	case 1:
+	  		a.inicializacionCreciente(ThreadLocalRandom.current().nextInt(5), 2);
+			  break;
+	  	case 2:
+	  		int ini = ThreadLocalRandom.current().nextInt(2);
+			if(ini == 0) a.inicializacionCreciente(ThreadLocalRandom.current().nextInt(5), 2);
+			else a.inicializacionCompleta(ThreadLocalRandom.current().nextInt(5),2);
+			  break;
+	  }
+	  
+	  this.chromosome.getArbol().at(ale).substitute(a);
+	  return this;
+  }
+  
+  public Individuo<Cromosoma> mutacionPermutacion(Individuo<Cromosoma> individuo){
+	  int ale = ThreadLocalRandom.current().nextInt(this.chromosome.getArbol().toArray().size());
+	  while(!this.chromosome.getArbol().at(ale).getEsRaiz()) {
+		  ale = ThreadLocalRandom.current().nextInt(this.chromosome.getArbol().toArray().size());
+	  }
+	  this.chromosome.getArbol().at(ale).permutaHijos();
+	  return this;
+  }
+  
+  public Individuo<Cromosoma> mutacionExpansion(Individuo<Cromosoma> individuo){
+	  int ale = ThreadLocalRandom.current().nextInt(this.chromosome.getArbol().toArray().size());
+	  while(this.chromosome.getArbol().at(ale).getEsRaiz()) {
+		  ale = ThreadLocalRandom.current().nextInt(this.chromosome.getArbol().toArray().size());
+	  }
+	  Arbol a = new Arbol();
+	  switch(this.typeArbol) {
+	  	case 0:
+	  		a.inicializacionCompleta(ThreadLocalRandom.current().nextInt(5), 2);
+		  break;
+	  	case 1:
+	  		a.inicializacionCreciente(ThreadLocalRandom.current().nextInt(5), 2);
+			  break;
+	  	case 2:
+	  		int ini = ThreadLocalRandom.current().nextInt(2);
+			if(ini == 0) a.inicializacionCreciente(ThreadLocalRandom.current().nextInt(5), 2);
+			else a.inicializacionCompleta(ThreadLocalRandom.current().nextInt(5),2);
+			  break;
+	  }
+	  this.chromosome.getArbol().at(ale).substitute(a);
 	  return this;
   }
 
@@ -168,5 +231,9 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
   @Override
   public boolean isMax() {
     return false;
+  }
+  
+  public String toString() {
+	  return this.chromosome.getArbol().toString();
   }
 }

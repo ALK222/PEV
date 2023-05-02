@@ -1,6 +1,7 @@
 package g02.individuals;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Arbol {
@@ -15,7 +16,7 @@ public class Arbol {
   private boolean esRaiz;
 
   // Constructora del �rbol
-  public Arbol(String s) {
+  public Arbol() {
 
   }
 
@@ -55,8 +56,8 @@ public class Arbol {
   }
 
   // Insertar un valor en el arbol (nodo simple)
-  public Arbol insert(String v, int index) {
-    Arbol a = new Arbol(v);
+  public Arbol insert(int index) {
+    Arbol a = new Arbol();
     if (index == -1) {
       hijos.add(a);
       numHijos = hijos.size();
@@ -163,6 +164,7 @@ public class Arbol {
       func = ThreadLocalRandom.current().nextInt(Cromosoma.funciones.length);
       this.valor = Cromosoma.funciones[func];
       this.setEsRaiz(true);
+      if(hijos == null) hijos = new ArrayList<Arbol>();
       for (int i = 0; i < nodos; i++) {
         numNodos++;
         Arbol hijo1 = new Arbol(p + 1, nodos);
@@ -249,6 +251,24 @@ public class Arbol {
   public void changeValor(String s) {
 	  this.valor = s;
   }
+  
+  public void substitute(Arbol arbol) {
+	  this.valor = arbol.valor;
+	  this.profundidad = arbol.profundidad;
+	    this.esHoja = arbol.esHoja;
+	    this.esRaiz = arbol.esRaiz;
+	    this.numNodos = arbol.numNodos;
+	    
+	    this.hijos.clear();
+	    
+	    if (arbol.hijos != null && !arbol.hijos.isEmpty()) {
+	        for (Arbol a : arbol.hijos) {
+	          if (a != null) {
+	            this.hijos.add(new Arbol(a));
+	          }
+	        }
+	    }
+  }
 
   public String toString() {
     String s = this.valor;
@@ -259,6 +279,11 @@ public class Arbol {
       }
     }
     return s;
+  }
+  
+  public void permutaHijos() {
+	  if(hijos!=null)
+		  Collections.swap(hijos, 0, 1);
   }
 
 }
