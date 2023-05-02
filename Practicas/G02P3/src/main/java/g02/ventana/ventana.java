@@ -148,23 +148,23 @@ public class ventana extends JFrame {
     contentPane.add(lblMSeleccion);
 
     JLabel lblMMutacion = new JLabel("M. Mutacion");
-    lblMMutacion.setBounds(10, 300, 111, 14);
+    lblMMutacion.setBounds(10, 271, 111, 14);
     contentPane.add(lblMMutacion);
 
     JComboBox mMutacion = new JComboBox();
     mMutacion.setModel(new DefaultComboBoxModel(
         new String[] {"Terminal", "Funcional", "SubArbol", "Permutacion", "Expansion"}));
-    mMutacion.setBounds(131, 296, 86, 22);
+    mMutacion.setBounds(131, 267, 86, 22);
     contentPane.add(mMutacion);
 
     pElitismo = new JTextField();
     pElitismo.setText("0.01");
     pElitismo.setColumns(10);
-    pElitismo.setBounds(131, 325, 86, 20);
+    pElitismo.setBounds(131, 296, 86, 20);
     contentPane.add(pElitismo);
 
     JLabel lblElitismo = new JLabel("Elitismo");
-    lblElitismo.setBounds(10, 328, 111, 14);
+    lblElitismo.setBounds(10, 299, 111, 14);
     contentPane.add(lblElitismo);
 
     JInternalFrame internalFrame = new JInternalFrame("Resultado");
@@ -270,6 +270,14 @@ public class ventana extends JFrame {
     JCheckBox chckbxBloating = new JCheckBox("");
     chckbxBloating.setBounds(131, 353, 86, 23);
     contentPane.add(chckbxBloating);
+    
+    JLabel lblRegeneracinPob = new JLabel("Regeneración Pob.");
+    lblRegeneracinPob.setBounds(12, 328, 109, 15);
+    contentPane.add(lblRegeneracinPob);
+    
+    JCheckBox regenbool = new JCheckBox("");
+    regenbool.setBounds(131, 323, 86, 23);
+    contentPane.add(regenbool);
 
     JButton btnNewButton = new JButton("Iniciar");
     btnNewButton.addActionListener(new ActionListener() {
@@ -331,7 +339,7 @@ public class ventana extends JFrame {
           }
           Individuo<Cromosoma> mejor;
           alg = new AlgoritmoGenetico(tamPoblacionMin, nGeneraciones, probCMin, probMMin, prec,
-              mSel, mCru, elitismo, mutacion, chckbxBloating.isSelected());
+              mSel, mCru, elitismo, mutacion, chckbxBloating.isSelected(), regenbool.isSelected());
           try {
             mejor = (Individuo<Cromosoma>) alg.run(individuo, dimensiones);
             System.out.println(mejor.fitness());
@@ -458,7 +466,7 @@ public class ventana extends JFrame {
 
                 Individuo<Cromosoma> mejor;
                 alg = new AlgoritmoGenetico(tams[t], nGeneraciones, cruces[c], mutaciones[m], prec,
-                    mSel, mCru, elitismo, mutacion, chckbxBloating.isSelected());
+                    mSel, mCru, elitismo, mutacion, chckbxBloating.isSelected(), regenbool.isSelected());
                 try {
                   mejor = (Individuo<Cromosoma>) alg.run(individuo, dimensiones);
                   System.out.println(mejor.fitness());
@@ -516,6 +524,8 @@ public class ventana extends JFrame {
     });
     btnNewButton.setBounds(45, 413, 140, 23);
     contentPane.add(btnNewButton);
+    
+    
     
     
     

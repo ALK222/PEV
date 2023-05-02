@@ -64,6 +64,7 @@ public class AlgoritmoGenetico<T> {
   private int typeArbol;
 
   private boolean controlBloating;
+  private boolean regenPob;
 
   /**
    * Instantiates a new algoritmo genetico.
@@ -78,7 +79,7 @@ public class AlgoritmoGenetico<T> {
    * @param elitismo porcentaje de elitismo
    */
   public AlgoritmoGenetico(int tam, int max, double probC, double probM, double prec,
-      Selection<T> selection, Cruces<T> cruce, double elitismo, int mut, boolean controlBloating) {
+      Selection<T> selection, Cruces<T> cruce, double elitismo, int mut, boolean controlBloating, boolean regen) {
     tamPoblacion = tam;
     poblacion = new ArrayList<Individuo<T>>();
     maxGeneraciones = max;
@@ -88,6 +89,7 @@ public class AlgoritmoGenetico<T> {
     this.elitismo = elitismo;
     mutacion = mut;
     this.controlBloating = controlBloating;
+    this.regenPob = regen;
 
     mejorGen = new double[maxGeneraciones + 1];
     mediaGen = new double[maxGeneraciones + 1];
@@ -206,7 +208,10 @@ public class AlgoritmoGenetico<T> {
 
       evaluate(i + 1);
 
-      regenerarPob(i, newPob);
+      if(this.regenPob)
+    	  regenerarPob(i, newPob);
+      
+      
       if (controlBloating) {
         calcularK();
       }

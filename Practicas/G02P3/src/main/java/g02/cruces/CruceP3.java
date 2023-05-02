@@ -65,13 +65,9 @@ public class CruceP3 implements Cruces<Cromosoma> {
 
   public ArrayList<Arbol> obtieneNodos(Arbol arbol) {
     ArrayList<Arbol> aux = new ArrayList<Arbol>();
-    if (ThreadLocalRandom.current().nextDouble() < 0.9) {
-      arbol.getFunciones(arbol.getHijos(), aux);
+    arbol.getFunciones(arbol.getHijos(), aux);
 
-      if (aux.size() == 0) {
-        arbol.getTerminales(arbol.getHijos(), aux);
-      }
-    } else {
+    if (aux.size() == 0) {
       arbol.getTerminales(arbol.getHijos(), aux);
     }
     return aux;
