@@ -37,8 +37,8 @@ public class CruceP3 implements Cruces<Cromosoma> {
       nodos1 = obtieneNodos(new Arbol(i1.getCromosoma().getArbol()));
       nodos2 = obtieneNodos(new Arbol(i2.getCromosoma().getArbol()));
 
-      int punto1 = (int) Math.random() * nodos1.size();
-      int punto2 = (int) Math.random() * nodos2.size();
+      int punto1 = ThreadLocalRandom.current().nextInt(nodos1.size() - 1) + 1;
+      int punto2 = ThreadLocalRandom.current().nextInt(nodos2.size() - 1) + 1;
 
       Arbol aux1 = new Arbol(nodos1.get(punto1));
       Arbol aux2 = new Arbol(nodos2.get(punto2));
@@ -60,12 +60,12 @@ public class CruceP3 implements Cruces<Cromosoma> {
   }
 
   public void corte(Individuo<Cromosoma> i, Arbol aux, int punto, boolean esRaiz) {
-    i.getCromosoma().getArbol().insert(aux, punto);
+    i.getCromosoma().getArbol().at(punto).substitute(aux);
   }
 
   public ArrayList<Arbol> obtieneNodos(Arbol arbol) {
     ArrayList<Arbol> aux = new ArrayList<Arbol>();
-    if (ThreadLocalRandom.current().nextDouble() > 0.9) {
+    if (ThreadLocalRandom.current().nextDouble() < 0.9) {
       arbol.getFunciones(arbol.getHijos(), aux);
 
       if (aux.size() == 0) {

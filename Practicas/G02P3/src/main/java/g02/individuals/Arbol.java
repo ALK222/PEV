@@ -245,6 +245,24 @@ public class Arbol {
   public void changeValor(String s) {
 	  this.valor = s;
   }
+  
+  public void substitute(Arbol arbol) {
+	  this.valor = arbol.valor;
+	  this.profundidad = arbol.profundidad;
+	    this.esHoja = arbol.esHoja;
+	    this.esRaiz = arbol.esRaiz;
+	    this.numNodos = arbol.numNodos;
+	    
+	    this.hijos.clear();
+	    
+	    if (arbol.hijos != null && !arbol.hijos.isEmpty()) {
+	        for (Arbol a : arbol.hijos) {
+	          if (a != null) {
+	            this.hijos.add(new Arbol(a));
+	          }
+	        }
+	    }
+  }
 
   public String toString() {
     String s = this.valor;
