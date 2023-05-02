@@ -50,6 +50,7 @@ public class ventana extends JFrame {
   private JTextField pMutacionMax;
   private JTextField pCruceMax;
   private JTextField nEjecuciones;
+  private JTextField ncruces;
 
   /**
    * Launch the application.
@@ -278,6 +279,16 @@ public class ventana extends JFrame {
     JCheckBox regenbool = new JCheckBox("");
     regenbool.setBounds(131, 323, 86, 23);
     contentPane.add(regenbool);
+    
+    JLabel lblNCruces = new JLabel("N. Cruces");
+    lblNCruces.setBounds(10, 144, 111, 14);
+    contentPane.add(lblNCruces);
+    
+    ncruces = new JTextField();
+    ncruces.setText("3");
+    ncruces.setColumns(10);
+    ncruces.setBounds(131, 141, 86, 20);
+    contentPane.add(ncruces);
 
     JButton btnNewButton = new JButton("Iniciar");
     btnNewButton.addActionListener(new ActionListener() {
@@ -305,7 +316,7 @@ public class ventana extends JFrame {
         }
         Selection<?> mSel;
         Cruces<?> mCru;
-        mCru = new CruceP3();
+        mCru = new CruceP3(Integer.parseInt(ncruces.getText()));
         int mutacion = mMutacion.getSelectedIndex();
         AlgoritmoGenetico<?> alg;
 
@@ -524,6 +535,8 @@ public class ventana extends JFrame {
     });
     btnNewButton.setBounds(45, 413, 140, 23);
     contentPane.add(btnNewButton);
+    
+    
     
     
     
