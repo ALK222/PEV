@@ -57,4 +57,8 @@ public class Cromosoma {
 	public Arbol getArbol() {
 		return this.arbol;
 	}
+	
+	public int getTam() {
+	  return this.arbol.getNumNodos();
+	}
 }

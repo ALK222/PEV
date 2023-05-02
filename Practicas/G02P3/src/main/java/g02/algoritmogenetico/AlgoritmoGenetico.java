@@ -2,10 +2,14 @@ package g02.algoritmogenetico;
 
 import g02.Selections.Selection;
 import g02.cruces.Cruces;
+import g02.individuals.Cromosoma;
 import g02.individuals.Individuo;
 import g02.individuals.IndividuoPractica3;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 
 
@@ -92,6 +96,21 @@ public class AlgoritmoGenetico<T> {
     this.cruce = cruce;
   }
 
+  public void calcularK() {
+    double[] fitnessArray = new double[this.tamPoblacion];
+    double[] tamArray = new double[this.tamPoblacion];
+
+    for (int i = 0; i < this.tamPoblacion; ++i) {
+      fitnessArray[i] = this.poblacion.get(i).getValor();
+      tamArray[i] = ((Cromosoma) this.poblacion.get(i).getCromosoma()).getTam();
+    }
+
+    double c = covariance(tamArray, fitnessArray);
+    double v = variance(tamArray);
+
+    IndividuoPractica3.setK(c / v);
+  }
+
 
   /**
    * Ejecuta todas las generaciones.
@@ -120,9 +139,12 @@ public class AlgoritmoGenetico<T> {
     // Evaluar Pob
     evaluate(0);
 
+
     for (int i = 0; i < maxGeneraciones; ++i) {
 
+      //calcularK();
 
+      // ELITISMO
 
       int directos = (int) Math.round(poblacion.size() * elitismo);
       ArrayList<Individuo<T>> newPob = new ArrayList<>();
@@ -139,30 +161,35 @@ public class AlgoritmoGenetico<T> {
         this.poblacion.remove(j);
       }
 
-
       // Seleccion
       ArrayList<Individuo<T>> seleccionados = selection.run();
-
-
-
       ArrayList<Individuo<T>> cruzados = new ArrayList<>();
+
       // Cruce
+
       while (seleccionados.size() > 2) {
 
-
-        ArrayList<Individuo<T>> aux =
-            cruce.cruzar(seleccionados.get(0), seleccionados.get(1), probCruce);
-
-        cruzados.add(aux.get(0).copyIndividuo());
-        cruzados.add(aux.get(1).copyIndividuo());
-
+        Individuo<T> p1 = seleccionados.get(0);
+        Individuo<T> p2 = seleccionados.get(1);
         seleccionados.remove(0);
         seleccionados.remove(1);
+
+        ArrayList<Individuo<T>> aux = cruce.cruzar(p1, p2, probCruce);
+
+
+        if (aux != null) {
+          cruzados.add(aux.get(0).copyIndividuo());
+          cruzados.add(aux.get(1).copyIndividuo());
+        }
+
 
       }
 
       // Metemos el indidivuo que no se haya podido cruzar por imparidad
       for (int j = 0; j < seleccionados.size(); ++j) {
+        if (seleccionados.get(j) == null) {
+          continue;
+        }
         cruzados.add(seleccionados.get(j).copyIndividuo());
       }
 
@@ -172,15 +199,50 @@ public class AlgoritmoGenetico<T> {
         i1 = i1.mutar(i1, probMutacion, mutacion);
         newPob.add(i1.copyIndividuo());
       }
+
       selection.setPob(newPob);
       poblacion = newPob;
-      evaluate(i + 1);
-      
-      regenerarPob(i, newPob);
 
+      evaluate(i + 1);
+
+      regenerarPob(i, newPob);
     }
 
     return elMejor.copyIndividuo();
+
+  }
+
+  public static double variance(double[] values) {
+    double mean = mean(values);
+    double sum = 0.0;
+    for (int i = 0; i < values.length; i++) {
+      sum += Math.pow(values[i] - mean, 2);
+    }
+    double variance = sum / (values.length - 1);
+    return variance;
+  }
+
+  public static double covariance(double[] x, double[] y) {
+    double meanX = mean(x);
+    double meanY = mean(y);
+    double sum = 0.0;
+    for (int i = 0; i < x.length; i++) {
+      double auxX = (x[i] - meanX);
+      double auxY = (y[i] - meanY);
+
+      sum += auxX * auxY;
+    }
+    double covariance = sum / (x.length - 1);
+    return covariance;
+  }
+
+  public static double mean(double[] values) {
+    double sum = 0.0;
+    for (int i = 0; i < values.length; i++) {
+      sum += values[i];
+    }
+    double mean = sum / values.length;
+    return mean;
   }
 
   @SuppressWarnings("unchecked")
@@ -228,6 +290,7 @@ public class AlgoritmoGenetico<T> {
   private void evaluate(int iter) {
     double auxMedia = 0;
     Individuo<T> auxMejor = null;
+    double auxTam = 0;
 
     for (int i = 0; i < tamPoblacion; i++) {
       if (auxMejor == null) {

@@ -99,7 +99,7 @@ public class Arbol {
   }
 
   // Devuelve el numero de hijos
-  private int getNumHijos() {
+  public int getNumHijos() {
     return hijos.size();
   }
 
@@ -140,6 +140,10 @@ public class Arbol {
 
   public void setNumNodos(int nodos) {
     this.numNodos = nodos;
+  }
+  
+  public int getNumNodos() {
+    return this.numNodos;
   }
 
   // Ayuda para el m�todo toArray()

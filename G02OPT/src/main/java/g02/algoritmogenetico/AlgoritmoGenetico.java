@@ -4,7 +4,6 @@ import g02.selections.Selection;
 import g02.cruces.Cruces;
 import g02.individuals.Individuo;
 import g02.individuals.IndividuoNonograma;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -185,42 +184,49 @@ public class AlgoritmoGenetico<T> {
       poblacion = newPob;
       evaluate(i + 1);
 
-      if (mediaGen[i] >= 0.7 * mejorGen[i] || (i > 0 && mediaGen[i] >= 0.9 * mediaGen[i - 1])) {
+      regenerarPob(i, newPob);
 
-        nGenAtasco = 0;
-        // Regeneramos poblacion si la media converge al maximo
-
-        int nuevos = tamPoblacion - 1;
-
-        ArrayList<Individuo<T>> regenerados = new ArrayList<Individuo<T>>();
-
-        for (int j = 0; j < nuevos; j++) {
-          switch (ind) {
-            case 0:
-              regenerados.add((Individuo<T>) new IndividuoNonograma(filename));
-              break;
-          }
-
-        }
-
-        if (isMax) {
-          newPob.sort((o1, o2) -> (o1.compareTo(o2)));
-        } else {
-          newPob.sort((o1, o2) -> (o2.compareTo(o1)));
-        }
-
-
-        regenerados.add(newPob.get(0));
-
-
-        this.poblacion = newPob;
-        this.selection.setPob(regenerados);
-      }
     }
-
 
     return elMejor.copyIndividuo();
   }
+
+  @SuppressWarnings("unchecked")
+  private void regenerarPob(int i, ArrayList<Individuo<T>> newPob) throws Exception {
+
+    if (mediaGen[i] >= 0.7 * mejorGen[i] || (i > 0 && mediaGen[i] >= 0.9 * mediaGen[i - 1])) {
+
+
+      // Regeneramos poblacion si la media converge al maximo
+
+      int nuevos = tamPoblacion - (int) Math.round(tamPoblacion * this.elitismo);
+
+      ArrayList<Individuo<T>> regenerados = new ArrayList<Individuo<T>>();
+
+      for (int j = 0; j < nuevos; j++) {
+        regenerados.add((Individuo<T>) new IndividuoNonograma(this.filename));
+
+
+      }
+
+      if (isMax) {
+        newPob.sort((o1, o2) -> (o1.compareTo(o2)));
+      } else {
+        newPob.sort((o1, o2) -> (o2.compareTo(o1)));
+      }
+
+
+      for (int j = 0; j < (int) Math.round(tamPoblacion * this.elitismo); ++j) {
+        regenerados.add((Individuo<T>) newPob.get(j));
+      }
+
+
+      this.poblacion = newPob;
+      this.selection.setPob(regenerados);
+    }
+
+  }
+
 
 
   /**
