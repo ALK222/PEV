@@ -1,6 +1,7 @@
 package g02.individuals;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Arbol {
@@ -159,6 +160,7 @@ public class Arbol {
       func = ThreadLocalRandom.current().nextInt(Cromosoma.funciones.length);
       this.valor = Cromosoma.funciones[func];
       this.setEsRaiz(true);
+      if(hijos == null) hijos = new ArrayList<Arbol>();
       for (int i = 0; i < nodos; i++) {
         numNodos++;
         Arbol hijo1 = new Arbol(p + 1, nodos);
@@ -273,6 +275,11 @@ public class Arbol {
       }
     }
     return s;
+  }
+  
+  public void permutaHijos() {
+	  if(hijos!=null)
+		  Collections.swap(hijos, 0, 1);
   }
 
 }

@@ -152,7 +152,7 @@ public class ventana extends JFrame {
 
     JComboBox mMutacion = new JComboBox();
     mMutacion.setModel(new DefaultComboBoxModel(
-        new String[] {"Terminal", "Funcional", "SubArbol"}));
+        new String[] {"Terminal", "Funcional", "SubArbol", "Permutacion", "Expansion"}));
     mMutacion.setBounds(131, 296, 86, 22);
     contentPane.add(mMutacion);
 
@@ -172,7 +172,7 @@ public class ventana extends JFrame {
     internalFrame.setVisible(true);
 
     JComboBox individuox = new JComboBox();
-    individuox.setModel(new DefaultComboBoxModel(new String[] {"Individuo Practica 3"}));
+    individuox.setModel(new DefaultComboBoxModel(new String[] {"Inicializacion Completa", "Inicializacion Creciente", "Inicializacion Ramped & Half"}));
     individuox.setBounds(250, 11, 353, 22);
     contentPane.add(individuox);
 
