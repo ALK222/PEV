@@ -77,7 +77,7 @@ public class CruceP3 implements Cruces<Cromosoma> {
 
     }
 
-    res.add(i2);
+    res.add(i1);
     res.add(i2);
 
     return res;
