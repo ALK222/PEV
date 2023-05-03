@@ -64,6 +64,8 @@ public class AlgoritmoGenetico<T> {
   private int nGenAtasco;
 
   private String filename;
+  
+  private boolean regen;
 
   /**
    * Instantiates a new algoritmo genetico.
@@ -78,7 +80,8 @@ public class AlgoritmoGenetico<T> {
    * @param elitismo porcentaje de elitismo
    */
   public AlgoritmoGenetico(int tam, int max, double probC, double probM, double prec,
-      Selection<T> selection, Cruces<T> cruce, double elitismo, int mut, String filename) {
+      Selection<T> selection, Cruces<T> cruce, double elitismo, int mut, String filename, boolean r) {
+	  this.regen = r;
     tamPoblacion = tam;
     poblacion = new ArrayList<Individuo<T>>();
     maxGeneraciones = max;
@@ -184,7 +187,9 @@ public class AlgoritmoGenetico<T> {
       poblacion = newPob;
       evaluate(i + 1);
 
-      regenerarPob(i, newPob);
+      if(this.regen) {
+    	  regenerarPob(i, newPob);    	  
+      }
 
     }
 
