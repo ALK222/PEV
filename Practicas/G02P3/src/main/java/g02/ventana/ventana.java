@@ -364,7 +364,7 @@ public class ventana extends JFrame {
             for(int i = 0; i < 101; ++i) {
             	valorX[i] = (-1.0) + ((2.0/100.0) * i);
             	valor1[i] = Math.pow(valorX[i], 4) + Math.pow(valorX[i], 3) + Math.pow(valorX[i], 2) + valorX[i] + 1;
-            	valor2[i] = mejor.getCromosoma().updateFitness(valorX[i], mejor.getCromosoma().getArbol());
+            	valor2[i] = mejor.getCromosoma().getFitness()[i];
             }
             
             Plot2DPanel resultadosp3 = new Plot2DPanel();
@@ -505,7 +505,7 @@ public class ventana extends JFrame {
           for(int i = 0; i < 101; ++i) {
           	valorX[i] = (-1.0) + ((2.0/100.0) * i);
           	valor1[i] = Math.pow(valorX[i], 4) + Math.pow(valorX[i], 3) + Math.pow(valorX[i], 2) + valorX[i] + 1;
-          	valor2[i] = mejorSiempre.getCromosoma().updateFitness(valorX[i], mejorSiempre.getCromosoma().getArbol());
+          	valor2[i] = mejorSiempre.getCromosoma().getFitness()[i];
           }
           
           Plot2DPanel resultadosp3 = new Plot2DPanel();

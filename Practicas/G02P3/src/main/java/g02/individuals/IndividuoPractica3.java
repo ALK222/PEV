@@ -80,6 +80,8 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
 			  this.mutacionExpansion(individuo);
 			  break;
 		  }
+		  
+		  this.chromosome.updateFitness();
 	  }
 
     return this;
@@ -218,9 +220,7 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
   public double getValor() {
     double diferencia = 0;
     for (int i = 0; i < 101; ++i) {
-      double valorX = (-1.0) + ((2.0 / 100.0) * i);
-      double valor2 = this.chromosome.updateFitness(valorX, this.chromosome.getArbol());
-      diferencia += Math.pow(this.valoresEsperados[i] - valor2, 2);
+      diferencia += Math.pow(this.valoresEsperados[i] - this.chromosome.getFitness()[i], 2);
     }
     return Math.sqrt(diferencia / 101);
   }
