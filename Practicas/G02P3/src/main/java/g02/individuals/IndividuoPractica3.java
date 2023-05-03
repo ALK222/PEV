@@ -6,6 +6,8 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
   
   private int typeArbol;
   public static double K = 0;
+  
+  private double[] valoresEsperados;
 
 
   /**
@@ -13,8 +15,9 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
    *
    * @param precision precision de la codificacion
    */
-  public IndividuoPractica3(double precision, int t) {
+  public IndividuoPractica3(double precision, int t, double[] valores) {
 	  this.typeArbol = t;
+	  this.valoresEsperados = valores;
     this.chromosome = new Cromosoma(5, t, 2);
 
   }
@@ -25,8 +28,10 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
    * @param chromosome cromosoma dado
    * @param precision precision de la codificacion
    */
-  public IndividuoPractica3(Cromosoma chromosome) {
+  public IndividuoPractica3(Cromosoma chromosome, int t, double[] valores) {
     this.chromosome = new Cromosoma(chromosome.getArbol());
+    this.typeArbol = t;
+    this.valoresEsperados = valores;
 
   }
   
@@ -214,9 +219,8 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
     double diferencia = 0;
     for (int i = 0; i < 101; ++i) {
       double valorX = (-1.0) + ((2.0 / 100.0) * i);
-      double valor1 = Math.pow(valorX, 4) + Math.pow(valorX, 3) + Math.pow(valorX, 2) + valorX + 1;
       double valor2 = this.chromosome.updateFitness(valorX, this.chromosome.getArbol());
-      diferencia += Math.pow(valor1 - valor2, 2);
+      diferencia += Math.pow(this.valoresEsperados[i] - valor2, 2);
     }
     return Math.sqrt(diferencia / 101);
   }
@@ -228,7 +232,7 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
    */
   @Override
   public Individuo<Cromosoma> copyIndividuo() {
-    return new IndividuoPractica3(this.chromosome);
+    return new IndividuoPractica3(this.chromosome, this.typeArbol, this.valoresEsperados);
   }
 
   /**
@@ -243,5 +247,13 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
   
   public String toString() {
 	  return this.chromosome.getArbol().toString();
+  }
+  
+  public double[] getEsperados() {
+	  return this.valoresEsperados;
+  }
+  
+  public int getTypeArbol() {
+	  return this.typeArbol;
   }
 }

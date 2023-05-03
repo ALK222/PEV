@@ -65,6 +65,7 @@ public class AlgoritmoGenetico<T> {
 
   private boolean controlBloating;
   private boolean regenPob;
+  private double[] esperados;
 
   /**
    * Instantiates a new algoritmo genetico.
@@ -98,6 +99,13 @@ public class AlgoritmoGenetico<T> {
     this.selection = selection;
 
     this.cruce = cruce;
+    
+    this.esperados = new double[101];
+    for (int i = 0; i < 101; ++i) {
+    	double valorX = (-1.0) + ((2.0 / 100.0) * i);
+    	this.esperados[i] = Math.pow(valorX, 4) + Math.pow(valorX, 3) + Math.pow(valorX, 2) + valorX + 1;
+      }
+    
   }
 
   public void calcularK() {
@@ -131,8 +139,9 @@ public class AlgoritmoGenetico<T> {
   @SuppressWarnings("unchecked")
   public Individuo<T> run(int ind, int dim) throws Exception {
     this.typeArbol = ind;
+    
     for (int i = 0; i < tamPoblacion; i++) {
-      poblacion.add((Individuo<T>) new IndividuoPractica3(precision, ind));
+      poblacion.add((Individuo<T>) new IndividuoPractica3(precision, ind, this.esperados));
     }
     selection.setPob(poblacion);
 
@@ -267,7 +276,7 @@ public class AlgoritmoGenetico<T> {
       ArrayList<Individuo<T>> regenerados = new ArrayList<Individuo<T>>();
 
       for (int j = 0; j < nuevos; j++) {
-        regenerados.add((Individuo<T>) new IndividuoPractica3(precision, this.typeArbol));
+        regenerados.add((Individuo<T>) new IndividuoPractica3(precision, this.typeArbol, this.esperados));
 
 
       }

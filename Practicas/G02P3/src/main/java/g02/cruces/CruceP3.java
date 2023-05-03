@@ -63,8 +63,8 @@ public class CruceP3 implements Cruces<Cromosoma> {
 		      nuevo1.setNumNodos(nuevosNodos1);
 		      nuevo2.setNumNodos(nuevosNodos2);
 		      
-		      IndividuoPractica3 a = new IndividuoPractica3(new Cromosoma(nuevo1));
-		      IndividuoPractica3 b = new IndividuoPractica3(new Cromosoma(nuevo2));
+		      IndividuoPractica3 a = new IndividuoPractica3(new Cromosoma(nuevo1), ((IndividuoPractica3)i1).getTypeArbol(), ((IndividuoPractica3)i1).getEsperados());
+		      IndividuoPractica3 b = new IndividuoPractica3(new Cromosoma(nuevo2), ((IndividuoPractica3)i2).getTypeArbol(), ((IndividuoPractica3)i2).getEsperados());
 		      hijos.add(a);
 		      hijos.add(b);
 	      }
