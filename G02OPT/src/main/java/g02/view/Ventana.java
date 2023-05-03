@@ -40,6 +40,7 @@ import javax.swing.SwingConstants;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JFileChooser;
+import javax.swing.JCheckBox;
 
 public class Ventana extends JFrame {
 
@@ -192,11 +193,11 @@ public class Ventana extends JFrame {
     contentPane.add(resultsPane);
 
     JScrollPane scrollPane = new JScrollPane(resultsPane);
-    scrollPane.setBounds(10, 453, 207, 118);
+    scrollPane.setBounds(10, 487, 207, 118);
     contentPane.add(scrollPane);
 
     JLabel lblResultados = new JLabel("Resultados");
-    lblResultados.setBounds(10, 439, 111, 14);
+    lblResultados.setBounds(10, 475, 111, 14);
     contentPane.add(lblResultados);
 
     tamPobMax = new JTextField();
@@ -262,6 +263,14 @@ public class Ventana extends JFrame {
     lblNewLabel_1.setBounds(868, 54, 435, 457);
     lblNewLabel_1.setText("");
     contentPane.add(lblNewLabel_1);
+    
+    JLabel lblRegeneracin = new JLabel("Regeneración");
+    lblRegeneracin.setBounds(10, 410, 111, 14);
+    contentPane.add(lblRegeneracin);
+    
+    JCheckBox regenbool = new JCheckBox("");
+    regenbool.setBounds(131, 401, 21, 23);
+    contentPane.add(regenbool);
 
     JButton btnNewButton = new JButton("Iniciar");
     btnNewButton.addActionListener(new ActionListener() {
@@ -339,7 +348,7 @@ public class Ventana extends JFrame {
           }
           Individuo<boolean[]> mejor = null;
           alg = new AlgoritmoGenetico(tamPoblacionMin, nGeneraciones, probCMin, probMMin, prec,
-              mSel, mCru, elitismo, mutacion, filename);
+              mSel, mCru, elitismo, mutacion, filename, regenbool.isSelected());
           try {
             mejor = (Individuo<boolean[]>) alg.run(individuo, 0);
             System.out.println(mejor.fitness());
@@ -458,7 +467,7 @@ public class Ventana extends JFrame {
 
                 Individuo<boolean[]> mejor;
                 alg = new AlgoritmoGenetico(tams[t], nGeneraciones, cruces[c], mutaciones[m], prec,
-                    mSel, mCru, elitismo, mutacion, filename);
+                    mSel, mCru, elitismo, mutacion, filename, regenbool.isSelected());
                 try {
                   mejor = (Individuo<boolean[]>) alg.run(individuo, 0);
                   System.out.println(mejor.fitness());
@@ -522,7 +531,7 @@ public class Ventana extends JFrame {
         }
       }
     });
-    btnNewButton.setBounds(45, 413, 140, 23);
+    btnNewButton.setBounds(45, 441, 140, 23);
     contentPane.add(btnNewButton);
     
     JButton btnArchivo = new JButton("Archivo");
@@ -546,6 +555,8 @@ public class Ventana extends JFrame {
     btnArchivo.setAction(action);
     btnArchivo.setBounds(61, 354, 100, 25);
     contentPane.add(btnArchivo);
+    
+    
 
   }
   
