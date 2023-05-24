@@ -109,7 +109,7 @@ public class AlgoritmoGenetico<T> {
    * @param ind Numero de problema
    * @param dim dimensiones para los problemas que la tengan
    * @return el mejor individuo tras todas las generaciones
-   * @throws Excepcion si hay algun problema en alguna de las generaciones
+   * @throws Exception si hay algun problema en alguna de las generaciones
    */
   @SuppressWarnings("unchecked")
   public Individuo<T> run(int ind, int dim) throws Exception {

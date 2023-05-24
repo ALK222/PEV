@@ -220,9 +220,9 @@ public class IndividuoPractica3 extends Individuo<Cromosoma> {
   public double getValor() {
     double diferencia = 0;
     for (int i = 0; i < 101; ++i) {
-      diferencia += Math.pow(this.valoresEsperados[i] - this.chromosome.getFitness()[i], 2);
+      diferencia += this.valoresEsperados[i] - this.chromosome.getFitness()[i];
     }
-    return Math.sqrt(diferencia / 101);
+    return diferencia / 101;
   }
 
   /**

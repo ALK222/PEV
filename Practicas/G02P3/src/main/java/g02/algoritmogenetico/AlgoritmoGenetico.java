@@ -81,6 +81,8 @@ public class AlgoritmoGenetico<T> {
    */
   public AlgoritmoGenetico(int tam, int max, double probC, double probM, double prec,
       Selection<T> selection, Cruces<T> cruce, double elitismo, int mut, boolean controlBloating, boolean regen) {
+    
+    IndividuoPractica3.setK(0);
     tamPoblacion = tam;
     poblacion = new ArrayList<Individuo<T>>();
     maxGeneraciones = max;
