@@ -1,6 +1,3 @@
-Practicas/G02P1/doc/* linguist-vendored=false
-Practicas/G02P1/target/site/* linguist-vendored=false
-Practicas/G02P2/doc/* linguist-vendored=false
-Practicas/G02P2/target/site/* linguist-vendored=false
-Practicas/G02P3/doc/* linguist-vendored=false
-Practicas/G02P3/target/site/* linguist-vendored=false
+Practicas/G02P1/doc/** linguist-vendored=true
+Practicas/G02P2/doc/** linguist-vendored=true
+Practicas/G02P3/doc/** linguist-vendored=true
